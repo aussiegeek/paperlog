@@ -48,6 +48,10 @@ function valueLength(value: string | number | undefined) {
     return `:${value.length}`;
   }
 
+  if (typeof value === "number") {
+    return `:${value.toString().length}`;
+  }
+
   return "";
 }
 function serializeRecord(record: AdifRecord): string {
