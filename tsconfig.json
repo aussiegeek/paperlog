@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/node16-strictest/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "ES2022",
+    "lib": ["DOM"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

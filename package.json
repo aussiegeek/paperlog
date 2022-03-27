@@ -1,0 +1,45 @@
+{
+  "name": "paperlog",
+  "version": "0.0.1",
+  "author": "Alan Harper <475+aussiegeek@users.noreply.github.com>",
+  "files": [],
+  "bin": "dist/cli/index.js",
+  "license": "MIT",
+  "repository": "github:aussiegeek/paperlog",
+  "devDependencies": {
+    "@tsconfig/node16-strictest": "^1.0.0",
+    "@types/jest": "^27.4.1",
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "@vercel/ncc": "^0.33.3",
+    "autoprefixer": "^10.4.4",
+    "fast-check": "^2.23.2",
+    "husky": "^7.0.0",
+    "jest": "^27.5.1",
+    "parcel": "^2.3.2",
+    "pinst": "^3.0.0",
+    "postcss": "^8.4.12",
+    "prettier": "^2.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^3.0.23",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.6.2",
+    "yargs": "^17.3.1"
+  },
+  "dependencies": {
+    "snake-case": "^3.0.4",
+    "superstruct": "^0.15.4",
+    "tokenizr": "^1.6.5"
+  },
+  "scripts": {
+    "test": "jest",
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable",
+    "prettier:check": "yarn prettier --check .",
+    "cli:watch": "ncc build --watch src/cli.ts -o dist/cli",
+    "cli:build": "ncc build --minify src/cli.ts -o dist/cli"
+  },
+  "packageManager": "yarn@3.2.0"
+}
