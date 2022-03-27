@@ -92,7 +92,7 @@ function exportWwffContacts(contacts: ParserContact[], destDir: string) {
     if (first) {
       const dest = path.join(
         destDir,
-        `${first.stationCallsign} @ ${first.mySigInfo} ${first.qsoDate}.adif`
+        `${first.stationCallsign} @ ${first.mySigInfo} ${first.qsoDate}.adi`
       );
       writeContactsToFile(adifContacts, dest);
     }
@@ -122,7 +122,7 @@ function exportPotaContacts(contacts: ParserContact[], destDir: string) {
     if (first) {
       const dest = path.join(
         destDir,
-        `${first.stationCallsign}@${first.mySigInfo}-${first.qsoDate}.adif`
+        `${first.stationCallsign}@${first.mySigInfo}-${first.qsoDate}.adi`
       );
       writeContactsToFile(adifContacts, dest);
     }
@@ -144,7 +144,7 @@ function exportLogs(logPath: string) {
       .filter((c): c is string => typeof c === "string");
   });
 
-  exportSotaContacts(contacts, `${logPath}.adif`);
+  exportSotaContacts(contacts, `${logPath}.adi`);
   exportWwffContacts(contacts, path.dirname(logPath));
   exportPotaContacts(contacts, path.dirname(logPath));
 }
@@ -160,7 +160,6 @@ yargs(hideBin(process.argv))
       });
     },
     (argv) => {
-      console.info(argv);
       exportLogs(argv.logs);
     }
   )

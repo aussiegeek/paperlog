@@ -119,7 +119,7 @@ lexer.rule(/ /, (ctx) => ctx.ignore());
 export function parse(input: string): ParserContact[] {
   const contacts: ParserContact[] = [];
   lexer.input(input);
-  lexer.debug(true);
+  // lexer.debug(true);
   try {
     const template: Partial<ParserContact> = {};
     let record: Partial<ParserContact> = {};
