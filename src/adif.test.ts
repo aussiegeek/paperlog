@@ -32,7 +32,7 @@ describe("adif", () => {
       };
       const sample = `<band:3>20m
 <call:5>VK9NS
-<freq>14
+<freq:2>14
 <mode:4>RTTY
 <qso_date:8>19900620
 <rst_rcvd:2>59
@@ -43,7 +43,7 @@ describe("adif", () => {
 
 <band:3>40m
 <call:5>ON4UN
-<freq>7
+<freq:1>7
 <mode:3>PSK
 <qso_date:8>20101022
 <rst_rcvd:2>59
@@ -89,7 +89,7 @@ describe("adif", () => {
       };
       const sample = `<band:3>40m
 <call:6>VK2MET
-<freq>7.134
+<freq:5>7.134
 <mode:3>SSB
 <my_sota_ref:10>VK3/VC-014
 <qso_date:8>20220312
@@ -102,7 +102,7 @@ describe("adif", () => {
 
 <band:3>40m
 <call:6>VK3BYD
-<freq>7.032
+<freq:5>7.032
 <mode:2>CW
 <my_sota_ref:10>VK3/VC-014
 <qso_date:8>20220312
@@ -150,7 +150,7 @@ describe("adif", () => {
       };
       const sample = `<band:3>10m
 <call:5>ZL1TM
-<freq>28.48
+<freq:5>28.48
 <mode:3>SSB
 <my_sig:4>WWFF
 <my_sig_info:9>VKFF-0763
@@ -163,7 +163,7 @@ describe("adif", () => {
 
 <band:3>40m
 <call:7>VK3PF/P
-<freq>7.15
+<freq:4>7.15
 <mode:3>SSB
 <my_sig:4>WWFF
 <my_sig_info:9>VKFF-0763
