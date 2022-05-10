@@ -39,7 +39,8 @@
     "postpack": "pinst --enable",
     "prettier:check": "yarn prettier --check .",
     "cli:watch": "ncc build --watch src/cli.ts -o dist/cli",
-    "cli:build": "ncc build --minify src/cli.ts -o dist/cli"
+    "cli:build": "ncc build --minify src/cli.ts -o dist/cli",
+    "start": "parcel serve src/index.html"
   },
   "packageManager": "yarn@3.2.0"
 }
