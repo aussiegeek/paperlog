@@ -1,12 +1,16 @@
 import * as React from "react";
-import type { ParserContact } from "./parse";
+import type { ParserContact, ParserFailure } from "./parse";
 
 const headerClassName = "text-left font-bold";
 
 const TableHeader = ({ children }: { children: React.ReactNode }) => (
   <th className={headerClassName}>{children}</th>
 );
-export function LogViewer({ contacts }: { contacts: ParserContact[] }) {
+export function LogViewer({
+  contacts,
+}: {
+  contacts: Array<ParserContact | ParserFailure>;
+}) {
   return (
     <div>
       <table className="table table-auto w-full">
@@ -28,6 +32,13 @@ export function LogViewer({ contacts }: { contacts: ParserContact[] }) {
 
         <tbody>
           {contacts.map((contact) => {
+            if ("error" in contact) {
+              return (
+                <tr>
+                  <td colSpan={10}>{contact.error.toString()}</td>
+                </tr>
+              );
+            }
             return (
               <tr>
                 <td>{contact.call}</td>

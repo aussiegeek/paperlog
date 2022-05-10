@@ -2,10 +2,10 @@ import * as React from "react";
 import { useState } from "react";
 import { LogEditor } from "./LogEditor";
 import { LogViewer } from "./LogViewer";
-import { parse, ParserContact } from "./parse";
+import { parse, ParserContact, ParserFailure } from "./parse";
 export function App() {
   const [logText, setLogText] = useState(localStorage.getItem("logText") || "");
-  let contacts: ParserContact[] = [];
+  let contacts: Array<ParserContact | ParserFailure> = [];
   let parseError = "";
 
   const onChange = (newLogText: string) => {
