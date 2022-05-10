@@ -63,6 +63,6 @@ function serializeRecord(record: AdifRecord): string {
         const value = record[key];
         return `<${snakeCase(key)}${valueLength(value)}>${value}`;
       })
-      .join("\n") + "\n<eor>\n"
+      .join("") + "<eor>"
   );
 }
