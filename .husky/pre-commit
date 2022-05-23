@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn types:check
-yarn test
+pnpm types:check
+pnpm test
