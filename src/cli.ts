@@ -6,6 +6,7 @@ import { hideBin } from "yargs/helpers";
 import { AdifRecord, serialize } from "./adif";
 import { parse, ParserContact } from "./parse";
 import { filterSota } from "./filter";
+import { is } from "superstruct";
 
 function writeContactsToFile(records: AdifRecord[], dest: string) {
   const adifFile = { records: records };
@@ -132,21 +133,29 @@ function exportPotaContacts(contacts: ParserContact[], destDir: string) {
 function exportLogs(logPath: string) {
   const contacts = parse(fs.readFileSync(logPath, "utf8"));
 
-  const programs = ["mySotaRef"] as const;
+  const validContacts: ParserContact[] = contacts.filter(
+    (contact): contact is ParserContact => {
+      return is(contact, AdifRecord);
+    }
+  );
+
+  if (validContacts.length != contacts.length) {
+    throw new Error("Attempting to export with parser failure");
+  }
+
+  const programs = ["mySotaRef"];
 
   const refs: Record<typeof programs[number], string[]> = {
     mySotaRef: [],
   };
 
-  programs.forEach((program) => {
-    refs[program] = contacts
-      .map((contact) => contact[program])
-      .filter((c): c is string => typeof c === "string");
-  });
+  refs["mySotaRef"] = validContacts
+    .map((contact) => contact["mySotaRef"])
+    .filter((c): c is string => typeof c === "string");
 
-  exportSotaContacts(contacts, `${logPath}.adi`);
-  exportWwffContacts(contacts, path.dirname(logPath));
-  exportPotaContacts(contacts, path.dirname(logPath));
+  exportSotaContacts(validContacts, `${logPath}.adi`);
+  exportWwffContacts(validContacts, path.dirname(logPath));
+  exportPotaContacts(validContacts, path.dirname(logPath));
 }
 
 yargs(hideBin(process.argv))
