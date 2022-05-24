@@ -1,0 +1,37 @@
+{
+  "name": "paperlog-cli",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "inject-body-webpack-plugin": "^1.3.0",
+    "paperlog": "workspace:*",
+    "postcss-loader": "^7.0.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.8",
+    "typescript": "^4.6.2",
+    "webpack": "^5.72.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.4",
+    "nodemon": "^2.0.16",
+    "postcss": "^8.4.12",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "superstruct": "^0.15.4",
+    "tailwindcss": "^3.0.23",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  },
+  "scripts": {
+    "start": "nodemon --watch webpack.config.js --exec webpack serve -c webpack.config.js",
+    "types:check": "tsc -noEmit"
+  }
+}

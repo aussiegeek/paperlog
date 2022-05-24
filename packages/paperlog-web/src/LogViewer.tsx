@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ParserContact, ParserFailure } from "./parse";
+import type { ParserContact, ParserFailure } from "paperlog";
 
 const headerClassName = "text-left font-bold";
 

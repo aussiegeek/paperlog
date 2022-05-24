@@ -3,9 +3,13 @@ import * as fs from "fs";
 import * as path from "path";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { AdifRecord, serialize } from "./adif";
-import { parse, ParserContact } from "./parse";
-import { filterSota } from "./filter";
+import {
+  AdifRecord,
+  serialize,
+  parse,
+  ParserContact,
+  filterSota,
+} from "paperlog";
 import { is } from "superstruct";
 
 function writeContactsToFile(records: AdifRecord[], dest: string) {
