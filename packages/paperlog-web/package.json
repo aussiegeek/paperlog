@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "nodemon --watch webpack.config.js --exec webpack serve -c webpack.config.js",
+    "build": "webpack --config webpack.config.js --mode production",
     "types:check": "tsc -noEmit"
   }
 }
