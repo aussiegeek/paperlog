@@ -1,5 +1,5 @@
 {
-  "name": "paperlog-cli",
+  "name": "paperlog-web",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -33,6 +33,7 @@
   "scripts": {
     "start": "nodemon --watch webpack.config.js --exec webpack serve -c webpack.config.js",
     "build": "webpack --config webpack.config.js --mode production",
-    "types:check": "tsc -noEmit"
+    "types:check": "tsc -noEmit",
+    "clean": "rm -rf dist"
   }
 }

@@ -24,6 +24,7 @@
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
     "prettier:check": "yarn prettier --check .",
-    "start": "pnpm run --r --stream start"
+    "start": "pnpm run --r --stream start ",
+    "clean": "pnpm run -r clean"
   }
 }

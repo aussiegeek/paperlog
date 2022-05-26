@@ -23,6 +23,8 @@
   },
   "scripts": {
     "test": "jest",
-    "types:check": "tsc -noEmit"
+    "types:check": "tsc -noEmit",
+    "clean": "rm -rf dist",
+    "build": "tsc"
   }
 }
