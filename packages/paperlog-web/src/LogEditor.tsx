@@ -10,7 +10,7 @@ export function LogEditor({
   return (
     <div>
       <textarea
-        className="w-full border h-full p-2"
+        className="border p-2 w-full h-full"
         value={logText}
         onChange={(e) => onChange(e.target.value)}
       />

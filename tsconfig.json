@@ -4,6 +4,7 @@
     "jsx": "react",
     "target": "ES2022",
     "lib": ["DOM"],
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "noUnusedLocals": false
   }
 }
