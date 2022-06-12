@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@tsconfig/node16-strictest': ^1.0.0
       '@types/jest': ^27.4.1
+      '@types/node': ^16
       husky: ^7.0.0
       jest: ^27.5.1
       pinst: ^3.0.0
@@ -15,6 +16,7 @@ importers:
     devDependencies:
       '@tsconfig/node16-strictest': 1.0.0
       '@types/jest': 27.4.1
+      '@types/node': 16.11.39
       husky: 7.0.4
       jest: 27.5.1
       pinst: 3.0.0
@@ -24,6 +26,7 @@ importers:
 
   packages/paperlog:
     specifiers:
+      '@types/node': ^16
       fast-check: ^2.25.0
       jest: ^27.5.1
       snake-case: ^3.0.4
@@ -36,6 +39,7 @@ importers:
       superstruct: 0.15.4
       tokenizr: 1.6.5
     devDependencies:
+      '@types/node': 16.11.39
       fast-check: 2.25.0
       jest: 27.5.1
       ts-jest: 27.1.3_cq7676jphrjwjojsru3xahznwm
@@ -43,6 +47,7 @@ importers:
 
   packages/paperlog-cli:
     specifiers:
+      '@types/yargs': ^17.0.10
       '@vercel/ncc': ^0.33.3
       jest: ^27.5.1
       paperlog: workspace:*
@@ -58,6 +63,7 @@ importers:
       typescript: 4.6.2
       yargs: 17.3.1
     devDependencies:
+      '@types/yargs': 17.0.10
       '@vercel/ncc': 0.33.3
 
   packages/paperlog-web:
@@ -795,6 +801,10 @@ packages:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
     dev: true
 
+  /@types/node/16.11.39:
+    resolution: {integrity: sha512-K0MsdV42vPwm9L6UwhIxMAOmcvH/1OoVkZyCgEtVu4Wx7sElGloy/W7kMBNe/oJ7V/jW9BVt1F6RahH6e7tPXw==}
+    dev: true
+
   /@types/node/17.0.21:
     resolution: {integrity: sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==}
 
@@ -873,6 +883,12 @@ packages:
     resolution: {integrity: sha512-T8Yc9wt/5LbJyCaLiHPReJa0kApcIgJ7Bn735GjItUfh08Z1pJvu8QZqb9s+mMvKV6WUQRV7K2R46YbjMXTTJw==}
     dependencies:
       '@types/yargs-parser': 21.0.0
+
+  /@types/yargs/17.0.10:
+    resolution: {integrity: sha512-gmEaFwpj/7f/ROdtIlci1R1VYU1J4j95m8T+Tj3iBgiBFKg1foE/PSl93bBd5T9LDXNPo8UlNN6W0qwD8O5OaA==}
+    dependencies:
+      '@types/yargs-parser': 21.0.0
+    dev: true
 
   /@vercel/ncc/0.33.3:
     resolution: {integrity: sha512-JGZ11QV+/ZcfudW2Cz2JVp54/pJNXbsuWRgSh2ZmmZdQBKXqBtIGrwI1Wyx8nlbzAiEFe7FHi4K1zX4//jxTnQ==}
