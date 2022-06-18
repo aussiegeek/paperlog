@@ -9,6 +9,7 @@ importers:
       '@types/jest': ^27.4.1
       '@types/node': ^16
       husky: ^7.0.0
+      is-ci: ^3.0.1
       jest: ^27.5.1
       pinst: ^3.0.0
       prettier: ^2.6.0
@@ -21,6 +22,7 @@ importers:
       '@types/jest': 27.4.1
       '@types/node': 16.11.39
       husky: 7.0.4
+      is-ci: 3.0.1
       jest: 27.5.1
       pinst: 3.0.0
       prettier: 2.6.0
@@ -3334,7 +3336,6 @@ packages:
     hasBin: true
     dependencies:
       ci-info: 3.3.0
-    dev: false
 
   /is-core-module/2.8.1:
     resolution: {integrity: sha512-SdNCUs284hr40hFTFP6l0IfZ/RSrMXF3qgoRHd3/79unUTvrFO/JoXwkGm+5J/Oe3E/b5GsnG330uUNgRpu1PA==}
