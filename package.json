@@ -25,5 +25,8 @@
     "prettier:check": "yarn prettier --check .",
     "start": "pnpm run --r --stream start ",
     "clean": "pnpm run -r clean"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.23.0"
   }
 }
