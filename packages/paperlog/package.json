@@ -27,5 +27,8 @@
     "types:check": "tsc -noEmit",
     "clean": "rm -rf dist",
     "build": "tsc"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

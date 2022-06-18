@@ -24,5 +24,8 @@
   "devDependencies": {
     "@types/yargs": "^17.0.10",
     "@vercel/ncc": "^0.33.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
