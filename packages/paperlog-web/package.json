@@ -35,5 +35,6 @@
     "build": "webpack --config webpack.config.js --mode production",
     "types:check": "tsc -noEmit",
     "clean": "rm -rf dist"
-  }
+  },
+  "version": null
 }
