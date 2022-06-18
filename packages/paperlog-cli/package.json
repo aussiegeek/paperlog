@@ -1,11 +1,15 @@
 {
   "name": "paperlog-cli",
+  "bin": "dist/cli/index.js",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "files": [
+    "/dist"
+  ],
   "dependencies": {
     "paperlog": "workspace:*",
     "superstruct": "^0.15.4",
@@ -13,9 +17,9 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "pnpm cli:watch",
-    "cli:watch": "ncc build --watch src/cli.ts -o dist/cli",
-    "cli:build": "ncc build --minify src/cli.ts -o dist/cli",
+    "start": "pnpm watch",
+    "watch": "ncc build --watch src/cli.ts -o dist/cli",
+    "build": "ncc build --minify src/cli.ts -o dist/cli",
     "types:check": "tsc -noEmit"
   },
   "devDependencies": {
