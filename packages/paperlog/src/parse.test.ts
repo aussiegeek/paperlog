@@ -7,7 +7,7 @@ describe("parse", () => {
     7.126 call vk3pf 2323
     7.032 cw
     2334 call vk3pf s559 r579
-    2347 call vk1ad/p sota VK1/AC-040
+    2347 call VK1AD/P SOTA VK1/AC-040
     date 20220318 0005 mode ssb 7.112 call vk1vic r51 sota vk1/ac-023`;
 
     const output = [
