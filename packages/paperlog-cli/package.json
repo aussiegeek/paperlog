@@ -7,11 +7,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jest": "^27.5.1",
     "paperlog": "workspace:*",
     "superstruct": "^0.15.4",
-    "ts-jest": "^27.1.3",
-    "typescript": "^4.6.2",
     "yargs": "^17.3.1"
   },
   "scripts": {
@@ -23,7 +20,10 @@
   },
   "devDependencies": {
     "@types/yargs": "^17.0.10",
-    "@vercel/ncc": "^0.33.3"
+    "@vercel/ncc": "^0.33.3",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.6.2"
   },
   "publishConfig": {
     "access": "public"
