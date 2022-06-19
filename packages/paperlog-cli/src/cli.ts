@@ -137,9 +137,15 @@ function exportPotaContacts(contacts: ParserContact[], destDir: string) {
 function exportLogs(logPath: string) {
   const contacts = parse(fs.readFileSync(logPath, "utf8"));
 
+  const errorContacts = contacts.filter((c) => !is(c, ParserContact));
+
+  if (errorContacts.length > 0) {
+    console.log(errorContacts);
+    process.exit(1);
+  }
   const validContacts: ParserContact[] = contacts.filter(
     (contact): contact is ParserContact => {
-      return is(contact, AdifRecord);
+      return is(contact, ParserContact);
     }
   );
 
@@ -157,7 +163,7 @@ function exportLogs(logPath: string) {
     .map((contact) => contact["mySotaRef"])
     .filter((c): c is string => typeof c === "string");
 
-  exportSotaContacts(validContacts, `${logPath}.adi`);
+  exportSotaContacts(validContacts, `${logPath}.sota.adi`);
   exportWwffContacts(validContacts, path.dirname(logPath));
   exportPotaContacts(validContacts, path.dirname(logPath));
 }
