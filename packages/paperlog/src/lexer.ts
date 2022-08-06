@@ -2,8 +2,11 @@ import Tokenizr from "tokenizr";
 import { Command } from "./parse";
 
 export let lexer = new Tokenizr();
-lexer.rule(/mycall ([a-zA-Z0-9_]*)/, (ctx, match) => {
-  ctx.accept(Command.MyCall, match[1]);
+lexer.rule(/station ([a-zA-Z0-9_]*)/, (ctx, match) => {
+  ctx.accept(Command.Station, match[1]);
+});
+lexer.rule(/operator ([a-zA-Z0-9_]*)/, (ctx, match) => {
+  ctx.accept(Command.Operator, match[1]);
 });
 lexer.rule(/date (\d{8})/, (ctx, match) => {
   ctx.accept(Command.Date, match[1]);
