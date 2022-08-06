@@ -10,7 +10,7 @@ import {
 import { BandEnum, bandRange, bands } from "./adif/bands";
 import { lexer } from "./lexer";
 import { ParsingError } from "tokenizr";
-import { AdifDate, AdifTime } from "./adif/types";
+import { Date, Time } from "./adif/types";
 import { ModeEnum } from "./adif/modes";
 
 export enum Command {
@@ -33,8 +33,8 @@ export enum Command {
 }
 
 export const ParserContact = object({
-  qsoDate: AdifDate,
-  timeOn: AdifTime,
+  qsoDate: Date,
+  timeOn: Time,
   stationCallsign: nonempty(string()),
   call: nonempty(string()),
   band: BandEnum,
