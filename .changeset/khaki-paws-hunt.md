@@ -2,4 +2,4 @@
 "paperlog": patch
 ---
 
-Refactor to use generated adif field definitions
+Refactor to use field definitions generated from ADIF spec
