@@ -8,7 +8,7 @@ import {
   pattern,
   string,
 } from "superstruct";
-import { BandEnum } from "./bands";
+import { BandEnum } from "./adif/bands";
 export interface AdifFile {
   records: AdifRecord[];
 }

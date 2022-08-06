@@ -3,3 +3,4 @@ node_modules
 .yarn/install-state.gz
 .parcel-cache
 dist
+packages/paperlog/adif_csv

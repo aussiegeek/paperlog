@@ -8,7 +8,7 @@ import {
   optional,
   string,
 } from "superstruct";
-import { BandEnum, bandRange, bands } from "./bands";
+import { BandEnum, bandRange, bands } from "./adif/bands";
 import { lexer } from "./lexer";
 import { ParsingError } from "tokenizr";
 
