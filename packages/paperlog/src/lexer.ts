@@ -14,9 +14,6 @@ lexer.rule(/(\d{1,2}\.\d+)/, (ctx, match) => {
 lexer.rule(/mode (cw|ssb)/i, (ctx, match) => {
   ctx.accept(Command.Mode, match[1]?.toUpperCase());
 });
-lexer.rule(/cw/i, (ctx) => {
-  ctx.accept(Command.Mode, "CW");
-});
 lexer.rule(/([0-2][0-9][0-5][0-9])/, (ctx, match) => {
   ctx.accept(Command.TimeOn, match[1]);
 });

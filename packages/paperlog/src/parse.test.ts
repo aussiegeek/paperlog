@@ -5,7 +5,7 @@ describe("parse", () => {
     const input = `mycall vk3tcp date 20220317 mysota vk3/vc-014
     7.134 mode ssb call vk2met 2300 s55 r57 sota vk1/ac-040
     7.126 call vk3pf 2323
-    7.032 cw
+    7.032 mode cw
     2334 call vk3pf s559 r579
     2347 call VK1AD/P SOTA VK1/AC-040
     date 20220318 0005 mode ssb 7.112 call vk1vic r51 sota vk1/ac-023`;
