@@ -12,8 +12,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^16",
+    "@types/papaparse": "^5.3.3",
+    "camel-case": "^4.1.2",
     "fast-check": "^2.25.0",
     "jest": "^27.5.1",
+    "papaparse": "^5.3.2",
     "ts-jest": "^27.1.3",
     "typescript": "^4.6.2"
   },
