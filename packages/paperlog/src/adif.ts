@@ -1,12 +1,15 @@
 import { snakeCase } from "snake-case";
+import { version } from ".";
 import type { AdifRecord } from "./adif/adifRecord";
-
 export interface AdifFile {
   records: AdifRecord[];
 }
 
+export const adifVersion = "3.1.3";
+
 export function serialize(file: AdifFile): string {
-  return file.records.map(serializeRecord).join("\n");
+  const header = `https://github.com/aussiegeek/paperlog\n<adif_ver>${adifVersion}<programid>paperlog<programversion>${version}<eoh>\n`;
+  return header + file.records.map(serializeRecord).join("\n");
 }
 
 function valueLength(value: string | number | undefined) {
@@ -20,6 +23,7 @@ function valueLength(value: string | number | undefined) {
 
   return "";
 }
+
 function serializeRecord(record: AdifRecord): string {
   const keys = Object.keys(record).sort();
   return (
