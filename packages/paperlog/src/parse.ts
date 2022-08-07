@@ -14,7 +14,8 @@ import { Date, Time } from "./adif/types";
 import { ModeEnum } from "./adif/modes";
 
 export enum Command {
-  MyCall = "mycall",
+  Station = "station",
+  Operator = "operator",
   Call = "call",
   Date = "date",
   Freq = "freq",
@@ -36,6 +37,7 @@ export const ParserContact = object({
   qsoDate: Date,
   timeOn: Time,
   stationCallsign: nonempty(string()),
+  operator: optional(string()),
   call: nonempty(string()),
   band: BandEnum,
   mode: ModeEnum,
@@ -70,8 +72,11 @@ export function parse(input: string): Array<ParserContact | ParserFailure> {
         // todo: better type catching
         const type = token.type as Command;
         switch (type) {
-          case "mycall":
+          case "station":
             template.stationCallsign = token.value.toUpperCase();
+            break;
+          case "operator":
+            template.operator = token.value.toUpperCase();
             break;
           case "call":
             record.call = token.value.toUpperCase();

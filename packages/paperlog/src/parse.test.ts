@@ -2,7 +2,7 @@ import { parse } from "./parse";
 
 describe("parse", () => {
   test("basic sota activation", () => {
-    const input = `mycall vk3tcp date 20220317 mysota vk3/vc-014
+    const input = `station vk3tcp date 20220317 mysota vk3/vc-014
     7.134 mode ssb call vk2met 2300 s55 r57 sota vk1/ac-040
     7.126 call vk3pf 2323
     7.032 mode cw
@@ -80,7 +80,7 @@ describe("parse", () => {
   });
 
   test("multiple calls in same minute", () => {
-    const input = `mycall vk3tcp date 20220317 7.134 mode ssb
+    const input = `station vk3tcp date 20220317 7.134 mode ssb
     2301 call vk2met
     call vk3pf`;
 
@@ -113,7 +113,7 @@ describe("parse", () => {
   });
 
   test("wwff only activation", () => {
-    const input = `mycall vk3tcp date 20211229 mode ssb mywwff vkff-0763
+    const input = `station vk3tcp date 20211229 mode ssb mywwff vkff-0763
 0255 call zl1tm 28.480 s53 r44
 0311 call vk3pf/p 7.150 wwff vkff-0339 sota vk3/ve-019
     `;
@@ -151,7 +151,7 @@ describe("parse", () => {
   });
 
   test("pota activation", () => {
-    const input = `mycall vk3tcp date 20211219 mode ssb mypota vk-0485
+    const input = `station vk3tcp date 20211219 mode ssb mypota vk-0485
 0009 call vk4fbjl 21.144 s55 r41 pota vk-1366
 0015 call vk2hbg 7.125 s55 r41`;
 
@@ -176,6 +176,41 @@ describe("parse", () => {
         freq: 7.125,
         mode: "SSB",
         myPotaRef: "VK-0485",
+        qsoDate: "20211219",
+        rstRcvd: "41",
+        rstSent: "55",
+        timeOn: "0015",
+      },
+    ];
+
+    expect(parse(input)).toEqual(output);
+  });
+
+  test("station,operator callsigns", () => {
+    const input = `station vk3prg operator vk3tcp date 20211219 mode ssb
+    0009 call vk4fbjl 21.144 s55 r41
+    0015 call vk2hbg 7.125 s55 r41`;
+
+    const output = [
+      {
+        stationCallsign: "VK3PRG",
+        operator: "VK3TCP",
+        band: "15m",
+        call: "VK4FBJL",
+        freq: 21.144,
+        mode: "SSB",
+        qsoDate: "20211219",
+        rstRcvd: "41",
+        rstSent: "55",
+        timeOn: "0009",
+      },
+      {
+        stationCallsign: "VK3PRG",
+        operator: "VK3TCP",
+        band: "40m",
+        call: "VK2HBG",
+        freq: 7.125,
+        mode: "SSB",
         qsoDate: "20211219",
         rstRcvd: "41",
         rstSent: "55",
