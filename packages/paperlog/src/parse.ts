@@ -139,13 +139,14 @@ export function parse(input: string): Array<ParserContact | ParserFailure> {
             // const exhaustiveCheck: never = type;
             // Type 'MyEnum' is not assignable to type 'never'.ts(2322)
             // const exhaustiveCheck: never
-            console.log(token);
+            console.warn(`Unknown token: "${token}`);
 
           // throw new Error(`Unhandled command: ${exhaustiveCheck}`);
         }
       });
     } catch (error: any) {
       if (error instanceof ParsingError) {
+        console.warn(error);
         contacts.push({ line, error });
       } else {
         console.error(error.toString());

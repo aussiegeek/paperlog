@@ -14,8 +14,11 @@ lexer.rule(/date (\d{8})/, (ctx, match) => {
 lexer.rule(/(\d{1,2}\.\d+)/, (ctx, match) => {
   ctx.accept(Command.Freq, match[1]);
 });
-lexer.rule(/mode (cw|ssb)/i, (ctx, match) => {
+lexer.rule(/mode (\w+)/i, (ctx, match) => {
   ctx.accept(Command.Mode, match[1]?.toUpperCase());
+});
+lexer.rule(/timeOn ([0-2][0-9][0-5][0-9][0-9][0-9])/i, (ctx, match) => {
+  ctx.accept(Command.TimeOn, match[1]);
 });
 lexer.rule(/([0-2][0-9][0-5][0-9])/, (ctx, match) => {
   ctx.accept(Command.TimeOn, match[1]);
@@ -23,10 +26,10 @@ lexer.rule(/([0-2][0-9][0-5][0-9])/, (ctx, match) => {
 lexer.rule(/call ([0-9a-z\/]+)/i, (ctx, match) => {
   ctx.accept(Command.Call, match[1]);
 });
-lexer.rule(/s(\d+)/, (ctx, match) => {
+lexer.rule(/s(-?\d+)/, (ctx, match) => {
   ctx.accept(Command.RstSent, match[1]);
 });
-lexer.rule(/r(\d+)/i, (ctx, match) => {
+lexer.rule(/r(-?\d+)/i, (ctx, match) => {
   ctx.accept(Command.RstRcvd, match[1]);
 });
 lexer.rule(/sota ([a-zA-Z0-9\/\-]+)/i, (ctx, match) => {

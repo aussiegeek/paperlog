@@ -220,4 +220,26 @@ describe("parse", () => {
 
     expect(parse(input)).toEqual(output);
   });
+
+  test("ft8 contact", () => {
+    const input = `station vk3prg operator vk3tcp date 20220805 mode ssb mywwff vkff-2452 mypota vk-2796
+    18.102 call k7oeg 20220805 mode ft8 s-10 r-13 timeOn 033745`;
+    const output = [
+      {
+        band: "17m",
+        call: "K7OEG",
+        freq: 18.102,
+        mode: "FT8",
+        myPotaRef: "VK-2796",
+        myWwffRef: "VKFF-2452",
+        operator: "VK3TCP",
+        stationCallsign: "VK3PRG",
+        qsoDate: "20220805",
+        timeOn: "033745",
+        rstRcvd: "-13",
+        rstSent: "-10",
+      },
+    ];
+    expect(parse(input)).toEqual(output);
+  });
 });

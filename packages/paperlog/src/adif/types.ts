@@ -13,5 +13,8 @@ export const Number = number();
 export const PositiveInteger = min(number(), 1);
 export const SOTARef = string();
 export const String = string();
-export const Time = pattern(string(), /^[0-2][0-9][0-5][0-9]$/);
+export const Time = pattern(
+  string(),
+  /^([0-2][0-9][0-5][0-9]|[0-2][0-9][0-5][0-9][0-9][0-9])$/
+);
 export const WWFFRef = string();
