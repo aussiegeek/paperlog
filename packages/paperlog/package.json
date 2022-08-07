@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "snake-case": "^3.0.4",
-    "superstruct": "^0.15.4",
+    "superstruct": "^0.16.0",
     "tokenizr": "^1.6.5"
   },
   "scripts": {
