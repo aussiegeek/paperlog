@@ -1,0 +1,3 @@
+steps:
+  - command: "pnpm install && pnpm test && pnpm build"
+    label: ":jest:"
