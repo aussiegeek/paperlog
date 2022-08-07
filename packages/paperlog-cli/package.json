@@ -23,11 +23,11 @@
     "types:check": "tsc -noEmit"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.10",
-    "@vercel/ncc": "^0.33.3",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.3",
-    "typescript": "^4.6.2"
+    "@types/yargs": "17.0.11",
+    "@vercel/ncc": "0.33.4",
+    "jest": "27.5.1",
+    "ts-jest": "27.1.5",
+    "typescript": "4.7.4"
   },
   "publishConfig": {
     "access": "public"
