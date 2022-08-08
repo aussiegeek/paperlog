@@ -36,5 +36,5 @@
     "types:check": "tsc -noEmit",
     "clean": "rm -rf dist"
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
