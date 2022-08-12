@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.48",
     "@types/papaparse": "5.3.3",
     "camel-case": "4.1.2",
     "fast-check": "3.1.1",
