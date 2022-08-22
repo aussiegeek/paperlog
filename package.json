@@ -30,6 +30,6 @@
     "release": "pnpm build && changeset publish"
   },
   "dependencies": {
-    "@changesets/cli": "2.24.2"
+    "@changesets/cli": "2.24.3"
   }
 }
