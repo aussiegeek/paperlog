@@ -19,6 +19,7 @@
   "scripts": {
     "types:check": "pnpm run -r types:check",
     "test": "jest",
+    "test:watch": "jest --watch",
     "build": "pnpm run -r build",
     "postinstall": "is-ci || husky install",
     "prepack": "pinst --disable",

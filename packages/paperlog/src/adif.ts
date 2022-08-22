@@ -31,6 +31,9 @@ function serializeRecord(record: AdifRecord): string {
       .map((key) => {
         // @ts-expect-error deal with record key annoyances
         const value = record[key];
+        if (value === undefined) {
+          return undefined;
+        }
         return `<${snakeCase(key)}${valueLength(value)}>${value}`;
       })
       .join("") + "<eor>"

@@ -115,5 +115,32 @@ describe("adif", () => {
 <band:3>40m<call:7>VK3PF/P<freq:4>7.15<mode:3>SSB<my_sig:4>WWFF<my_sig_info:9>VKFF-0763<qso_date:8>20211229<rst_rcvd:2>59<rst_sent:2>59<sig:4>WWFF<sig_info:9>VKFF-0339<station_callsign:6>VK3TCP<time_on:4>0311<eor>`;
       expect(serialize(file)).toBe(sample);
     });
+
+    test("doesn't allow fields with undefined values to be exported", () => {
+      const file: AdifFile = {
+        records: [
+          {
+            stationCallsign: "VK3TCP",
+            qsoDate: "20211229",
+            timeOn: "0311",
+            call: "VK3PF/P",
+            band: "40m",
+            freq: 7.15,
+            mode: "SSB",
+            sig: undefined,
+            sigInfo: undefined,
+            mySig: undefined,
+            mySigInfo: undefined,
+            sotaRef: undefined,
+            mySotaRef: undefined,
+            operator: undefined,
+          },
+        ],
+      };
+      const sample = `https://github.com/aussiegeek/paperlog
+<adif_ver>${adifVersion}<programid>paperlog<programversion>${version}<eoh>
+<band:3>40m<call:7>VK3PF/P<freq:4>7.15<mode:3>SSB<qso_date:8>20211229<station_callsign:6>VK3TCP<time_on:4>0311<eor>`;
+      expect(serialize(file)).toBe(sample);
+    });
   });
 });
