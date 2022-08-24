@@ -59,6 +59,10 @@ function exportSotaContacts(contacts: ParserContact[], dest: string) {
     return adifContact;
   });
 
+  if (sotaContacts.length == 0) {
+    return;
+  }
+
   writeContactsToFile(sotaContacts, dest);
 }
 
