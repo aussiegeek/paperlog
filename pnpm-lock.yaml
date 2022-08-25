@@ -8,7 +8,7 @@ importers:
       '@tsconfig/node16-strictest': 1.0.3
       '@types/jest': 28.1.8
       '@types/node': 16.11.56
-      buildkite-test-collector: ^1.2.1
+      buildkite-test-collector: 1.2.1
       husky: 8.0.1
       is-ci: 3.0.1
       jest: 28.1.3
