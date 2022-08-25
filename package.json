@@ -6,7 +6,7 @@
   "repository": "github:aussiegeek/paperlog",
   "devDependencies": {
     "@tsconfig/node16-strictest": "1.0.3",
-    "@types/jest": "28.1.7",
+    "@types/jest": "28.1.8",
     "@types/node": "16.11.52",
     "buildkite-test-collector": "^1.2.1",
     "husky": "8.0.1",
