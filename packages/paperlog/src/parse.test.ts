@@ -398,6 +398,92 @@ describe("parse", () => {
     expect(parse(input)).toEqual(output);
   });
 
+  test("gridsquare", () => {
+    const input = `station vk3tcp date 20210831 mode ft8 mygridsquare qf22id 7.074
+    call 3D2TS timeon 120715 7.0747 gridsquare RH91 r-06 s-13
+    call vk2io 0143 gridsquare qf56lg`;
+
+    const output = [
+      {
+        contact: {
+          band: "40m",
+          call: "3D2TS",
+          freq: 7.0747,
+          mode: "FT8",
+          qsoDate: "20210831",
+          rstRcvd: "-06",
+          rstSent: "-13",
+          stationCallsign: "VK3TCP",
+          timeOn: "120715",
+          gridsquare: "RH91",
+          myGridsquare: "QF22ID",
+        },
+      },
+      {
+        contact: {
+          band: "40m",
+          call: "VK2IO",
+          freq: 7.0747,
+          mode: "FT8",
+          qsoDate: "20210831",
+          rstRcvd: "59",
+          rstSent: "59",
+          stationCallsign: "VK3TCP",
+          timeOn: "0143",
+          gridsquare: "QF56LG",
+          myGridsquare: "QF22ID",
+        },
+      },
+    ];
+    expect(parse(input)).toEqual(output);
+  });
+
+  test("txpwr", () => {
+    const input = `station vk3tcp date 20220201 mode ssb 0301 7.130 txpwr 5 call n3tj`;
+
+    const output = [
+      {
+        contact: {
+          txPwr: 5,
+          band: "40m",
+          call: "N3TJ",
+          freq: 7.13,
+          mode: "SSB",
+          qsoDate: "20220201",
+          rstRcvd: "59",
+          rstSent: "59",
+          stationCallsign: "VK3TCP",
+          timeOn: "0301",
+        },
+      },
+    ];
+
+    expect(parse(input)).toEqual(output);
+  });
+
+  test("owner", () => {
+    const input = `station vk3tcp date 20220201 mode ssb 0301 7.130 txpwr 5 call n3tj`;
+
+    const output = [
+      {
+        contact: {
+          txPwr: 5,
+          band: "40m",
+          call: "N3TJ",
+          freq: 7.13,
+          mode: "SSB",
+          qsoDate: "20220201",
+          rstRcvd: "59",
+          rstSent: "59",
+          stationCallsign: "VK3TCP",
+          timeOn: "0301",
+        },
+      },
+    ];
+
+    expect(parse(input)).toEqual(output);
+  });
+
   test("simple qsos", () => {
     fc.assert(
       fc.property(
