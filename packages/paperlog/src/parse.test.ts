@@ -242,4 +242,106 @@ describe("parse", () => {
     ];
     expect(parse(input)).toEqual(output);
   });
+
+  test("clearing mysota reference", () => {
+    const input = `station vk3tcp date 20220805 mode cw mysota vk3/vc-001 7.032
+    call vk3pf 0032
+    mysota reset
+    call vk2io 0143`;
+
+    const output = [
+      {
+        band: "40m",
+        call: "VK3PF",
+        freq: 7.032,
+        mode: "CW",
+        qsoDate: "20220805",
+        rstRcvd: "599",
+        rstSent: "599",
+        stationCallsign: "VK3TCP",
+        timeOn: "0032",
+        mySotaRef: "VK3/VC-001",
+      },
+      {
+        band: "40m",
+        call: "VK2IO",
+        freq: 7.032,
+        mode: "CW",
+        qsoDate: "20220805",
+        rstRcvd: "599",
+        rstSent: "599",
+        stationCallsign: "VK3TCP",
+        timeOn: "0143",
+      },
+    ];
+    expect(parse(input)).toEqual(output);
+  });
+
+  test("clearing mypota reference", () => {
+    const input = `station vk3tcp date 20220805 mode cw mypota VK-0334 7.032
+    call vk3pf 0032
+    mypota reset
+    call vk2io 0143`;
+
+    const output = [
+      {
+        band: "40m",
+        call: "VK3PF",
+        freq: 7.032,
+        mode: "CW",
+        qsoDate: "20220805",
+        rstRcvd: "599",
+        rstSent: "599",
+        stationCallsign: "VK3TCP",
+        timeOn: "0032",
+        myPotaRef: "VK-0334",
+      },
+      {
+        band: "40m",
+        call: "VK2IO",
+        freq: 7.032,
+        mode: "CW",
+        qsoDate: "20220805",
+        rstRcvd: "599",
+        rstSent: "599",
+        stationCallsign: "VK3TCP",
+        timeOn: "0143",
+      },
+    ];
+    expect(parse(input)).toEqual(output);
+  });
+
+  test("clearing mywwff reference", () => {
+    const input = `station vk3tcp date 20220805 mode cw mywwff VKFF-0565 7.032
+    call vk3pf 0032
+    mywwff reset
+    call vk2io 0143`;
+
+    const output = [
+      {
+        band: "40m",
+        call: "VK3PF",
+        freq: 7.032,
+        mode: "CW",
+        qsoDate: "20220805",
+        rstRcvd: "599",
+        rstSent: "599",
+        stationCallsign: "VK3TCP",
+        timeOn: "0032",
+        myWwffRef: "VKFF-0565",
+      },
+      {
+        band: "40m",
+        call: "VK2IO",
+        freq: 7.032,
+        mode: "CW",
+        qsoDate: "20220805",
+        rstRcvd: "599",
+        rstSent: "599",
+        stationCallsign: "VK3TCP",
+        timeOn: "0143",
+      },
+    ];
+    expect(parse(input)).toEqual(output);
+  });
 });

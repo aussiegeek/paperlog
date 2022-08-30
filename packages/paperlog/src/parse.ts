@@ -59,6 +59,12 @@ export interface ParserFailure {
   error: ParsingError;
 }
 
+// returns input, unless input is case insensitive equal to reset
+// allows for when a log part way through has no award ref (eg. left a sota summit and now only activating a park)
+function parseAwardRefWithReset(ref: string): string | undefined {
+  return ref.toUpperCase() == "RESET" ? undefined : ref;
+}
+
 export function parse(input: string): Array<ParserContact | ParserFailure> {
   const contacts: Array<ParserContact | ParserFailure> = [];
   const template: Partial<ParserContact> = {};
@@ -110,7 +116,7 @@ export function parse(input: string): Array<ParserContact | ParserFailure> {
             }
             break;
           case "mysota":
-            template.mySotaRef = token.value;
+            template.mySotaRef = parseAwardRefWithReset(token.value);
             break;
           case "sota":
             record.sotaRef = token.value;
@@ -125,13 +131,13 @@ export function parse(input: string): Array<ParserContact | ParserFailure> {
             record.wwffRef = token.value;
             break;
           case "mywwff":
-            template.myWwffRef = token.value;
+            template.myWwffRef = parseAwardRefWithReset(token.value);
             break;
           case "pota":
             record.potaRef = token.value;
             break;
           case "mypota":
-            template.myPotaRef = token.value;
+            template.myPotaRef = parseAwardRefWithReset(token.value);
             break;
           case "EOF":
             break;
