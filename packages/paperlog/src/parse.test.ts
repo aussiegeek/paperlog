@@ -3,6 +3,15 @@ import {
   parse,
   validationMessagesForResult,
 } from "./parse";
+import fc from "fast-check";
+import {
+  callsignArb,
+  dateArb,
+  frequencyArb,
+  modeArb,
+  timeWithoutSeconds,
+  logEntryLineArb,
+} from "./testArbitaries";
 
 describe("parse", () => {
   test("basic sota activation", () => {
@@ -387,6 +396,78 @@ describe("parse", () => {
       },
     ];
     expect(parse(input)).toEqual(output);
+  });
+
+  test("simple qsos", () => {
+    fc.assert(
+      fc.property(
+        callsignArb(),
+        dateArb(),
+        frequencyArb(),
+        modeArb(),
+        fc.array(fc.tuple(callsignArb(), timeWithoutSeconds())),
+        fc.context(),
+        (station, date, freq, mode, callsigns, ctx) => {
+          let input = `station ${station} date ${date} ${freq} mode ${mode}\n`;
+          callsigns.forEach(([callsign, timeon]) => {
+            input += `call ${callsign} ${timeon}\n`;
+          });
+
+          ctx.log("Input " + input);
+
+          const result = parse(input);
+
+          const parseFailed = result.filter((c) => {
+            if ("error" in c) {
+              console.warn(c.error.toString());
+              return true;
+            }
+            return false;
+          });
+
+          const validContacts = result.filter((c) => {
+            return "contact" in c;
+          });
+          expect(parseFailed).toHaveLength(0);
+          expect(validContacts.length).toBe(callsigns.length);
+        }
+      )
+    );
+  });
+
+  test("generate qsos with all fields", () => {
+    fc.assert(
+      fc.property(
+        callsignArb(),
+        dateArb(),
+        frequencyArb(),
+        modeArb(),
+        fc.array(logEntryLineArb()),
+        fc.context(),
+        (station, date, freq, mode, loglines, ctx) => {
+          let input = `station ${station} date ${date} ${freq} mode ${mode}\n`;
+          input = input + loglines.join("\n");
+
+          ctx.log("Input " + input);
+
+          const result = parse(input);
+
+          const parseFailed = result.filter((c) => {
+            if ("error" in c) {
+              console.warn(c.error.toString());
+              return true;
+            }
+            return false;
+          });
+
+          const validContacts = result.filter((c) => {
+            return "contact" in c;
+          });
+          expect(parseFailed).toHaveLength(0);
+          expect(validContacts.length).toBe(loglines.length);
+        }
+      )
+    );
   });
 });
 
