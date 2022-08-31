@@ -9,6 +9,9 @@ pnpm install
 echo "--- Checking prettier"
 pnpm run prettier:check
 
+echo "--- Linting"
+pnpm run lint:check
+
 echo "--- Running tests"
 pnpm test
 

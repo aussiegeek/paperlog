@@ -7,7 +7,6 @@ import "./App.css";
 export function App() {
   const [logText, setLogText] = useState(localStorage.getItem("logText") || "");
   let contacts: Array<ParseResult> = [];
-  let parseError = "";
 
   const onChange = (newLogText: string) => {
     localStorage.setItem("logText", newLogText);
@@ -16,9 +15,8 @@ export function App() {
 
   try {
     contacts = parse(logText);
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.warn(e);
-    parseError = e.message;
   }
 
   return (

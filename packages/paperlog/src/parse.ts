@@ -12,7 +12,7 @@ import {
 } from "superstruct";
 import { BandEnum, bandRange, bands } from "./adif/bands";
 import { lexer } from "./lexer";
-import { ParsingError } from "tokenizr";
+import { ParsingError, Token } from "tokenizr";
 import { Date, Time } from "./adif/types";
 import { ModeEnum } from "./adif/modes";
 import { AdifRecord } from "./adif/adifRecord";
@@ -89,7 +89,7 @@ export function parse(input: string): Array<ParseResult> {
   const contacts: Array<ParseResult> = [];
   const template: Partial<ParserContact> = {};
   input.split("\n").forEach((line) => {
-    let record: Partial<ParserContact> = {};
+    const record: Partial<ParserContact> = {};
     lexer.input(line);
     // lexer.debug(true);
     try {
@@ -114,26 +114,10 @@ export function parse(input: string): Array<ParseResult> {
             template.timeOn = token.value;
             break;
           case "freq":
-            const freq = parseFloat(token.value);
-            template.freq = freq;
-
-            bands.forEach((band) => {
-              if (bandRange[band].from <= freq && bandRange[band].to >= freq) {
-                template.band = band;
-              }
-            });
-
+            parseFreq(token, template);
             break;
           case "mode":
-            const mode = token.value;
-            template.mode = mode;
-            if (mode == "CW") {
-              template.rstRcvd = "599";
-              template.rstSent = "599";
-            } else {
-              template.rstRcvd = "59";
-              template.rstSent = "59";
-            }
+            parseMode(token, template);
             break;
           case "mysota":
             template.mySotaRef = parseAwardRefWithReset(token.value);
@@ -180,6 +164,7 @@ export function parse(input: string): Array<ParseResult> {
           // throw new Error(`Unhandled command: ${exhaustiveCheck}`);
         }
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error instanceof ParsingError) {
         contacts.push({ line, error });
@@ -203,6 +188,29 @@ export function parse(input: string): Array<ParseResult> {
   });
 
   return contacts;
+}
+
+function parseMode(token: Token, template: Partial<ParserContact>) {
+  const mode = token.value;
+  template.mode = mode;
+  if (mode == "CW") {
+    template.rstRcvd = "599";
+    template.rstSent = "599";
+  } else {
+    template.rstRcvd = "59";
+    template.rstSent = "59";
+  }
+}
+
+function parseFreq(token: Token, template: Partial<ParserContact>) {
+  const freq = parseFloat(token.value);
+  template.freq = freq;
+
+  bands.forEach((band) => {
+    if (bandRange[band].from <= freq && bandRange[band].to >= freq) {
+      template.band = band;
+    }
+  });
 }
 
 export function collectGlobalErrors(results: ParseResult[]) {
@@ -251,7 +259,7 @@ export function collectGlobalErrors(results: ParseResult[]) {
 }
 
 export function validationMessagesForResult(result: ParseResult) {
-  let messages: string[] = [];
+  const messages: string[] = [];
   if ("error" in result) {
     const error = result.error;
     if (error instanceof StructError) {

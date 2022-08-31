@@ -18,7 +18,7 @@ function LogError({ result }: { result: ParseResult }) {
       <tr>
         <td colSpan={10}>
           {messages.map((message) => (
-            <div>{message}</div>
+            <div key={message}>{message}</div>
           ))}
         </td>
       </tr>
@@ -41,7 +41,7 @@ export function LogViewer({ contacts }: { contacts: Array<ParseResult> }) {
     return (
       <ul>
         {globalMessages.map((msg) => (
-          <li>{msg}</li>
+          <li key={msg}>{msg}</li>
         ))}
       </ul>
     );
@@ -66,14 +66,14 @@ export function LogViewer({ contacts }: { contacts: Array<ParseResult> }) {
         </thead>
 
         <tbody>
-          {contacts.map((result) => {
+          {contacts.map((result, i) => {
             if ("error" in result) {
-              return <LogError result={result} />;
+              return <LogError key={i} result={result} />;
             }
             if ("contact" in result) {
               const contact = result.contact;
               return (
-                <tr>
+                <tr key={i}>
                   <td>{contact.call}</td>
                   <td>{contact.qsoDate}</td>
                   <td>{contact.timeOn}</td>

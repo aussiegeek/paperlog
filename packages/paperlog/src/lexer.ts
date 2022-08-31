@@ -1,9 +1,9 @@
 import Tokenizr from "tokenizr";
 import { Command } from "./parse";
 
-export let lexer = new Tokenizr();
+export const lexer = new Tokenizr();
 
-const callsignRegexp = `(?<callsign>([a-z0-9]+\/)?[a-z0-9_]+(\/[a-z0-9]+)?)`;
+const callsignRegexp = `(?<callsign>([a-z0-9]+/)?[a-z0-9_]+(/[a-z0-9]+)?)`;
 
 lexer.rule(new RegExp(`station ${callsignRegexp}`, "i"), (ctx, match) => {
   ctx.accept(Command.Station, match.groups?.["callsign"]);
@@ -26,7 +26,7 @@ lexer.rule(/timeOn ([0-2][0-9][0-5][0-9]([0-9][0-9])?)/i, (ctx, match) => {
 lexer.rule(/([0-2][0-9][0-5][0-9])/, (ctx, match) => {
   ctx.accept(Command.TimeOn, match[1]);
 });
-lexer.rule(/call ([0-9a-z\/]+)/i, (ctx, match) => {
+lexer.rule(/call ([0-9a-z/]+)/i, (ctx, match) => {
   ctx.accept(Command.Call, match[1]);
 });
 lexer.rule(/s(-?\+?\d+)/, (ctx, match) => {
@@ -35,19 +35,19 @@ lexer.rule(/s(-?\+?\d+)/, (ctx, match) => {
 lexer.rule(/r(-?\+?\d+)/i, (ctx, match) => {
   ctx.accept(Command.RstRcvd, match[1]);
 });
-lexer.rule(/sota ([a-zA-Z0-9\/\-]+)/i, (ctx, match) => {
+lexer.rule(/sota ([a-zA-Z0-9/-]+)/i, (ctx, match) => {
   ctx.accept(Command.Sota, match[1]?.toUpperCase());
 });
-lexer.rule(/mysota ([a-z0-9\/-]+)/i, (ctx, match) => {
+lexer.rule(/mysota ([a-z0-9/-]+)/i, (ctx, match) => {
   ctx.accept(Command.MySota, match[1]?.toUpperCase());
 });
-lexer.rule(/wwff ([a-zA-Z0-9\-]+)/i, (ctx, match) => {
+lexer.rule(/wwff ([a-zA-Z0-9-]+)/i, (ctx, match) => {
   ctx.accept(Command.Wwff, match[1]?.toUpperCase());
 });
 lexer.rule(/mywwff ([a-zA-Z0-9-]+)/i, (ctx, match) => {
   ctx.accept(Command.MyWwff, match[1]?.toUpperCase());
 });
-lexer.rule(/pota ([a-zA-Z0-9\-]+)/i, (ctx, match) => {
+lexer.rule(/pota ([a-zA-Z0-9-]+)/i, (ctx, match) => {
   ctx.accept(Command.Pota, match[1]?.toUpperCase());
 });
 lexer.rule(/mypota ([a-zA-Z0-9-]+)/i, (ctx, match) => {

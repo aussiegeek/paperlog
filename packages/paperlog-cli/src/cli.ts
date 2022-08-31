@@ -2,14 +2,13 @@
 import * as fs from "fs";
 import * as path from "path";
 import yargs from "yargs";
-import { hideBin, Parser } from "yargs/helpers";
+import { hideBin } from "yargs/helpers";
 import {
   AdifRecord,
   serialize,
   parse,
   ParserContact,
   filterSota,
-  ParseResult,
   collectGlobalErrors,
   validationMessagesForResult,
 } from "paperlog";
