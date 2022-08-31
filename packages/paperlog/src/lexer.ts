@@ -2,22 +2,25 @@ import Tokenizr from "tokenizr";
 import { Command } from "./parse";
 
 export let lexer = new Tokenizr();
-lexer.rule(/station ([a-zA-Z0-9_]*)/, (ctx, match) => {
-  ctx.accept(Command.Station, match[1]);
+
+const callsignRegexp = `(?<callsign>([a-z0-9]+\/)?[a-z0-9_]+(\/[a-z0-9]+)?)`;
+
+lexer.rule(new RegExp(`station ${callsignRegexp}`, "i"), (ctx, match) => {
+  ctx.accept(Command.Station, match.groups?.["callsign"]);
 });
-lexer.rule(/operator ([a-zA-Z0-9_]*)/, (ctx, match) => {
+lexer.rule(new RegExp(`operator ${callsignRegexp}`, "i"), (ctx, match) => {
   ctx.accept(Command.Operator, match[1]);
 });
 lexer.rule(/date (\d{8})/, (ctx, match) => {
   ctx.accept(Command.Date, match[1]);
 });
-lexer.rule(/(\d{1,2}\.\d+)/, (ctx, match) => {
+lexer.rule(/(\d+\.\d+)/, (ctx, match) => {
   ctx.accept(Command.Freq, match[1]);
 });
 lexer.rule(/mode (\w+)/i, (ctx, match) => {
   ctx.accept(Command.Mode, match[1]?.toUpperCase());
 });
-lexer.rule(/timeOn ([0-2][0-9][0-5][0-9][0-9][0-9])/i, (ctx, match) => {
+lexer.rule(/timeOn ([0-2][0-9][0-5][0-9]([0-9][0-9])?)/i, (ctx, match) => {
   ctx.accept(Command.TimeOn, match[1]);
 });
 lexer.rule(/([0-2][0-9][0-5][0-9])/, (ctx, match) => {
