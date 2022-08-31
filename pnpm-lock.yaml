@@ -8,12 +8,12 @@ importers:
       '@tsconfig/node16-strictest': 1.0.3
       '@types/jest': 28.1.8
       '@types/node': 16.11.56
-      '@typescript-eslint/eslint-plugin': ^5.36.1
-      '@typescript-eslint/parser': ^5.36.1
+      '@typescript-eslint/eslint-plugin': 5.36.1
+      '@typescript-eslint/parser': 5.36.1
       buildkite-test-collector: 1.2.1
-      eslint: ^8.23.0
-      eslint-config-prettier: ^8.5.0
-      eslint-plugin-jest: ^27.0.1
+      eslint: 8.23.0
+      eslint-config-prettier: 8.5.0
+      eslint-plugin-jest: 27.0.1
       fast-check: 3.1.2
       husky: 8.0.1
       is-ci: 3.0.1
@@ -134,7 +134,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       superstruct: 0.16.0
-      tailwindcss: 3.1.8
+      tailwindcss: 3.1.8_postcss@8.4.16
       webpack-cli: 4.10.0_6k4gs4iynuwn6fxh2o2g4kzpru
       webpack-dev-server: 4.10.1_5v66e2inugklgvlh4huuavolfq
 
@@ -668,7 +668,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.3
+      debug: 4.3.4
       espree: 9.4.0
       globals: 13.17.0
       ignore: 5.2.0
@@ -685,7 +685,7 @@ packages:
     engines: {node: '>=10.10.0'}
     dependencies:
       '@humanwhocodes/object-schema': 1.2.1
-      debug: 4.3.3
+      debug: 4.3.4
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -2612,7 +2612,7 @@ packages:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.3
+      debug: 4.3.4
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.1.1
@@ -5526,10 +5526,12 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /tailwindcss/3.1.8:
+  /tailwindcss/3.1.8_postcss@8.4.16:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
