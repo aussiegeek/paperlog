@@ -1,11 +1,12 @@
 import {
   Infer,
-  is,
   nonempty,
   number,
   object,
   optional,
   string,
+  StructError,
+  validate,
 } from "superstruct";
 import { BandEnum, bandRange, bands } from "./adif/bands";
 import { lexer } from "./lexer";
@@ -39,12 +40,12 @@ export const ParserContact = object({
   stationCallsign: nonempty(string()),
   operator: optional(string()),
   call: nonempty(string()),
-  band: BandEnum,
+  band: optional(BandEnum),
   mode: ModeEnum,
   submode: optional(string()),
   freq: number(),
-  rstSent: string(),
-  rstRcvd: string(),
+  rstSent: optional(string()),
+  rstRcvd: optional(string()),
   sotaRef: optional(string()),
   mySotaRef: optional(string()),
   wwffRef: optional(string()),
@@ -58,6 +59,16 @@ export interface ParserFailure {
   line: string;
   error: ParsingError;
 }
+export interface ValidationFailure {
+  error: StructError;
+  line: string;
+}
+
+export interface ParseSuccess {
+  contact: ParserContact;
+}
+
+export type ParseResult = ParseSuccess | ParserFailure | ValidationFailure;
 
 // returns input, unless input is case insensitive equal to reset
 // allows for when a log part way through has no award ref (eg. left a sota summit and now only activating a park)
@@ -65,8 +76,8 @@ function parseAwardRefWithReset(ref: string): string | undefined {
   return ref.toUpperCase() == "RESET" ? undefined : ref;
 }
 
-export function parse(input: string): Array<ParserContact | ParserFailure> {
-  const contacts: Array<ParserContact | ParserFailure> = [];
+export function parse(input: string): Array<ParseResult> {
+  const contacts: Array<ParseResult> = [];
   const template: Partial<ParserContact> = {};
   input.split("\n").forEach((line) => {
     let record: Partial<ParserContact> = {};
@@ -152,7 +163,6 @@ export function parse(input: string): Array<ParserContact | ParserFailure> {
       });
     } catch (error: any) {
       if (error instanceof ParsingError) {
-        console.warn(error);
         contacts.push({ line, error });
       } else {
         console.error(error.toString());
@@ -161,10 +171,93 @@ export function parse(input: string): Array<ParserContact | ParserFailure> {
     }
 
     const newRecord = { ...template, ...record };
-    if (is(newRecord, ParserContact)) {
-      contacts.push(newRecord);
+
+    const [err, validatedRecord] = validate(newRecord, ParserContact, {
+      coerce: true,
+    });
+
+    if (validatedRecord) {
+      contacts.push({ contact: validatedRecord });
+    } else if (newRecord.call?.length && newRecord.call.length > 0) {
+      contacts.push({ error: err, line });
     }
   });
 
   return contacts;
+}
+
+export function collectGlobalErrors(results: ParseResult[]) {
+  // see if there are any global errors, and return them early
+  const globalError = results.find(
+    (r) => "error" in r && r.error instanceof StructError
+  );
+
+  const messages: Record<string, string> = {};
+
+  if (
+    globalError &&
+    "error" in globalError &&
+    globalError.error instanceof StructError
+  ) {
+    const failures = globalError.error.failures();
+
+    failures.forEach((failure) => {
+      if (typeof failure.value === "undefined") {
+        switch (failure.key) {
+          case "qsoDate":
+            messages["qsoDate"] =
+              "No date command found. Try adding `date 20221114`";
+            break;
+          case "freq":
+            messages["freq"] = "Frequency not set, for 7.032MHz add `7.032`";
+            break;
+          case "mode":
+            messages["mode"] = "Mode not set, try `mode cw` or `mode ssb`";
+            break;
+          case "stationCallsign":
+            messages["stationCallsign"] =
+              "Station (your callsign) not set, add `station VK1ABC`";
+            break;
+        }
+      }
+    });
+  }
+
+  if (Object.values(messages).length > 0) {
+    return Object.entries(messages)
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .map(([_key, value]) => value);
+  }
+  return [];
+}
+
+export function validationMessagesForResult(result: ParseResult) {
+  let messages: string[] = [];
+  if ("error" in result) {
+    const error = result.error;
+    if (error instanceof StructError) {
+      const failures = error.failures();
+      failures.forEach((failure) => {
+        if (typeof failure.value === "undefined") {
+          switch (failure.key) {
+            case "timeOn":
+              messages.push("Time on can't be blank use `0123` for 0123UTC");
+              break;
+            default:
+              messages.push(JSON.stringify(failure));
+          }
+        } else {
+          messages.push(JSON.stringify(failure));
+        }
+      });
+    } else {
+      messages.push(
+        `Unrecognised token starting at \`${error.input.substring(
+          error.column - 1
+        )}\``
+      );
+    }
+  }
+
+  return messages;
 }

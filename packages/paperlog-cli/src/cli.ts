@@ -2,13 +2,16 @@
 import * as fs from "fs";
 import * as path from "path";
 import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
+import { hideBin, Parser } from "yargs/helpers";
 import {
   AdifRecord,
   serialize,
   parse,
   ParserContact,
   filterSota,
+  ParseResult,
+  collectGlobalErrors,
+  validationMessagesForResult,
 } from "paperlog";
 import { is } from "superstruct";
 
@@ -143,20 +146,28 @@ function exportPotaContacts(contacts: ParserContact[], destDir: string) {
 function exportLogs(logPath: string) {
   const contacts = parse(fs.readFileSync(logPath, "utf8"));
 
-  const errorContacts = contacts.filter((c) => !is(c, ParserContact));
-
-  if (errorContacts.length > 0) {
-    console.log(errorContacts);
+  const globalMessages = collectGlobalErrors(contacts);
+  if (globalMessages.length > 0) {
+    console.log(globalMessages.join("\n"));
+    console.log("\nFix these errors before continuing");
     process.exit(1);
   }
-  const validContacts: ParserContact[] = contacts.filter(
-    (contact): contact is ParserContact => {
-      return is(contact, ParserContact);
-    }
-  );
+
+  const validContacts: ParserContact[] = contacts
+    .map((result) => {
+      if ("contact" in result) {
+        return result.contact;
+      }
+      console.warn("Error on line:\n" + result.line + "\n");
+      const messages = validationMessagesForResult(result);
+      console.warn(messages.join("\n") + "\n");
+      return;
+    })
+    .filter((c): c is ParserContact => is(c, ParserContact));
 
   if (validContacts.length != contacts.length) {
-    throw new Error("Attempting to export with parser failure");
+    console.error("Attempting to export with parser failure");
+    process.exit(1);
   }
 
   const programs = ["mySotaRef"];
