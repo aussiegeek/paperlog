@@ -36,7 +36,7 @@ importers:
   packages/paperlog:
     specifiers:
       '@types/node': 16.11.56
-      '@types/papaparse': 5.3.4
+      '@types/papaparse': 5.3.5
       camel-case: 4.1.2
       date-fns: ^2.29.2
       fast-check: 3.1.1
@@ -53,7 +53,7 @@ importers:
       tokenizr: 1.6.5
     devDependencies:
       '@types/node': 16.11.56
-      '@types/papaparse': 5.3.4
+      '@types/papaparse': 5.3.5
       camel-case: 4.1.2
       date-fns: 2.29.2
       fast-check: 3.1.1
@@ -1110,8 +1110,8 @@ packages:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
     dev: false
 
-  /@types/papaparse/5.3.4:
-    resolution: {integrity: sha512-61/jki1Ri+v1/Fobrf4rlIo6ExNM8P0CHYwId8wkrC2WiKfDwiRtn/hiAa6jXj8vPa4oFZ14uFKME547V4VGyQ==}
+  /@types/papaparse/5.3.5:
+    resolution: {integrity: sha512-R1icl/hrJPFRpuYj9PVG03WBAlghJj4JW9Py5QdR8FFSxaLmZRyu7xYDCCBZIJNfUv3MYaeBbhBoX958mUTAaw==}
     dependencies:
       '@types/node': 17.0.21
     dev: true
