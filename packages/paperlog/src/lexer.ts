@@ -29,10 +29,10 @@ lexer.rule(/([0-2][0-9][0-5][0-9])/, (ctx, match) => {
 lexer.rule(/call ([0-9a-z\/]+)/i, (ctx, match) => {
   ctx.accept(Command.Call, match[1]);
 });
-lexer.rule(/s(-?\d+)/, (ctx, match) => {
+lexer.rule(/s(-?\+?\d+)/, (ctx, match) => {
   ctx.accept(Command.RstSent, match[1]);
 });
-lexer.rule(/r(-?\d+)/i, (ctx, match) => {
+lexer.rule(/r(-?\+?\d+)/i, (ctx, match) => {
   ctx.accept(Command.RstRcvd, match[1]);
 });
 lexer.rule(/sota ([a-zA-Z0-9\/\-]+)/i, (ctx, match) => {
@@ -52,5 +52,14 @@ lexer.rule(/pota ([a-zA-Z0-9\-]+)/i, (ctx, match) => {
 });
 lexer.rule(/mypota ([a-zA-Z0-9-]+)/i, (ctx, match) => {
   ctx.accept(Command.MyPota, match[1]?.toUpperCase());
+});
+lexer.rule(/gridsquare ([a-z0-9-]+)/i, (ctx, match) => {
+  ctx.accept(Command.GridSquare, match[1]?.toUpperCase());
+});
+lexer.rule(/mygridsquare ([a-z0-9-]+)/i, (ctx, match) => {
+  ctx.accept(Command.MyGridSquare, match[1]?.toUpperCase());
+});
+lexer.rule(/txpwr (\d+)/i, (ctx, match) => {
+  ctx.accept(Command.TxPwr, match[1]);
 });
 lexer.rule(/ /, (ctx) => ctx.ignore());

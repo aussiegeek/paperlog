@@ -105,6 +105,13 @@ export const signalReportArb = () =>
         fc.integer({ min: 1, max: 9 }),
         fc.option(fc.integer({ min: 1, max: 9 }))
       )
+      .map((t) => t.join("")),
+    fc
+      .tuple(
+        fc.constantFrom("+", "-"),
+        fc.integer({ min: 1, max: 9 }),
+        fc.integer({ min: 1, max: 9 })
+      )
       .map((t) => t.join(""))
   );
 
@@ -142,6 +149,54 @@ export const potaRefArb = () =>
 const potaCmdArb = generateCmdArb("pota", potaRefArb);
 const mypotaCmdArb = generateCmdArb("mypota", potaRefArb);
 
+const txPwrArb = () => fc.integer({ min: 1, max: 2000 });
+const txPwrCmdArb = () => txPwrArb().map((pwr) => ["txpwr", pwr].join(" "));
+
+const gridSquareLetterArb = () =>
+  fc.constantFrom(
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R"
+  );
+const gridsquareArb = () =>
+  fc.oneof(
+    fc
+      .tuple(
+        gridSquareLetterArb(),
+        gridSquareLetterArb(),
+        fc.integer({ min: 0, max: 9 }),
+        fc.integer({ min: 0, max: 9 })
+      )
+      .map((t) => t.join("")),
+    fc
+      .tuple(
+        gridSquareLetterArb(),
+        gridSquareLetterArb(),
+        fc.integer({ min: 0, max: 9 }),
+        fc.integer({ min: 0, max: 9 }),
+        gridSquareLetterArb(),
+        gridSquareLetterArb()
+      )
+      .map((t) => t.join(""))
+  );
+
+const gridsquareCmdArb = generateCmdArb("gridsquare", gridsquareArb);
+const mygridsquareCmdArb = generateCmdArb("mygridsquare", gridsquareArb);
 export const commandArb = () =>
   fc.oneof(
     frequencyCommandArb(),
@@ -158,5 +213,8 @@ export const commandArb = () =>
     wwffCmdArb(),
     mywwffCmdArb(),
     potaCmdArb(),
-    mypotaCmdArb()
+    mypotaCmdArb(),
+    txPwrCmdArb(),
+    gridsquareCmdArb(),
+    mygridsquareCmdArb()
   );
