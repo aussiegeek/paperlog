@@ -26,7 +26,7 @@
     "postinstall": "is-ci || husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
-    "prettier:check": "yarn prettier --check .",
+    "prettier:check": "pnpm prettier --check .",
     "start": "pnpm run --r --stream start ",
     "clean": "pnpm run -r clean",
     "release": "pnpm build && changeset publish"
