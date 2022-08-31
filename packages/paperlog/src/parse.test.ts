@@ -515,7 +515,7 @@ describe("parse", () => {
             return "contact" in c;
           });
           expect(parseFailed).toHaveLength(0);
-          expect(validContacts.length).toBe(callsigns.length);
+          expect(validContacts).toHaveLength(callsigns.length);
         }
       )
     );
@@ -550,7 +550,7 @@ describe("parse", () => {
             return "contact" in c;
           });
           expect(parseFailed).toHaveLength(0);
-          expect(validContacts.length).toBe(loglines.length);
+          expect(validContacts).toHaveLength(loglines.length);
         }
       )
     );
