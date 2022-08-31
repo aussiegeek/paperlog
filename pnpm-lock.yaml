@@ -16,7 +16,7 @@ importers:
       pinst: 3.0.0
       prettier: 2.7.1
       ts-jest: 28.0.8
-      typescript: 4.7.4
+      typescript: 4.8.2
     dependencies:
       '@changesets/cli': 2.24.4
     devDependencies:
@@ -30,8 +30,8 @@ importers:
       jest: 28.1.3_@types+node@16.11.56
       pinst: 3.0.0
       prettier: 2.7.1
-      ts-jest: 28.0.8_bi2kohzqnxavgozw3csgny5hju
-      typescript: 4.7.4
+      ts-jest: 28.0.8_556mfp7b5dutuj2jcrj5i7zc5q
+      typescript: 4.8.2
 
   packages/paperlog:
     specifiers:
@@ -46,7 +46,7 @@ importers:
       superstruct: ^0.16.0
       tokenizr: ^1.6.5
       ts-jest: 28.0.8
-      typescript: 4.7.4
+      typescript: 4.8.2
     dependencies:
       snake-case: 3.0.4
       superstruct: 0.16.0
@@ -59,8 +59,8 @@ importers:
       fast-check: 3.1.1
       jest: 28.1.3_@types+node@16.11.56
       papaparse: 5.3.2
-      ts-jest: 28.0.8_bi2kohzqnxavgozw3csgny5hju
-      typescript: 4.7.4
+      ts-jest: 28.0.8_556mfp7b5dutuj2jcrj5i7zc5q
+      typescript: 4.8.2
 
   packages/paperlog-cli:
     specifiers:
@@ -70,7 +70,7 @@ importers:
       paperlog: workspace:*
       superstruct: ^0.16.0
       ts-jest: 28.0.8
-      typescript: 4.7.4
+      typescript: 4.8.2
       yargs: ^17.3.1
     dependencies:
       paperlog: link:../paperlog
@@ -80,8 +80,8 @@ importers:
       '@types/yargs': 17.0.11
       '@vercel/ncc': 0.34.0
       jest: 28.1.3
-      ts-jest: 28.0.8_bi2kohzqnxavgozw3csgny5hju
-      typescript: 4.7.4
+      ts-jest: 28.0.8_556mfp7b5dutuj2jcrj5i7zc5q
+      typescript: 4.8.2
 
   packages/paperlog-web:
     specifiers:
@@ -101,7 +101,7 @@ importers:
       superstruct: 0.16.0
       tailwindcss: 3.1.8
       ts-loader: 9.3.1
-      typescript: 4.7.4
+      typescript: 4.8.2
       webpack: 5.74.0
       webpack-cli: 4.10.0
       webpack-dev-server: 4.10.0
@@ -114,8 +114,8 @@ importers:
       paperlog: link:../paperlog
       postcss-loader: 7.0.1_qjv4cptcpse3y5hrjkrbb7drda
       style-loader: 3.3.1_webpack@5.74.0
-      ts-loader: 9.3.1_xnp4kzegbjokq62cajex2ovgkm
-      typescript: 4.7.4
+      ts-loader: 9.3.1_frxmcuunqqqeqipt45cd6rjuvu
+      typescript: 4.8.2
       webpack: 5.74.0_webpack-cli@4.10.0
     devDependencies:
       autoprefixer: 10.4.8_postcss@8.4.16
@@ -5244,7 +5244,7 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /ts-jest/28.0.8_bi2kohzqnxavgozw3csgny5hju:
+  /ts-jest/28.0.8_556mfp7b5dutuj2jcrj5i7zc5q:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -5273,11 +5273,11 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.3.7
-      typescript: 4.7.4
+      typescript: 4.8.2
       yargs-parser: 21.0.1
     dev: true
 
-  /ts-loader/9.3.1_xnp4kzegbjokq62cajex2ovgkm:
+  /ts-loader/9.3.1_frxmcuunqqqeqipt45cd6rjuvu:
     resolution: {integrity: sha512-OkyShkcZTsTwyS3Kt7a4rsT/t2qvEVQuKCTg4LJmpj9fhFR7ukGdZwV6Qq3tRUkqcXtfGpPR7+hFKHCG/0d3Lw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -5288,7 +5288,7 @@ packages:
       enhanced-resolve: 5.9.3
       micromatch: 4.0.4
       semver: 7.3.7
-      typescript: 4.7.4
+      typescript: 4.8.2
       webpack: 5.74.0_webpack-cli@4.10.0
     dev: false
 
@@ -5345,8 +5345,8 @@ packages:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
-  /typescript/4.7.4:
-    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+  /typescript/4.8.2:
+    resolution: {integrity: sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
 
