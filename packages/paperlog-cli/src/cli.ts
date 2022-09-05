@@ -68,22 +68,27 @@ function exportSotaContacts(contacts: ParserContact[], dest: string) {
   writeContactsToFile(sotaContacts, dest);
 }
 
-function keyContactsBy(contacts: ParserContact[], key: keyof ParserContact) {
+function keyContactsBy(
+  contacts: ParserContact[],
+  keys: Array<keyof ParserContact>
+) {
   const keyedContacts: Record<string, ParserContact[]> = {};
   contacts.forEach((contact) => {
-    const keyValue = contact[key];
-    if (keyValue) {
-      const contactsForKey = keyedContacts[keyValue] || [];
-      contactsForKey.push(contact);
-      keyedContacts[keyValue] = contactsForKey;
+    const keyValues = keys.map((key) => contact[key]);
+    if (keyValues.some((v) => typeof v === "undefined")) {
+      return;
     }
+    const keyValue = keyValues.join("-");
+    const contactsForKey = keyedContacts[keyValue] || [];
+    contactsForKey.push(contact);
+    keyedContacts[keyValue] = contactsForKey;
   });
 
   return keyedContacts;
 }
 
 function exportWwffContacts(contacts: ParserContact[], destDir: string) {
-  const contactRefDate = keyContactsBy(contacts, "myWwffRef");
+  const contactRefDate = keyContactsBy(contacts, ["qsoDate", "myWwffRef"]);
 
   Object.values(contactRefDate).forEach((contacts) => {
     const adifContacts: AdifRecord[] = contacts.map((c) => {
@@ -113,7 +118,7 @@ function exportWwffContacts(contacts: ParserContact[], destDir: string) {
 }
 
 function exportPotaContacts(contacts: ParserContact[], destDir: string) {
-  const contactRefDate = keyContactsBy(contacts, "myPotaRef");
+  const contactRefDate = keyContactsBy(contacts, ["myPotaRef"]);
 
   Object.values(contactRefDate).forEach((contacts) => {
     const adifContacts: AdifRecord[] = contacts.map((c) => {
