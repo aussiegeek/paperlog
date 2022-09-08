@@ -13,7 +13,7 @@ importers:
       buildkite-test-collector: 1.2.1
       eslint: 8.23.0
       eslint-config-prettier: 8.5.0
-      eslint-plugin-jest: 27.0.1
+      eslint-plugin-jest: 27.0.2
       fast-check: 3.1.2
       husky: 8.0.1
       is-ci: 3.0.1
@@ -33,7 +33,7 @@ importers:
       buildkite-test-collector: 1.2.1
       eslint: 8.23.0
       eslint-config-prettier: 8.5.0_eslint@8.23.0
-      eslint-plugin-jest: 27.0.1_luujypkcs76cn3nf67ye7pigsa
+      eslint-plugin-jest: 27.0.2_luujypkcs76cn3nf67ye7pigsa
       fast-check: 3.1.2
       husky: 8.0.1
       is-ci: 3.0.1
@@ -2543,8 +2543,8 @@ packages:
       eslint: 8.23.0
     dev: true
 
-  /eslint-plugin-jest/27.0.1_luujypkcs76cn3nf67ye7pigsa:
-    resolution: {integrity: sha512-LosUsrkwVSs/8Z/I8Hqn5vWgTEsHrfIquDEKOsV8/cl+gbFR4tiRCE1AimEotsHjSC0Rx1tYm6vPhw8C3ktmmg==}
+  /eslint-plugin-jest/27.0.2_luujypkcs76cn3nf67ye7pigsa:
+    resolution: {integrity: sha512-VEZaj19IMxqg/URcHNT4PhfoJJ1EsFurgq0SjMEYprDCq+et9fKkE4jIHnAsFh3mHLPBgAq04YQqkeW3slXs+Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^5.0.0
