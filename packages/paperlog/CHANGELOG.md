@@ -1,5 +1,15 @@
 # paperlog
 
+## 0.1.1
+
+### Patch Changes
+
+- d6d8e83: Improve errors so the user can action them easier
+- d69c4d5: Fix undefined adif values being exported
+- 7fbc414: Add 'RESET' command to clear an award reference
+- 4e21d73: Introduce property testing, and fix newly detected issues
+- 8a12b13: Add gridsquare & txpwr fields
+
 ## 0.1.0
 
 ### Minor Changes

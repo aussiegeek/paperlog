@@ -1,5 +1,17 @@
 # paperlog-web
 
+## 0.0.3
+
+### Patch Changes
+
+- d6d8e83: Improve errors so the user can action them easier
+- Updated dependencies [d6d8e83]
+- Updated dependencies [d69c4d5]
+- Updated dependencies [7fbc414]
+- Updated dependencies [4e21d73]
+- Updated dependencies [8a12b13]
+  - paperlog@0.1.1
+
 ## 0.0.2
 
 ### Patch Changes
