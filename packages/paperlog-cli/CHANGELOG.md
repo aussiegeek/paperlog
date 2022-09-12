@@ -1,5 +1,20 @@
 # paperlog-cli
 
+## 0.1.1
+
+### Patch Changes
+
+- d6d8e83: Improve errors so the user can action them easier
+- ce99a5d: Export logs to subdirectory of input directory
+- c611a7b: Fix WWFF logs not being split per UTC day
+- aa04b6e: Don't export empty SOTA logs
+- Updated dependencies [d6d8e83]
+- Updated dependencies [d69c4d5]
+- Updated dependencies [7fbc414]
+- Updated dependencies [4e21d73]
+- Updated dependencies [8a12b13]
+  - paperlog@0.1.1
+
 ## 0.0.4
 
 ### Patch Changes
