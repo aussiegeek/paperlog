@@ -184,9 +184,16 @@ function exportLogs(logPath: string) {
     .map((contact) => contact["mySotaRef"])
     .filter((c): c is string => typeof c === "string");
 
-  exportSotaContacts(validContacts, `${logPath}.sota.adi`);
-  exportWwffContacts(validContacts, path.dirname(logPath));
-  exportPotaContacts(validContacts, path.dirname(logPath));
+  const destLogPath = path.join(path.dirname(logPath), "export");
+
+  fs.mkdirSync(destLogPath, { recursive: true });
+
+  exportSotaContacts(
+    validContacts,
+    path.join(destLogPath, `${path.basename(logPath)}.sota.adi`)
+  );
+  exportWwffContacts(validContacts, destLogPath);
+  exportPotaContacts(validContacts, destLogPath);
 }
 
 yargs(hideBin(process.argv))
