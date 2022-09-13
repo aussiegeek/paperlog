@@ -1,6 +1,8 @@
 import { format } from "date-fns";
 import fc from "fast-check";
-import { bandRange } from "./adif/bands";
+import type { ParserContact } from ".";
+import type { BandEnum } from "./adif/bands";
+import { bandRange, bands } from "./adif/bands";
 import { modes } from "./adif/modes";
 
 function generateCmdArb(command: string, arb: () => fc.Arbitrary<string>) {
@@ -13,15 +15,17 @@ export const modeCmdArb = generateCmdArb("mode", modeArb);
 export const frequencyArb = () =>
   fc
     .constantFrom(...Object.values(bandRange))
-    .chain((band) => fc.double({ min: band.from, max: band.to, noNaN: true }))
-    .map((f) => {
-      return new Intl.NumberFormat("en", {
-        minimumFractionDigits: 1,
-        useGrouping: false,
-      }).format(f);
-    });
+    .chain((band) => fc.double({ min: band.from, max: band.to, noNaN: true }));
 
-export const frequencyCommandArb = () => frequencyArb();
+export const frequencyStringArb = () =>
+  frequencyArb().map((f) => {
+    return new Intl.NumberFormat("en", {
+      minimumFractionDigits: 1,
+      useGrouping: false,
+    }).format(f);
+  });
+
+export const frequencyCommandArb = () => frequencyStringArb();
 
 // limit to 'reasonable' date ranges of qsos
 const qsoDateRangeArb = () =>
@@ -218,3 +222,20 @@ export const commandArb = () =>
     gridsquareCmdArb(),
     mygridsquareCmdArb()
   );
+
+export const parserContactArb = (): fc.Arbitrary<ParserContact> =>
+  fc
+    .tuple(
+      fc.record<ParserContact>({
+        call: callsignArb(),
+        stationCallsign: callsignArb(),
+        qsoDate: dateArb(),
+        timeOn: fc.oneof(timeWithSecondsArb(), timeWithSecondsArb()),
+        band: fc.constantFrom(...bands),
+        mode: modeArb(),
+        freq: frequencyArb(),
+        rstSent: signalReportArb(),
+        rstRcvd: signalReportArb(),
+      })
+    )
+    .map(([record]) => record);

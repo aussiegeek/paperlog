@@ -11,6 +11,7 @@ import {
   modeArb,
   timeWithoutSeconds,
   logEntryLineArb,
+  frequencyCommandArb,
 } from "./testArbitaries";
 
 describe("parse", () => {
@@ -489,7 +490,7 @@ describe("parse", () => {
       fc.property(
         callsignArb(),
         dateArb(),
-        frequencyArb(),
+        frequencyCommandArb(),
         modeArb(),
         fc.array(fc.tuple(callsignArb(), timeWithoutSeconds())),
         fc.context(),
@@ -526,7 +527,7 @@ describe("parse", () => {
       fc.property(
         callsignArb(),
         dateArb(),
-        frequencyArb(),
+        frequencyCommandArb(),
         modeArb(),
         fc.array(logEntryLineArb()),
         fc.context(),
