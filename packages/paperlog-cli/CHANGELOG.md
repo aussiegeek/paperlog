@@ -1,5 +1,13 @@
 # paperlog-cli
 
+## 0.1.2
+
+### Patch Changes
+
+- 36493b6: Create .adi file with all contacts
+- Updated dependencies [36493b6]
+  - paperlog@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
