@@ -157,6 +157,12 @@ function adifRecord() {
   import { BandEnum } from "./bands";
   import { ModeEnum } from "./modes";
 
+  export const adifRecordKeys = ${JSON.stringify(
+    Object.keys(fields)
+      .filter((k) => !excludeFieldsFilter.includes(k))
+      .map((k) => camelCase(k))
+  )};
+
   export const AdifRecord = object({
     ${Object.entries(fields)
       .reduce<string[]>((acc, [key, field]) => {

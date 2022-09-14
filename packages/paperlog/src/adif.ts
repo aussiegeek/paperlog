@@ -1,6 +1,6 @@
 import { snakeCase } from "snake-case";
 import { version } from ".";
-import type { AdifRecord } from "./adif/adifRecord";
+import { AdifRecord, adifRecordKeys } from "./adif/adifRecord";
 export interface AdifFile {
   records: AdifRecord[];
 }
@@ -25,9 +25,8 @@ function valueLength(value: string | number | undefined) {
 }
 
 function serializeRecord(record: AdifRecord): string {
-  const keys = Object.keys(record).sort();
   return (
-    keys
+    adifRecordKeys
       .map((key) => {
         // @ts-expect-error deal with record key annoyances
         const value = record[key];
