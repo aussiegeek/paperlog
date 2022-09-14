@@ -1,5 +1,11 @@
 # paperlog
 
+## 0.1.2
+
+### Patch Changes
+
+- 36493b6: Create .adi file with all contacts
+
 ## 0.1.1
 
 ### Patch Changes
