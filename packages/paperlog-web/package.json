@@ -20,7 +20,7 @@
     "webpack": "5.74.0"
   },
   "devDependencies": {
-    "autoprefixer": "10.4.11",
+    "autoprefixer": "10.4.12",
     "nodemon": "2.0.19",
     "postcss": "8.4.16",
     "react": "18.2.0",
