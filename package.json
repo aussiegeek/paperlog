@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "github:aussiegeek/paperlog",
   "devDependencies": {
-    "@tsconfig/node16-strictest": "1.0.3",
+    "@tsconfig/node16-strictest": "1.0.4",
     "@types/jest": "29.0.3",
     "@types/node": "16.11.59",
     "@typescript-eslint/eslint-plugin": "5.38.0",
