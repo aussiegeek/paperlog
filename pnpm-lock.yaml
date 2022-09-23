@@ -5,7 +5,7 @@ importers:
   .:
     specifiers:
       '@changesets/cli': 2.24.4
-      '@tsconfig/node16-strictest': 1.0.3
+      '@tsconfig/node16-strictest': 1.0.4
       '@types/jest': 29.0.3
       '@types/node': 16.11.59
       '@typescript-eslint/eslint-plugin': 5.38.0
@@ -25,7 +25,7 @@ importers:
     dependencies:
       '@changesets/cli': 2.24.4
     devDependencies:
-      '@tsconfig/node16-strictest': 1.0.3
+      '@tsconfig/node16-strictest': 1.0.4
       '@types/jest': 29.0.3
       '@types/node': 16.11.59
       '@typescript-eslint/eslint-plugin': 5.38.0_wsb62dxj2oqwgas4kadjymcmry
@@ -1022,8 +1022,8 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@tsconfig/node16-strictest/1.0.3:
-    resolution: {integrity: sha512-sY7TxE3BzAdsCuKqGWOTtAoPe4tPD0xlPWfjinJvrBvCulyALVSwvIoo7WMcX8O/WyMFzn9rQObA43mAogQ8MQ==}
+  /@tsconfig/node16-strictest/1.0.4:
+    resolution: {integrity: sha512-kp6/DuAoKzHVv5U+p0uOesYbjrEvrYVNdQMl163a+yXXUv9twabvkCGEn3pmVxKXB45JU5MPGolDDWnONZL5ZQ==}
     dev: true
 
   /@types/babel__core/7.1.18:
