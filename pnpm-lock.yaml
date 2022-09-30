@@ -10,7 +10,7 @@ importers:
       '@types/node': 16.11.62
       '@typescript-eslint/eslint-plugin': 5.38.1
       '@typescript-eslint/parser': 5.38.1
-      buildkite-test-collector: 1.2.1
+      buildkite-test-collector: 1.3.0
       eslint: 8.24.0
       eslint-config-prettier: 8.5.0
       eslint-plugin-jest: 27.0.4
@@ -30,7 +30,7 @@ importers:
       '@types/node': 16.11.62
       '@typescript-eslint/eslint-plugin': 5.38.1_qatzzi2vqzjqg2tq57nszrvcfi
       '@typescript-eslint/parser': 5.38.1_7ilbxdl5iguzcjriqqcg2m5cku
-      buildkite-test-collector: 1.2.1
+      buildkite-test-collector: 1.3.0
       eslint: 8.24.0
       eslint-config-prettier: 8.5.0_eslint@8.24.0
       eslint-plugin-jest: 27.0.4_btnqirahbzpfcoctdob7k6cb3a
@@ -1948,11 +1948,12 @@ packages:
   /buffer-from/1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
-  /buildkite-test-collector/1.2.1:
-    resolution: {integrity: sha512-L0fUrtuB1gTQmaXUHcLvg3CaVzTLJ5Ps4BRdcEveqtYhXlPjILdmSyqd9fwbqnc07JM8qf/HFMCL3g+2cLJdsw==}
+  /buildkite-test-collector/1.3.0:
+    resolution: {integrity: sha512-snKze5XEQu1NCeApKAhG/A1LdOu68hHQdb3aDvUK9rT+YgUTQ/JMIQcWvUxU1CelwduE8F6r6oWJNbRowkmw+Q==}
     engines: {npm: '>=7.0.0'}
     dependencies:
       axios: 0.26.1
+      dotenv: 16.0.3
       request-spy: 0.0.10
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -2490,6 +2491,11 @@ packages:
       no-case: 3.0.4
       tslib: 2.4.0
     dev: false
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+    dev: true
 
   /ee-first/1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
