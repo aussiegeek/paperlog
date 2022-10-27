@@ -109,7 +109,7 @@ importers:
       react-dom: 18.2.0
       style-loader: 3.3.1
       superstruct: 0.16.6
-      tailwindcss: 3.2.0
+      tailwindcss: 3.2.1
       ts-loader: 9.3.1
       typescript: 4.8.3
       webpack: 5.74.0
@@ -134,7 +134,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       superstruct: 0.16.6
-      tailwindcss: 3.2.0_postcss@8.4.18
+      tailwindcss: 3.2.1_postcss@8.4.18
       webpack-cli: 4.10.0_vnmgq7jx5zjkzolvtfp7mdf5ri
       webpack-dev-server: 4.11.1_5v66e2inugklgvlh4huuavolfq
 
@@ -569,7 +569,7 @@ packages:
       '@changesets/types': 5.1.0
       '@manypkg/get-packages': 1.1.3
       fs-extra: 7.0.1
-      micromatch: 4.0.4
+      micromatch: 4.0.5
     dev: false
 
   /@changesets/errors/0.1.4:
@@ -926,7 +926,7 @@ packages:
       jest-haste-map: 29.2.1
       jest-regex-util: 29.2.0
       jest-util: 29.2.1
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       pirates: 4.0.5
       slash: 3.0.0
       write-file-atomic: 4.0.1
@@ -2897,7 +2897,7 @@ packages:
       '@nodelib/fs.walk': 1.2.8
       glob-parent: 5.1.2
       merge2: 1.4.1
-      micromatch: 4.0.4
+      micromatch: 4.0.5
 
   /fast-json-stable-stringify/2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
@@ -2970,7 +2970,7 @@ packages:
   /find-yarn-workspace-root2/1.2.16:
     resolution: {integrity: sha512-hr6hb1w8ePMpPVUK39S4RlwJzi+xPLuVuG8XlwXU3KD5Yn3qgBWVfy3AzNlDhWvE1EORCE65/Qm26rFQt3VLVA==}
     dependencies:
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       pkg-dir: 4.2.0
     dev: false
 
@@ -3286,7 +3286,7 @@ packages:
       http-proxy: 1.18.1
       is-glob: 4.0.3
       is-plain-obj: 3.0.0
-      micromatch: 4.0.4
+      micromatch: 4.0.5
     transitivePeerDependencies:
       - debug
 
@@ -3749,7 +3749,7 @@ packages:
       jest-runner: 29.2.2
       jest-util: 29.2.1
       jest-validate: 29.2.2
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       parse-json: 5.2.0
       pretty-format: 29.2.1
       slash: 3.0.0
@@ -3788,7 +3788,7 @@ packages:
       jest-runner: 29.2.2
       jest-util: 29.2.1
       jest-validate: 29.2.2
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       parse-json: 5.2.0
       pretty-format: 29.2.1
       slash: 3.0.0
@@ -3827,7 +3827,7 @@ packages:
       jest-runner: 29.2.2
       jest-util: 29.2.1
       jest-validate: 29.2.2
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       parse-json: 5.2.0
       pretty-format: 29.2.1
       slash: 3.0.0
@@ -3894,7 +3894,7 @@ packages:
       jest-regex-util: 29.2.0
       jest-util: 29.2.1
       jest-worker: 29.2.1
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
       fsevents: 2.3.2
@@ -3937,7 +3937,7 @@ packages:
       '@types/stack-utils': 2.0.1
       chalk: 4.1.2
       graceful-fs: 4.2.9
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       pretty-format: 29.2.1
       slash: 3.0.0
       stack-utils: 2.0.5
@@ -4422,6 +4422,13 @@ packages:
 
   /micromatch/4.0.4:
     resolution: {integrity: sha512-pRmzw/XUcwXGpD9aI9q/0XOwLNygjETJ8y0ao0wdqprrzDa4YnxLcz7fQRZr8voh8V10kGhABbNcHVk5wHgWwg==}
+    engines: {node: '>=8.6'}
+    dependencies:
+      braces: 3.0.2
+      picomatch: 2.3.1
+
+  /micromatch/4.0.5:
+    resolution: {integrity: sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==}
     engines: {node: '>=8.6'}
     dependencies:
       braces: 3.0.2
@@ -5655,8 +5662,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /tailwindcss/3.2.0_postcss@8.4.18:
-    resolution: {integrity: sha512-ARh/W0uH5UlWIC2nn02V0+5fyF0k6qZliyt4QYic2upOhPUE/Spu1EURNc9txJ3+4j8OEmdigqfDpw4d2tA4vA==}
+  /tailwindcss/3.2.1_postcss@8.4.18:
+    resolution: {integrity: sha512-Uw+GVSxp5CM48krnjHObqoOwlCt5Qo6nw1jlCRwfGy68dSYb/LwS9ZFidYGRiM+w6rMawkZiu1mEMAsHYAfoLg==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
@@ -5672,6 +5679,7 @@ packages:
       glob-parent: 6.0.2
       is-glob: 4.0.3
       lilconfig: 2.0.6
+      micromatch: 4.0.5
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.0
