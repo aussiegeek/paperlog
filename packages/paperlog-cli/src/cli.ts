@@ -11,6 +11,8 @@ import {
   collectGlobalErrors,
   validationMessagesForResult,
   AdifFile,
+  importAdif,
+  exportPaperlog,
 } from "paperlog";
 import { is } from "superstruct";
 
@@ -58,6 +60,16 @@ function exportCommand(logPath: string) {
   ).forEach(logWriter);
 }
 
+function importAdifCommand(inputFilePath: string) {
+  const adifFile = importAdif(fs.readFileSync(inputFilePath, "utf-8"));
+  const dir = path.dirname(inputFilePath);
+  const basename = path.basename(inputFilePath, ".adi");
+  const outputPath = path.join(dir, basename + ".txt");
+
+  console.log("Exporting to", outputPath);
+  fs.writeFileSync(outputPath, exportPaperlog(adifFile));
+}
+
 yargs(hideBin(process.argv))
   .command<{ logs: string }>(
     "export [logs]",
@@ -72,6 +84,18 @@ yargs(hideBin(process.argv))
       exportCommand(argv.logs);
     }
   )
+  .command<{ adifFile: string }>(
+    "import <adifFile>",
+    "Parse adif file log into paperlog format",
+    (yargs) => {
+      return yargs.positional("import", {
+        describe: "Path to adif file to import",
+        demandOption: true,
+      });
+    },
+    (argv) => importAdifCommand(argv["adifFile"])
+  )
+
   .strictCommands()
   .demandCommand(1)
   .help()

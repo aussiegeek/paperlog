@@ -16,6 +16,7 @@ import {
 import { valueLength } from "./adif";
 import Decimal from "decimal.js";
 import { withDecimalStr } from "./withDecimalStr";
+import { presence } from "./presence";
 
 function generateCmdArb(command: string, arb: fc.Arbitrary<string>) {
   return arb.map((val) => [command, val].join(" "));
@@ -133,20 +134,23 @@ export const adifRecordArb = fc.record(adifRecordArbs, {
 });
 
 export const adifRecordValidatedArb = fc
-  .record(adifRecordArbs, {
-    requiredKeys: [
-      "call",
-      "qsoDate",
-      "timeOn",
-      "stationCallsign",
-      "mode",
-      "freq",
-      "rstRcvd",
-      "rstSent",
-    ],
-  })
-  .map((r) => {
-    return { ...blankAdifRecord, ...r };
+  .tuple(
+    fc.record(adifRecordArbs, {
+      requiredKeys: [
+        "call",
+        "qsoDate",
+        "timeOn",
+        "stationCallsign",
+        "mode",
+        "freq",
+        "rstRcvd",
+        "rstSent",
+      ],
+    }),
+    fc.option(potaRefArb, { nil: undefined })
+  )
+  .map(([r, myPotaRef]) => {
+    return presence({ appPaperlogMyPotaRef: myPotaRef, ...r });
   });
 
 export const adifFileArb = fc.record({

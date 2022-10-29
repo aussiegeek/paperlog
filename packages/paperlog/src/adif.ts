@@ -1,7 +1,7 @@
 import { snakeCase } from "snake-case";
 import { Infer, object, partial, string } from "superstruct";
 import { version } from ".";
-import { AdifRecord, adifRecordKeys } from "./adif/adifRecord";
+import type { AdifRecord } from "./adif/adifRecord";
 import Decimal from "decimal.js";
 export interface AdifFile {
   header?: AdifHeader | undefined;
@@ -73,9 +73,9 @@ export function valueLength(
 
 function serializeRecord(record: AdifRecord): string {
   return (
-    adifRecordKeys
-      .map((key) => {
-        const value = record[key];
+    Object.entries(record)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, value]) => {
         if (value === undefined) {
           return undefined;
         }

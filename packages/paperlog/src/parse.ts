@@ -12,6 +12,7 @@ import { Date, Time, ModeEnum } from "./adif/types";
 import { AdifRecord, adifRecordKeys } from "./adif/adifRecord";
 import { camelCase } from "change-case";
 import Decimal from "decimal.js";
+import { presence } from "./presence";
 
 export enum Command {
   Station = "station",
@@ -183,7 +184,7 @@ export function parse(input: string): Array<ParseResult> {
         if (err) {
           contacts.push({ error: err, line });
         } else {
-          contacts.push({ contact: validatedRecord });
+          contacts.push({ contact: presence(validatedRecord) });
         }
       }
     } else if (newRecord.call?.length && newRecord.call.length > 0) {
