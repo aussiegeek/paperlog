@@ -4,18 +4,14 @@ import {
   number,
   object,
   optional,
-  pick,
   string,
   validate,
-  assign,
   StructError,
 } from "superstruct";
 import { BandEnum, bandRange, bands } from "./adif/bands";
 import { lexer } from "./lexer";
 import { ParsingError, Token } from "tokenizr";
-import { Date, Time } from "./adif/types";
-import { ModeEnum } from "./adif/modes";
-import { AdifRecord } from "./adif/adifRecord";
+import { Date, Time, ModeEnum, Number, GridSquare } from "./adif/types";
 
 export enum Command {
   Station = "station",
@@ -40,28 +36,28 @@ export enum Command {
   TxPwr = "txPwr",
 }
 
-export const ParserContact = assign(
-  object({
-    qsoDate: Date,
-    timeOn: Time,
-    stationCallsign: nonempty(string()),
-    operator: optional(string()),
-    call: nonempty(string()),
-    band: optional(BandEnum),
-    mode: ModeEnum,
-    submode: optional(string()),
-    freq: number(),
-    rstSent: optional(string()),
-    rstRcvd: optional(string()),
-    sotaRef: optional(string()),
-    mySotaRef: optional(string()),
-    wwffRef: optional(string()),
-    myWwffRef: optional(string()),
-    potaRef: optional(string()),
-    myPotaRef: optional(string()),
-  }),
-  pick(AdifRecord, ["gridsquare", "myGridsquare", "txPwr"])
-);
+export const ParserContact = object({
+  qsoDate: Date,
+  timeOn: Time,
+  stationCallsign: nonempty(string()),
+  operator: optional(string()),
+  call: nonempty(string()),
+  band: optional(BandEnum),
+  mode: ModeEnum,
+  submode: optional(string()),
+  freq: number(),
+  rstSent: optional(string()),
+  rstRcvd: optional(string()),
+  sotaRef: optional(string()),
+  mySotaRef: optional(string()),
+  wwffRef: optional(string()),
+  myWwffRef: optional(string()),
+  potaRef: optional(string()),
+  myPotaRef: optional(string()),
+  gridsquare: optional(GridSquare),
+  myGridsquare: optional(GridSquare),
+  txPwr: optional(Number),
+});
 
 export type ParserContact = Infer<typeof ParserContact>;
 export interface ParserFailure {
