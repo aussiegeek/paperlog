@@ -1,9 +1,23 @@
 import { snakeCase } from "snake-case";
+import { Infer, object, partial, string } from "superstruct";
 import { version } from ".";
 import { AdifRecord, adifRecordKeys } from "./adif/adifRecord";
 export interface AdifFile {
+  header?: AdifHeader | undefined;
   records: AdifRecord[];
 }
+
+export const adifHeader = partial(
+  object({
+    text: string(),
+    adifVer: string(),
+    createdTimestamp: string(),
+    programid: string(),
+    programversion: string(),
+  })
+);
+
+export type AdifHeader = Infer<typeof adifHeader>;
 
 export const adifVersion = "3.1.3";
 

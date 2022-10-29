@@ -1,15 +1,14 @@
 import { format } from "date-fns";
 import fc from "fast-check";
 import type { ParserContact } from ".";
-import type { BandEnum } from "./adif/bands";
 import { bandRange, bands } from "./adif/bands";
-import { modes } from "./adif/modes";
+import { mode } from "./adif/mode";
 
 function generateCmdArb(command: string, arb: () => fc.Arbitrary<string>) {
   return () => arb().map((val) => [command, val].join(" "));
 }
 
-export const modeArb = () => fc.constantFrom(...modes);
+export const modeArb = () => fc.constantFrom(...mode);
 export const modeCmdArb = generateCmdArb("mode", modeArb);
 
 export const frequencyArb = () =>

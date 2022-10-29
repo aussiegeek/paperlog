@@ -7,7 +7,6 @@ import fc from "fast-check";
 import {
   callsignArb,
   dateArb,
-  frequencyArb,
   modeArb,
   timeWithoutSeconds,
   logEntryLineArb,
