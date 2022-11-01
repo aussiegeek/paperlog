@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import fc from "fast-check";
-import type { ParserContact } from ".";
+import type { AdifRecord } from "./adif/adifRecord";
 import { bandRange, bands } from "./adif/bands";
 import { mode } from "./adif/mode";
 
@@ -222,10 +222,10 @@ export const commandArb = () =>
     mygridsquareCmdArb()
   );
 
-export const parserContactArb = (): fc.Arbitrary<ParserContact> =>
+export const adifRecordArb = (): fc.Arbitrary<AdifRecord> =>
   fc
     .tuple(
-      fc.record<ParserContact>({
+      fc.record<AdifRecord>({
         call: callsignArb(),
         stationCallsign: callsignArb(),
         qsoDate: dateArb(),

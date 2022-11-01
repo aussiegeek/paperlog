@@ -1,9 +1,9 @@
 import * as fc from "fast-check";
-import { ParserContact } from "./parse";
 import { array, assert } from "superstruct";
+import { AdifRecord } from "./adif/adifRecord";
 import { filterPota, filterSota, filterWwff } from "./filter";
 import {
-  parserContactArb,
+  adifRecordArb,
   potaRefArb,
   sotaRefArb,
   wwffRefArb,
@@ -16,13 +16,13 @@ describe("filter", () => {
         fc.property(
           fc.array(
             fc
-              .tuple(parserContactArb(), fc.constantFrom(undefined, ""))
+              .tuple(adifRecordArb(), fc.constantFrom(undefined, ""))
               .map(([c, sotaRef]) => {
                 return { ...c, sotaRef };
               })
           ),
           (contacts) => {
-            assert(contacts, array(ParserContact));
+            assert(contacts, array(AdifRecord));
             expect(filterSota(contacts)).toEqual([]);
           }
         )
@@ -32,7 +32,7 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(parserContactArb(), sotaRefArb()).map(([c, mySotaRef]) => {
+            fc.tuple(adifRecordArb(), sotaRefArb()).map(([c, mySotaRef]) => {
               return {
                 ...c,
                 mySotaRef,
@@ -40,7 +40,7 @@ describe("filter", () => {
             })
           ),
           (contacts) => {
-            assert(contacts, array(ParserContact));
+            assert(contacts, array(AdifRecord));
             expect(filterSota(contacts)).toEqual(contacts);
           }
         )
@@ -51,7 +51,7 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(parserContactArb(), sotaRefArb()).map(([c, sotaRef]) => {
+            fc.tuple(adifRecordArb(), sotaRefArb()).map(([c, sotaRef]) => {
               return {
                 ...c,
                 sotaRef,
@@ -59,7 +59,7 @@ describe("filter", () => {
             })
           ),
           (contacts) => {
-            assert(contacts, array(ParserContact));
+            assert(contacts, array(AdifRecord));
             expect(filterSota(contacts)).toEqual(contacts);
           }
         )
@@ -73,13 +73,13 @@ describe("filter", () => {
         fc.property(
           fc.array(
             fc
-              .tuple(parserContactArb(), fc.constantFrom(undefined, ""))
+              .tuple(adifRecordArb(), fc.constantFrom(undefined, ""))
               .map(([c, potaRef]) => {
                 return { ...c, potaRef };
               })
           ),
           (contacts) => {
-            assert(contacts, array(ParserContact));
+            assert(contacts, array(AdifRecord));
             expect(filterPota(contacts)).toEqual([]);
           }
         )
@@ -89,15 +89,15 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(parserContactArb(), potaRefArb()).map(([c, myPotaRef]) => {
+            fc.tuple(adifRecordArb(), potaRefArb()).map(([c, myPotaRef]) => {
               return {
                 ...c,
-                myPotaRef,
+                appPaperlogMyPotaRef: myPotaRef,
               };
             })
           ),
           (contacts) => {
-            assert(contacts, array(ParserContact));
+            assert(contacts, array(AdifRecord));
             expect(filterPota(contacts)).toEqual(contacts);
           }
         )
@@ -110,13 +110,13 @@ describe("filter", () => {
         fc.property(
           fc.array(
             fc
-              .tuple(parserContactArb(), fc.constantFrom(undefined, ""))
+              .tuple(adifRecordArb(), fc.constantFrom(undefined, ""))
               .map(([c, wwffRef]) => {
                 return { ...c, wwffRef };
               })
           ),
           (contacts) => {
-            assert(contacts, array(ParserContact));
+            assert(contacts, array(AdifRecord));
             expect(filterWwff(contacts)).toEqual([]);
           }
         )
@@ -126,7 +126,7 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(parserContactArb(), wwffRefArb()).map(([c, myWwffRef]) => {
+            fc.tuple(adifRecordArb(), wwffRefArb()).map(([c, myWwffRef]) => {
               return {
                 ...c,
                 myWwffRef,
@@ -134,7 +134,7 @@ describe("filter", () => {
             })
           ),
           (contacts) => {
-            assert(contacts, array(ParserContact));
+            assert(contacts, array(AdifRecord));
             expect(filterWwff(contacts)).toEqual(contacts);
           }
         )

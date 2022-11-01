@@ -1,8 +1,8 @@
 import * as fc from "fast-check";
 import { exportLogs } from "./export";
 import {
+  adifRecordArb,
   callsignArb,
-  parserContactArb,
   potaRefArb,
   sotaRefArb,
   wwffRefArb,
@@ -15,7 +15,7 @@ describe("export", () => {
         fc.array(
           fc
             .tuple(
-              parserContactArb(),
+              adifRecordArb(),
               fc.oneof(sotaRefArb(), fc.constant(undefined)),
               fc.oneof(sotaRefArb(), fc.constant(undefined))
             )
@@ -41,7 +41,7 @@ describe("export", () => {
         fc.array(
           fc
             .tuple(
-              parserContactArb(),
+              adifRecordArb(),
               fc.oneof(sotaRefArb(), fc.constant(undefined)),
               fc.oneof(sotaRefArb(), fc.constant(undefined))
             )
@@ -75,7 +75,7 @@ describe("export", () => {
       fc.property(
         fc
           .tuple(
-            fc.array(parserContactArb(), { minLength: 1 }),
+            fc.array(adifRecordArb(), { minLength: 1 }),
             wwffRefArb(),
             callsignArb()
           )
@@ -109,14 +109,18 @@ describe("export", () => {
       fc.property(
         fc
           .tuple(
-            fc.array(parserContactArb(), { minLength: 1 }),
+            fc.array(adifRecordArb(), { minLength: 1 }),
             potaRefArb(),
             callsignArb()
           )
           .map(([contacts, myPotaRef, stationCallsign]) => {
             return {
               contacts: contacts.map((c) => {
-                return { ...c, myPotaRef, stationCallsign };
+                return {
+                  ...c,
+                  appPaperlogMyPotaRef: myPotaRef,
+                  stationCallsign,
+                };
               }),
               myPotaRef,
               stationCallsign,

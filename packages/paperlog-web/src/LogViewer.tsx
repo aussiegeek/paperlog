@@ -81,10 +81,10 @@ export function LogViewer({ contacts }: { contacts: Array<ParseResult> }) {
                   <td>{contact.mode}</td>
                   <td>{contact.sotaRef}</td>
                   <td>{contact.wwffRef}</td>
-                  <td>{contact.potaRef}</td>
+                  <td>{contact["appPaperlogPotaRef"]}</td>
                   <td>{contact.mySotaRef}</td>
                   <td>{contact.myWwffRef}</td>
-                  <td>{contact.myPotaRef}</td>
+                  <td>{contact["appPaperlogMyPotaRef"]}</td>
                 </tr>
               );
             }

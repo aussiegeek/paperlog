@@ -175,7 +175,7 @@ function adifRecord() {
     Object.keys(fields).map((k) => camelCase(k))
   )};
 
-  export interface AdifRecord extends Record<\`app\${string}\`, string> {
+  export interface AdifRecord extends Record<\`app\${string}\`, string|undefined> {
     ${Object.entries(fields)
       .reduce<string[]>((acc, [key, field]) => {
         const { description } = field;
