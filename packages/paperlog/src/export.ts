@@ -1,4 +1,4 @@
-import type { AdifRecord, ParserContact } from ".";
+import type { AdifRecord } from ".";
 import type { AdifFile } from "./adif";
 import { filterSota } from ".";
 
@@ -12,7 +12,7 @@ export function exportLogs({
   contacts,
   srcFileName,
 }: {
-  contacts: ParserContact[];
+  contacts: AdifRecord[];
   srcFileName: string;
 }): ExportLogResult {
   let files: Record<string, AdifFile> = {
@@ -42,7 +42,7 @@ export function exportLogs({
   return { files };
 }
 
-function exportSotaContacts(contacts: ParserContact[]): AdifFile | null {
+function exportSotaContacts(contacts: AdifRecord[]): AdifFile | null {
   const sotaContacts = filterSota(contacts).map((c) => {
     const { sotaRef, mySotaRef } = c;
     const adifContact: AdifRecord = {
@@ -61,11 +61,8 @@ function exportSotaContacts(contacts: ParserContact[]): AdifFile | null {
   return { records: sotaContacts };
 }
 
-function keyContactsBy(
-  contacts: ParserContact[],
-  keys: Array<keyof ParserContact>
-) {
-  const keyedContacts: Record<string, ParserContact[]> = {};
+function keyContactsBy(contacts: AdifRecord[], keys: Array<keyof AdifRecord>) {
+  const keyedContacts: Record<string, AdifRecord[]> = {};
   contacts.forEach((contact) => {
     const keyValues = keys.map((key) => contact[key]);
     if (keyValues.some((v) => typeof v === "undefined")) {
@@ -80,7 +77,7 @@ function keyContactsBy(
   return keyedContacts;
 }
 
-function exportWwffContacts(contacts: ParserContact[]): ExportFileCollection {
+function exportWwffContacts(contacts: AdifRecord[]): ExportFileCollection {
   const fileCollection: ExportFileCollection = {};
   const contactRefDate = keyContactsBy(contacts, ["qsoDate", "myWwffRef"]);
 
@@ -110,21 +107,21 @@ function exportWwffContacts(contacts: ParserContact[]): ExportFileCollection {
   return fileCollection;
 }
 
-function exportPotaContacts(contacts: ParserContact[]): ExportFileCollection {
+function exportPotaContacts(contacts: AdifRecord[]): ExportFileCollection {
   const fileCollection: ExportFileCollection = {};
-  const contactRefDate = keyContactsBy(contacts, ["myPotaRef"]);
+  const contactRefDate = keyContactsBy(contacts, ["appPaperlogMyPotaRef"]);
 
   Object.values(contactRefDate).forEach((contacts) => {
     const adifContacts: AdifRecord[] = contacts.map((c) => {
       const adifContact: AdifRecord = {
         ...baseContactToRecord(c),
         mySig: "POTA",
-        mySigInfo: c.myPotaRef,
+        mySigInfo: c["appPaperlogMyPotaRef"],
       };
 
-      if (c.potaRef && c.potaRef.length > 0) {
+      if (c["appPaperlogPotaRef"] && c["appPaperlogPotaRef"].length > 0) {
         adifContact.sig = "POTA";
-        adifContact.sigInfo = c.potaRef;
+        adifContact.sigInfo = c["appPaperlogPotaRef"];
       }
 
       return adifContact;
@@ -145,7 +142,7 @@ function exportPotaContacts(contacts: ParserContact[]): ExportFileCollection {
   return fileCollection;
 }
 
-function baseContactToRecord(contact: ParserContact): AdifRecord {
+function baseContactToRecord(contact: AdifRecord): AdifRecord {
   const {
     band,
     qsoDate,

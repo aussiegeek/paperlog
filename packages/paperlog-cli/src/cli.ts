@@ -6,7 +6,7 @@ import { hideBin } from "yargs/helpers";
 import {
   serialize,
   parse,
-  ParserContact,
+  AdifRecord,
   exportLogs,
   collectGlobalErrors,
   validationMessagesForResult,
@@ -31,7 +31,7 @@ function exportCommand(logPath: string) {
     process.exit(1);
   }
 
-  const validContacts: ParserContact[] = contacts
+  const validContacts: AdifRecord[] = contacts
     .map((result) => {
       if ("contact" in result) {
         return result.contact;
@@ -41,7 +41,7 @@ function exportCommand(logPath: string) {
       console.warn(messages.join("\n") + "\n");
       return;
     })
-    .filter((c): c is ParserContact => is(c, ParserContact));
+    .filter((c): c is AdifRecord => is(c, AdifRecord));
 
   if (validContacts.length != contacts.length) {
     console.error("Attempting to export with parser failure");

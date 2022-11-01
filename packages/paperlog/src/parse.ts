@@ -2,16 +2,18 @@ import {
   Infer,
   nonempty,
   number,
-  object,
+  type,
   optional,
   string,
   validate,
   StructError,
+  is,
 } from "superstruct";
 import { BandEnum, bandRange, bands } from "./adif/bands";
 import { lexer } from "./lexer";
 import { ParsingError, Token } from "tokenizr";
 import { Date, Time, ModeEnum, Number, GridSquare } from "./adif/types";
+import { AdifRecord } from ".";
 
 export enum Command {
   Station = "station",
@@ -36,30 +38,16 @@ export enum Command {
   TxPwr = "txPwr",
 }
 
-export const ParserContact = object({
+// only the fields we require for a paperlog format contact
+const ValidatedAdifRecord = type({
   qsoDate: Date,
   timeOn: Time,
   stationCallsign: nonempty(string()),
-  operator: optional(string()),
   call: nonempty(string()),
-  band: optional(BandEnum),
   mode: ModeEnum,
-  submode: optional(string()),
   freq: number(),
-  rstSent: optional(string()),
-  rstRcvd: optional(string()),
-  sotaRef: optional(string()),
-  mySotaRef: optional(string()),
-  wwffRef: optional(string()),
-  myWwffRef: optional(string()),
-  potaRef: optional(string()),
-  myPotaRef: optional(string()),
-  gridsquare: optional(GridSquare),
-  myGridsquare: optional(GridSquare),
-  txPwr: optional(Number),
 });
 
-export type ParserContact = Infer<typeof ParserContact>;
 export interface ParserFailure {
   line: string;
   error: ParsingError;
@@ -70,7 +58,7 @@ export interface ValidationFailure {
 }
 
 export interface ParseSuccess {
-  contact: ParserContact;
+  contact: AdifRecord;
 }
 
 export type ParseResult = ParseSuccess | ParserFailure | ValidationFailure;
@@ -83,9 +71,9 @@ function parseAwardRefWithReset(ref: string): string | undefined {
 
 export function parse(input: string): Array<ParseResult> {
   const contacts: Array<ParseResult> = [];
-  const template: Partial<ParserContact> = {};
+  const template: AdifRecord = {};
   input.split("\n").forEach((line) => {
-    const record: Partial<ParserContact> = {};
+    const record: AdifRecord = {};
     lexer.input(line);
     // lexer.debug(true);
     try {
@@ -134,10 +122,12 @@ export function parse(input: string): Array<ParseResult> {
             template.myWwffRef = parseAwardRefWithReset(token.value);
             break;
           case "pota":
-            record.potaRef = token.value;
+            record["appPaperlogPotaRef"] = token.value;
             break;
           case "mypota":
-            template.myPotaRef = parseAwardRefWithReset(token.value);
+            template["appPaperlogMyPotaRef"] = parseAwardRefWithReset(
+              token.value
+            );
             break;
           case "gridsquare":
             template.gridsquare = token.value;
@@ -160,24 +150,31 @@ export function parse(input: string): Array<ParseResult> {
           // throw new Error(`Unhandled command: ${exhaustiveCheck}`);
         }
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof ParsingError) {
         contacts.push({ line, error });
       } else {
-        console.error(error.toString());
         throw error;
       }
     }
 
     const newRecord = { ...template, ...record };
 
-    const [err, validatedRecord] = validate(newRecord, ParserContact, {
+    const [err, validatedRecord] = validate(newRecord, AdifRecord, {
       coerce: true,
     });
 
+    // if parsed as a AdifRecord
     if (validatedRecord) {
-      contacts.push({ contact: validatedRecord });
+      if (validatedRecord.call && validatedRecord.call.length > 0) {
+        // now see if it validated for paperlog format contact too
+        const [err, _] = validate(newRecord, ValidatedAdifRecord);
+        if (err) {
+          contacts.push({ error: err, line });
+        } else {
+          contacts.push({ contact: validatedRecord });
+        }
+      }
     } else if (newRecord.call?.length && newRecord.call.length > 0) {
       contacts.push({ error: err, line });
     }
@@ -186,7 +183,7 @@ export function parse(input: string): Array<ParseResult> {
   return contacts;
 }
 
-function parseMode(token: Token, template: Partial<ParserContact>) {
+function parseMode(token: Token, template: Partial<AdifRecord>) {
   const mode = token.value;
   template.mode = mode;
   if (mode == "CW") {
@@ -198,7 +195,7 @@ function parseMode(token: Token, template: Partial<ParserContact>) {
   }
 }
 
-function parseFreq(token: Token, template: Partial<ParserContact>) {
+function parseFreq(token: Token, template: Partial<AdifRecord>) {
   const freq = parseFloat(token.value);
   template.freq = freq;
 
