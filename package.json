@@ -6,7 +6,7 @@
   "repository": "github:aussiegeek/paperlog",
   "devDependencies": {
     "@tsconfig/node16-strictest": "1.0.4",
-    "@types/jest": "29.2.0",
+    "@types/jest": "29.2.1",
     "@types/node": "16.18.2",
     "@typescript-eslint/eslint-plugin": "5.41.0",
     "@typescript-eslint/parser": "5.41.0",
