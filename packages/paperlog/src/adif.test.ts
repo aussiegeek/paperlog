@@ -1,10 +1,12 @@
 import { version } from ".";
-import { AdifFile, adifVersion, serialize } from "./adif";
+import { AdifFile, adifVersion, defaultHeader, serialize } from "./adif";
+import Decimal from "decimal.js";
 
 describe("adif", () => {
   describe("manual serialization", () => {
     test("it serialzies a sample file with no header correctly", () => {
       const file: AdifFile = {
+        header: defaultHeader(),
         records: [
           {
             stationCallsign: "VK3TCP",
@@ -12,7 +14,7 @@ describe("adif", () => {
             timeOn: "1523",
             call: "VK9NS",
             band: "20m",
-            freq: 14,
+            freq: new Decimal(14),
             mode: "RTTY",
             rstSent: "59",
             rstRcvd: "59",
@@ -23,7 +25,7 @@ describe("adif", () => {
             timeOn: "0111",
             call: "ON4UN",
             band: "40m",
-            freq: 7,
+            freq: new Decimal(7),
             mode: "PSK",
             submode: "PSK63",
             rstSent: "59",
@@ -41,6 +43,7 @@ describe("adif", () => {
 
     test("serializes a sota activation", () => {
       const file: AdifFile = {
+        header: defaultHeader(),
         records: [
           {
             stationCallsign: "VK3TCP",
@@ -49,7 +52,7 @@ describe("adif", () => {
             call: "VK2MET",
             band: "40m",
             mode: "SSB",
-            freq: 7.134,
+            freq: new Decimal("7.134"),
             rstSent: "55",
             rstRcvd: "57",
             sotaRef: "VK1/AC-040",
@@ -62,7 +65,7 @@ describe("adif", () => {
             call: "VK3BYD",
             band: "40m",
             mode: "CW",
-            freq: 7.032,
+            freq: new Decimal("7.032"),
             rstSent: "599",
             rstRcvd: "599",
             mySotaRef: "VK3/VC-014",
@@ -78,6 +81,7 @@ describe("adif", () => {
 
     test("serializes a wwff activation", () => {
       const file: AdifFile = {
+        header: defaultHeader(),
         records: [
           {
             stationCallsign: "VK3TCP",
@@ -87,7 +91,7 @@ describe("adif", () => {
             qsoDate: "20211229",
             timeOn: "0255",
             band: "10m",
-            freq: 28.48,
+            freq: new Decimal("28.48"),
             mode: "SSB",
             mySig: "WWFF",
             mySigInfo: "VKFF-0763",
@@ -100,7 +104,7 @@ describe("adif", () => {
             qsoDate: "20211229",
             timeOn: "0311",
             band: "40m",
-            freq: 7.15,
+            freq: new Decimal(7.15),
             mode: "SSB",
             sig: "WWFF",
             sigInfo: "VKFF-0339",
@@ -118,6 +122,7 @@ describe("adif", () => {
 
     test("doesn't allow fields with undefined values to be exported", () => {
       const file: AdifFile = {
+        header: defaultHeader(),
         records: [
           {
             stationCallsign: "VK3TCP",
@@ -125,7 +130,7 @@ describe("adif", () => {
             timeOn: "0311",
             call: "VK3PF/P",
             band: "40m",
-            freq: 7.15,
+            freq: new Decimal(7.15),
             mode: "SSB",
             sig: undefined,
             sigInfo: undefined,

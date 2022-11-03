@@ -4,14 +4,14 @@ import {
   validationMessagesForResult,
 } from "./parse";
 import fc from "fast-check";
+import { logEntryLineArb, frequencyCommandArb } from "./testArbitaries";
 import {
   callsignArb,
   dateArb,
-  modeArb,
+  modeEnumArb,
   timeWithoutSeconds,
-  logEntryLineArb,
-  frequencyCommandArb,
-} from "./testArbitaries";
+} from "./adif/adifFieldArbs";
+import Decimal from "decimal.js";
 
 describe("parse", () => {
   test("basic sota activation", () => {
@@ -32,8 +32,7 @@ describe("parse", () => {
           rstSent: "55",
           qsoDate: "20220317",
           timeOn: "2300",
-          band: "40m",
-          freq: 7.134,
+          freq: new Decimal(7.134),
           mode: "SSB",
           mySotaRef: "VK3/VC-014",
           sotaRef: "VK1/AC-040",
@@ -47,8 +46,7 @@ describe("parse", () => {
           rstSent: "59",
           qsoDate: "20220317",
           timeOn: "2323",
-          band: "40m",
-          freq: 7.126,
+          freq: new Decimal(7.126),
           mode: "SSB",
           mySotaRef: "VK3/VC-014",
         },
@@ -61,8 +59,7 @@ describe("parse", () => {
           rstSent: "559",
           qsoDate: "20220317",
           timeOn: "2334",
-          band: "40m",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           mySotaRef: "VK3/VC-014",
         },
@@ -76,17 +73,15 @@ describe("parse", () => {
           sotaRef: "VK1/AC-040",
           rstSent: "599",
           rstRcvd: "599",
-          band: "40m",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           mySotaRef: "VK3/VC-014",
         },
       },
       {
         contact: {
-          band: "40m",
           call: "VK1VIC",
-          freq: 7.112,
+          freq: new Decimal(7.112),
           mode: "SSB",
           mySotaRef: "VK3/VC-014",
           qsoDate: "20220318",
@@ -116,8 +111,7 @@ describe("parse", () => {
           rstSent: "59",
           qsoDate: "20220317",
           timeOn: "2301",
-          band: "40m",
-          freq: 7.134,
+          freq: new Decimal(7.134),
           mode: "SSB",
         },
       },
@@ -129,8 +123,7 @@ describe("parse", () => {
           rstSent: "59",
           qsoDate: "20220317",
           timeOn: "2301",
-          band: "40m",
-          freq: 7.134,
+          freq: new Decimal(7.134),
           mode: "SSB",
         },
       },
@@ -154,8 +147,7 @@ describe("parse", () => {
           rstSent: "53",
           qsoDate: "20211229",
           timeOn: "0255",
-          band: "10m",
-          freq: 28.48,
+          freq: new Decimal(28.48),
           mode: "SSB",
           myWwffRef: "VKFF-0763",
         },
@@ -168,8 +160,7 @@ describe("parse", () => {
           rstSent: "59",
           qsoDate: "20211229",
           timeOn: "0311",
-          band: "40m",
-          freq: 7.15,
+          freq: new Decimal(7.15),
           mode: "SSB",
           sotaRef: "VK3/VE-019",
           wwffRef: "VKFF-0339",
@@ -190,9 +181,8 @@ describe("parse", () => {
       {
         contact: {
           stationCallsign: "VK3TCP",
-          band: "15m",
           call: "VK4FBJL",
-          freq: 21.144,
+          freq: new Decimal(21.144),
           mode: "SSB",
           appPaperlogMyPotaRef: "VK-0485",
           qsoDate: "20211219",
@@ -205,9 +195,8 @@ describe("parse", () => {
       {
         contact: {
           stationCallsign: "VK3TCP",
-          band: "40m",
           call: "VK2HBG",
-          freq: 7.125,
+          freq: new Decimal(7.125),
           mode: "SSB",
           appPaperlogMyPotaRef: "VK-0485",
           qsoDate: "20211219",
@@ -231,9 +220,8 @@ describe("parse", () => {
         contact: {
           stationCallsign: "VK3PRG",
           operator: "VK3TCP",
-          band: "15m",
           call: "VK4FBJL",
-          freq: 21.144,
+          freq: new Decimal(21.144),
           mode: "SSB",
           qsoDate: "20211219",
           rstRcvd: "41",
@@ -245,9 +233,8 @@ describe("parse", () => {
         contact: {
           stationCallsign: "VK3PRG",
           operator: "VK3TCP",
-          band: "40m",
           call: "VK2HBG",
-          freq: 7.125,
+          freq: new Decimal(7.125),
           mode: "SSB",
           qsoDate: "20211219",
           rstRcvd: "41",
@@ -266,9 +253,8 @@ describe("parse", () => {
     const output = [
       {
         contact: {
-          band: "17m",
           call: "K7OEG",
-          freq: 18.102,
+          freq: new Decimal(18.102),
           mode: "FT8",
           appPaperlogMyPotaRef: "VK-2796",
           myWwffRef: "VKFF-2452",
@@ -293,9 +279,8 @@ describe("parse", () => {
     const output = [
       {
         contact: {
-          band: "40m",
           call: "VK3PF",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           qsoDate: "20220805",
           rstRcvd: "599",
@@ -307,9 +292,8 @@ describe("parse", () => {
       },
       {
         contact: {
-          band: "40m",
           call: "VK2IO",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           qsoDate: "20220805",
           rstRcvd: "599",
@@ -331,9 +315,8 @@ describe("parse", () => {
     const output = [
       {
         contact: {
-          band: "40m",
           call: "VK3PF",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           qsoDate: "20220805",
           rstRcvd: "599",
@@ -345,9 +328,8 @@ describe("parse", () => {
       },
       {
         contact: {
-          band: "40m",
           call: "VK2IO",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           qsoDate: "20220805",
           rstRcvd: "599",
@@ -369,9 +351,8 @@ describe("parse", () => {
     const output = [
       {
         contact: {
-          band: "40m",
           call: "VK3PF",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           qsoDate: "20220805",
           rstRcvd: "599",
@@ -383,9 +364,8 @@ describe("parse", () => {
       },
       {
         contact: {
-          band: "40m",
           call: "VK2IO",
-          freq: 7.032,
+          freq: new Decimal(7.032),
           mode: "CW",
           qsoDate: "20220805",
           rstRcvd: "599",
@@ -406,9 +386,8 @@ describe("parse", () => {
     const output = [
       {
         contact: {
-          band: "40m",
           call: "3D2TS",
-          freq: 7.0747,
+          freq: new Decimal(7.0747),
           mode: "FT8",
           qsoDate: "20210831",
           rstRcvd: "-06",
@@ -421,9 +400,8 @@ describe("parse", () => {
       },
       {
         contact: {
-          band: "40m",
           call: "VK2IO",
-          freq: 7.0747,
+          freq: new Decimal(7.0747),
           mode: "FT8",
           qsoDate: "20210831",
           rstRcvd: "59",
@@ -444,10 +422,9 @@ describe("parse", () => {
     const output = [
       {
         contact: {
-          txPwr: 5,
-          band: "40m",
+          txPwr: new Decimal(5),
           call: "N3TJ",
-          freq: 7.13,
+          freq: new Decimal(7.13),
           mode: "SSB",
           qsoDate: "20220201",
           rstRcvd: "59",
@@ -467,10 +444,9 @@ describe("parse", () => {
     const output = [
       {
         contact: {
-          txPwr: 5,
-          band: "40m",
+          txPwr: new Decimal(5),
           call: "N3TJ",
-          freq: 7.13,
+          freq: new Decimal(7.13),
           mode: "SSB",
           qsoDate: "20220201",
           rstRcvd: "59",
@@ -484,14 +460,86 @@ describe("parse", () => {
     expect(parse(input)).toEqual(output);
   });
 
+  test("parse arbitary adif field", () => {
+    const input = `station vk3tcp date 20220201 mode ssb 0301 7.130 txpwr 5 call n3tj [rig] K2`;
+
+    const output = [
+      {
+        contact: {
+          txPwr: new Decimal(5),
+          call: "N3TJ",
+          freq: new Decimal(7.13),
+          mode: "SSB",
+          qsoDate: "20220201",
+          rstRcvd: "59",
+          rstSent: "59",
+          stationCallsign: "VK3TCP",
+          timeOn: "0301",
+          rig: "K2",
+        },
+      },
+    ];
+
+    expect(parse(input)).toEqual(output);
+  });
+
+  test("parse two adif fields", () => {
+    const input = `station vk3tcp date 20220201 mode ssb 0301 7.130 txpwr 5 call n3tj [rig] K2 [name] Alan`;
+
+    const output = [
+      {
+        contact: {
+          txPwr: new Decimal(5),
+          call: "N3TJ",
+          freq: new Decimal(7.13),
+          mode: "SSB",
+          qsoDate: "20220201",
+          rstRcvd: "59",
+          rstSent: "59",
+          stationCallsign: "VK3TCP",
+          timeOn: "0301",
+          rig: "K2",
+          name: "Alan",
+        },
+      },
+    ];
+
+    expect(parse(input)).toEqual(output);
+  });
+
+  test("parse two adif fields with qoutes", () => {
+    const input = `station vk3tcp date 20220201 mode ssb 0301 7.130 txpwr 5 call n3tj [rig] "K2" [name] 3 [my_dxcc] "2"`;
+
+    const output = [
+      {
+        contact: {
+          txPwr: new Decimal(5),
+          call: "N3TJ",
+          freq: new Decimal(7.13),
+          mode: "SSB",
+          qsoDate: "20220201",
+          rstRcvd: "59",
+          rstSent: "59",
+          stationCallsign: "VK3TCP",
+          timeOn: "0301",
+          rig: "K2",
+          name: "3",
+          myDxcc: "2",
+        },
+      },
+    ];
+
+    expect(parse(input)).toEqual(output);
+  });
+
   test("simple qsos", () => {
     fc.assert(
       fc.property(
-        callsignArb(),
-        dateArb(),
-        frequencyCommandArb(),
-        modeArb(),
-        fc.array(fc.tuple(callsignArb(), timeWithoutSeconds())),
+        callsignArb,
+        dateArb,
+        frequencyCommandArb,
+        modeEnumArb,
+        fc.array(fc.tuple(callsignArb, timeWithoutSeconds)),
         fc.context(),
         (station, date, freq, mode, callsigns, ctx) => {
           let input = `station ${station} date ${date} ${freq} mode ${mode}\n`;
@@ -524,10 +572,10 @@ describe("parse", () => {
   test("generate qsos with all fields", () => {
     fc.assert(
       fc.property(
-        callsignArb(),
-        dateArb(),
-        frequencyCommandArb(),
-        modeArb(),
+        callsignArb,
+        dateArb,
+        frequencyCommandArb,
+        modeEnumArb,
         fc.array(logEntryLineArb()),
         fc.context(),
         (station, date, freq, mode, loglines, ctx) => {

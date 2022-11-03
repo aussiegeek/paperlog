@@ -7,7 +7,7 @@ import {
   serialize,
   parse,
   AdifRecord,
-  exportLogs,
+  exportAdif,
   collectGlobalErrors,
   validationMessagesForResult,
   AdifFile,
@@ -53,7 +53,7 @@ function exportCommand(logPath: string) {
   );
 
   Object.entries(
-    exportLogs({ contacts: validContacts, srcFileName: path.basename(logPath) })
+    exportAdif({ contacts: validContacts, srcFileName: path.basename(logPath) })
       .files
   ).forEach(logWriter);
 }

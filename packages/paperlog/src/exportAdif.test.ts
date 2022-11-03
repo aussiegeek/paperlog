@@ -1,12 +1,13 @@
 import * as fc from "fast-check";
-import { exportLogs } from "./export";
 import {
-  adifRecordArb,
   callsignArb,
-  potaRefArb,
   sotaRefArb,
   wwffRefArb,
-} from "./testArbitaries";
+  potaRefArb,
+} from "./adif/adifFieldArbs";
+import { exportAdif } from "./exportAdif";
+import { isPresent } from "./isPresent";
+import { adifRecordValidatedArb } from "./testArbitaries";
 
 describe("export", () => {
   test("export all contacts", () => {
@@ -15,9 +16,9 @@ describe("export", () => {
         fc.array(
           fc
             .tuple(
-              adifRecordArb(),
-              fc.oneof(sotaRefArb(), fc.constant(undefined)),
-              fc.oneof(sotaRefArb(), fc.constant(undefined))
+              adifRecordValidatedArb,
+              fc.oneof(sotaRefArb, fc.constant(undefined)),
+              fc.oneof(sotaRefArb, fc.constant(undefined))
             )
             .map(([contact, sotaRef, mySotaRef]) => {
               return { ...contact, sotaRef, mySotaRef };
@@ -25,7 +26,7 @@ describe("export", () => {
           { minLength: 1 }
         ),
         (contacts) => {
-          const results = exportLogs({ contacts, srcFileName: "contacts.txt" });
+          const results = exportAdif({ contacts, srcFileName: "contacts.txt" });
 
           expect(results.files["contacts.txt.all.adi"]?.records).toHaveLength(
             contacts.length
@@ -41,21 +42,27 @@ describe("export", () => {
         fc.array(
           fc
             .tuple(
-              adifRecordArb(),
-              fc.oneof(sotaRefArb(), fc.constant(undefined)),
-              fc.oneof(sotaRefArb(), fc.constant(undefined))
+              adifRecordValidatedArb,
+              fc.oneof(sotaRefArb, fc.constant(undefined)),
+              fc.oneof(sotaRefArb, fc.constant(undefined))
             )
             .filter(
               ([_contact, sotaRef, mySotaRef]) =>
-                typeof sotaRef == "string" || typeof mySotaRef == "string"
+                isPresent(sotaRef) || isPresent(mySotaRef)
             )
             .map(([contact, sotaRef, mySotaRef]) => {
-              return { ...contact, sotaRef, mySotaRef };
+              return {
+                ...contact,
+                sotaRef,
+                mySotaRef,
+                appMyPotaRef: undefined,
+                myWwffRef: undefined,
+              };
             }),
           { minLength: 1 }
         ),
         (contacts) => {
-          const results = exportLogs({ contacts, srcFileName: "contacts.txt" });
+          const results = exportAdif({ contacts, srcFileName: "contacts.txt" });
 
           expect(Object.keys(results.files)).toStrictEqual([
             "contacts.txt.all.adi",
@@ -75,14 +82,20 @@ describe("export", () => {
       fc.property(
         fc
           .tuple(
-            fc.array(adifRecordArb(), { minLength: 1 }),
-            wwffRefArb(),
-            callsignArb()
+            fc.array(adifRecordValidatedArb, { minLength: 1 }),
+            wwffRefArb,
+            callsignArb
           )
           .map(([contacts, myWwffRef, stationCallsign]) => {
             return {
               contacts: contacts.map((c) => {
-                return { ...c, myWwffRef, stationCallsign };
+                return {
+                  ...c,
+                  myWwffRef,
+                  stationCallsign,
+                  mySotaRef: undefined,
+                  sotaRef: undefined,
+                };
               }),
               myWwffRef,
               stationCallsign,
@@ -90,7 +103,7 @@ describe("export", () => {
           }),
         ({ contacts, myWwffRef, stationCallsign }) => {
           const dates = [...new Set(contacts.map(({ qsoDate }) => qsoDate))];
-          const results = exportLogs({ contacts, srcFileName: "contacts.txt" });
+          const results = exportAdif({ contacts, srcFileName: "contacts.txt" });
 
           const filenames = dates.map(
             (d) => `${stationCallsign} @ ${myWwffRef} ${d}.adi`
@@ -109,9 +122,9 @@ describe("export", () => {
       fc.property(
         fc
           .tuple(
-            fc.array(adifRecordArb(), { minLength: 1 }),
-            potaRefArb(),
-            callsignArb()
+            fc.array(adifRecordValidatedArb, { minLength: 1 }),
+            potaRefArb,
+            callsignArb
           )
           .map(([contacts, myPotaRef, stationCallsign]) => {
             return {
@@ -120,6 +133,9 @@ describe("export", () => {
                   ...c,
                   appPaperlogMyPotaRef: myPotaRef,
                   stationCallsign,
+                  myWwffRef: undefined,
+                  mySotaRef: undefined,
+                  sotaRef: undefined,
                 };
               }),
               myPotaRef,
@@ -130,7 +146,10 @@ describe("export", () => {
           const date = [
             ...new Set(contacts.map(({ qsoDate }) => qsoDate)),
           ].sort();
-          const results = exportLogs({ contacts, srcFileName: "contacts.txt" });
+          const results = exportAdif({
+            contacts,
+            srcFileName: "contacts.txt",
+          });
 
           const filename = `${stationCallsign}@${myPotaRef}-${date[0]}.adi`;
 

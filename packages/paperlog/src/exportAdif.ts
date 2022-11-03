@@ -1,6 +1,7 @@
 import type { AdifRecord } from ".";
 import type { AdifFile } from "./adif";
 import { filterSota } from ".";
+import { isPresent } from "./isPresent";
 
 type ExportFileCollection = Record<string, AdifFile>;
 
@@ -8,7 +9,7 @@ export interface ExportLogResult {
   files: ExportFileCollection;
 }
 
-export function exportLogs({
+export function exportAdif({
   contacts,
   srcFileName,
 }: {
@@ -16,7 +17,9 @@ export function exportLogs({
   srcFileName: string;
 }): ExportLogResult {
   let files: Record<string, AdifFile> = {
-    [`${srcFileName}.all.adi`]: { records: contacts },
+    [`${srcFileName}.all.adi`]: {
+      records: contacts,
+    },
   };
 
   const programs = ["mySotaRef"];
@@ -27,7 +30,7 @@ export function exportLogs({
 
   refs["mySotaRef"] = contacts
     .map((contact) => contact["mySotaRef"])
-    .filter((c): c is string => typeof c === "string");
+    .filter(isPresent);
 
   const sotaResult = exportSotaContacts(contacts);
   if (sotaResult) {

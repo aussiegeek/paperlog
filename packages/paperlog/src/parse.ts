@@ -1,19 +1,17 @@
 import {
-  Infer,
   nonempty,
-  number,
   type,
-  optional,
   string,
   validate,
   StructError,
-  is,
+  instance,
 } from "superstruct";
-import { BandEnum, bandRange, bands } from "./adif/bands";
 import { lexer } from "./lexer";
 import { ParsingError, Token } from "tokenizr";
-import { Date, Time, ModeEnum, Number, GridSquare } from "./adif/types";
-import { AdifRecord } from ".";
+import { Date, Time, ModeEnum } from "./adif/types";
+import { AdifRecord, adifRecordKeys } from "./adif/adifRecord";
+import { camelCase } from "change-case";
+import Decimal from "decimal.js";
 
 export enum Command {
   Station = "station",
@@ -36,6 +34,7 @@ export enum Command {
   GridSquare = "gridsquare",
   MyGridSquare = "myGridsquare",
   TxPwr = "txPwr",
+  Field = "field",
 }
 
 // only the fields we require for a paperlog format contact
@@ -45,7 +44,7 @@ const ValidatedAdifRecord = type({
   stationCallsign: nonempty(string()),
   call: nonempty(string()),
   mode: ModeEnum,
-  freq: number(),
+  freq: instance(Decimal),
 });
 
 export interface ParserFailure {
@@ -65,8 +64,12 @@ export type ParseResult = ParseSuccess | ParserFailure | ValidationFailure;
 
 // returns input, unless input is case insensitive equal to reset
 // allows for when a log part way through has no award ref (eg. left a sota summit and now only activating a park)
-function parseAwardRefWithReset(ref: string): string | undefined {
-  return ref.toUpperCase() == "RESET" ? undefined : ref;
+function parseFieldWithReset<T>(value: T): T | undefined {
+  if (typeof value == "string" && value.toUpperCase() == "RESET") {
+    return undefined;
+  }
+
+  return value;
 }
 
 export function parse(input: string): Array<ParseResult> {
@@ -86,7 +89,7 @@ export function parse(input: string): Array<ParseResult> {
             template.stationCallsign = token.value.toUpperCase();
             break;
           case "operator":
-            template.operator = token.value.toUpperCase();
+            template.operator = parseFieldWithReset(token.value.toUpperCase());
             break;
           case "call":
             record.call = token.value.toUpperCase();
@@ -104,7 +107,7 @@ export function parse(input: string): Array<ParseResult> {
             parseMode(token, template);
             break;
           case "mysota":
-            template.mySotaRef = parseAwardRefWithReset(token.value);
+            template.mySotaRef = parseFieldWithReset(token.value);
             break;
           case "sota":
             record.sotaRef = token.value;
@@ -119,24 +122,32 @@ export function parse(input: string): Array<ParseResult> {
             record.wwffRef = token.value;
             break;
           case "mywwff":
-            template.myWwffRef = parseAwardRefWithReset(token.value);
+            template.myWwffRef = parseFieldWithReset(token.value);
             break;
           case "pota":
             record["appPaperlogPotaRef"] = token.value;
             break;
           case "mypota":
-            template["appPaperlogMyPotaRef"] = parseAwardRefWithReset(
-              token.value
-            );
+            template["appPaperlogMyPotaRef"] = parseFieldWithReset(token.value);
             break;
           case "gridsquare":
-            template.gridsquare = token.value;
+            record.gridsquare = token.value;
             break;
           case "myGridsquare":
-            template.myGridsquare = token.value;
+            template.myGridsquare = parseFieldWithReset(token.value);
             break;
           case "txPwr":
-            template.txPwr = token.value;
+            template.txPwr = parseFieldWithReset(token.value);
+            break;
+          case "field":
+            if (
+              // @ts-expect-error yes we can check if this list contains this field
+              adifRecordKeys.includes(camelCase(token.value[0])) ||
+              camelCase(token.value[0]).startsWith("app")
+            ) {
+              // @ts-expect-error it really does start with app, and so is safe to proceed
+              record[camelCase(token.value[0])] = token.value[1];
+            }
             break;
 
           case "EOF":
@@ -168,7 +179,7 @@ export function parse(input: string): Array<ParseResult> {
     if (validatedRecord) {
       if (validatedRecord.call && validatedRecord.call.length > 0) {
         // now see if it validated for paperlog format contact too
-        const [err, _] = validate(newRecord, ValidatedAdifRecord);
+        const [err] = validate(newRecord, ValidatedAdifRecord);
         if (err) {
           contacts.push({ error: err, line });
         } else {
@@ -196,14 +207,17 @@ function parseMode(token: Token, template: Partial<AdifRecord>) {
 }
 
 function parseFreq(token: Token, template: Partial<AdifRecord>) {
-  const freq = parseFloat(token.value);
+  const freq = new Decimal(token.value);
   template.freq = freq;
 
-  bands.forEach((band) => {
-    if (bandRange[band].from <= freq && bandRange[band].to >= freq) {
-      template.band = band;
-    }
-  });
+  // bands.forEach((band) => {
+  //   if (
+  //     new Decimal(bandRange[band].from).lte(freq) &&
+  //     new Decimal(bandRange[band].to).gte(freq)
+  //   ) {
+  //     template.band = band;
+  //   }
+  // });
 }
 
 export function collectGlobalErrors(results: ParseResult[]) {
