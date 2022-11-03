@@ -77,7 +77,7 @@ export function LogViewer({ contacts }: { contacts: Array<ParseResult> }) {
                   <td>{contact.call}</td>
                   <td>{contact.qsoDate}</td>
                   <td>{contact.timeOn}</td>
-                  <td>{contact.freq}</td>
+                  <td>{contact.freq?.toString()}</td>
                   <td>{contact.mode}</td>
                   <td>{contact.sotaRef}</td>
                   <td>{contact.wwffRef}</td>

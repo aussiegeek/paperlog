@@ -1,10 +1,9 @@
 import type { AdifRecord } from "./adif/adifRecord";
+import { isPresent } from "./isPresent";
 
 export function filterSota(contacts: AdifRecord[]): AdifRecord[] {
   return contacts.filter(
-    (contact) =>
-      (contact.sotaRef !== undefined && contact.sotaRef !== "") ||
-      (contact.mySotaRef !== undefined && contact.mySotaRef !== "")
+    (contact) => isPresent(contact.sotaRef) || isPresent(contact.mySotaRef)
   );
 }
 
@@ -15,5 +14,5 @@ export function filterPota(contacts: AdifRecord[]): AdifRecord[] {
 }
 
 export function filterWwff(contacts: AdifRecord[]): AdifRecord[] {
-  return contacts.filter((contact) => contact.myWwffRef !== undefined);
+  return contacts.filter((contact) => isPresent(contact.myWwffRef));
 }

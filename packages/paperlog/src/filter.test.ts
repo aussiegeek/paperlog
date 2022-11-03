@@ -1,13 +1,9 @@
 import * as fc from "fast-check";
 import { array, assert } from "superstruct";
+import { potaRefArb, sotaRefArb, wwffRefArb } from "./adif/adifFieldArbs";
 import { AdifRecord } from "./adif/adifRecord";
 import { filterPota, filterSota, filterWwff } from "./filter";
-import {
-  adifRecordArb,
-  potaRefArb,
-  sotaRefArb,
-  wwffRefArb,
-} from "./testArbitaries";
+import { adifRecordValidatedArb } from "./testArbitaries";
 
 describe("filter", () => {
   describe("filter sota", () => {
@@ -16,9 +12,9 @@ describe("filter", () => {
         fc.property(
           fc.array(
             fc
-              .tuple(adifRecordArb(), fc.constantFrom(undefined, ""))
+              .tuple(adifRecordValidatedArb, fc.constantFrom(undefined, ""))
               .map(([c, sotaRef]) => {
-                return { ...c, sotaRef };
+                return { ...c, sotaRef, mySotaRef: sotaRef };
               })
           ),
           (contacts) => {
@@ -32,12 +28,14 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(adifRecordArb(), sotaRefArb()).map(([c, mySotaRef]) => {
-              return {
-                ...c,
-                mySotaRef,
-              };
-            })
+            fc
+              .tuple(adifRecordValidatedArb, sotaRefArb)
+              .map(([c, mySotaRef]) => {
+                return {
+                  ...c,
+                  mySotaRef,
+                };
+              })
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
@@ -51,7 +49,7 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(adifRecordArb(), sotaRefArb()).map(([c, sotaRef]) => {
+            fc.tuple(adifRecordValidatedArb, sotaRefArb).map(([c, sotaRef]) => {
               return {
                 ...c,
                 sotaRef,
@@ -73,7 +71,7 @@ describe("filter", () => {
         fc.property(
           fc.array(
             fc
-              .tuple(adifRecordArb(), fc.constantFrom(undefined, ""))
+              .tuple(adifRecordValidatedArb, fc.constantFrom(undefined, ""))
               .map(([c, potaRef]) => {
                 return { ...c, potaRef };
               })
@@ -89,12 +87,14 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(adifRecordArb(), potaRefArb()).map(([c, myPotaRef]) => {
-              return {
-                ...c,
-                appPaperlogMyPotaRef: myPotaRef,
-              };
-            })
+            fc
+              .tuple(adifRecordValidatedArb, potaRefArb)
+              .map(([c, myPotaRef]) => {
+                return {
+                  ...c,
+                  appPaperlogMyPotaRef: myPotaRef,
+                };
+              })
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
@@ -110,9 +110,9 @@ describe("filter", () => {
         fc.property(
           fc.array(
             fc
-              .tuple(adifRecordArb(), fc.constantFrom(undefined, ""))
-              .map(([c, wwffRef]) => {
-                return { ...c, wwffRef };
+              .tuple(adifRecordValidatedArb, fc.constantFrom(undefined, ""))
+              .map(([c, myWwffRef]) => {
+                return { ...c, myWwffRef };
               })
           ),
           (contacts) => {
@@ -126,12 +126,14 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc.tuple(adifRecordArb(), wwffRefArb()).map(([c, myWwffRef]) => {
-              return {
-                ...c,
-                myWwffRef,
-              };
-            })
+            fc
+              .tuple(adifRecordValidatedArb, wwffRefArb)
+              .map(([c, myWwffRef]) => {
+                return {
+                  ...c,
+                  myWwffRef,
+                };
+              })
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));

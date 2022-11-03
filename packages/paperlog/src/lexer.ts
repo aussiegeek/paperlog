@@ -29,17 +29,17 @@ lexer.rule(/([0-2][0-9][0-5][0-9])/, (ctx, match) => {
 lexer.rule(/call ([0-9a-z/]+)/i, (ctx, match) => {
   ctx.accept(Command.Call, match[1]);
 });
-lexer.rule(/s(-?\+?\d+)/, (ctx, match) => {
-  ctx.accept(Command.RstSent, match[1]);
-});
-lexer.rule(/r(-?\+?\d+)/i, (ctx, match) => {
-  ctx.accept(Command.RstRcvd, match[1]);
-});
 lexer.rule(/sota ([a-zA-Z0-9/-]+)/i, (ctx, match) => {
   ctx.accept(Command.Sota, match[1]?.toUpperCase());
 });
 lexer.rule(/mysota ([a-z0-9/-]+)/i, (ctx, match) => {
   ctx.accept(Command.MySota, match[1]?.toUpperCase());
+});
+lexer.rule(/s(-?\+?\w+)/, (ctx, match) => {
+  ctx.accept(Command.RstSent, match[1]);
+});
+lexer.rule(/r(-?\+?\w+)/i, (ctx, match) => {
+  ctx.accept(Command.RstRcvd, match[1]);
 });
 lexer.rule(/wwff ([a-zA-Z0-9-]+)/i, (ctx, match) => {
   ctx.accept(Command.Wwff, match[1]?.toUpperCase());
@@ -59,7 +59,17 @@ lexer.rule(/gridsquare ([a-z0-9-]+)/i, (ctx, match) => {
 lexer.rule(/mygridsquare ([a-z0-9-]+)/i, (ctx, match) => {
   ctx.accept(Command.MyGridSquare, match[1]?.toUpperCase());
 });
-lexer.rule(/txpwr (\d+)/i, (ctx, match) => {
+lexer.rule(/txpwr ([\d.\w]+)/i, (ctx, match) => {
   ctx.accept(Command.TxPwr, match[1]);
+});
+
+// quoted adif value
+lexer.rule(/\[(?<field>\w+)\] "(?<value>[^"]+)"/i, (ctx, match) => {
+  ctx.accept(Command.Field, [match.groups?.["field"], match.groups?.["value"]]);
+});
+
+// unqouted adif value
+lexer.rule(/\[(?<field>\w+)\] (?<value>[,.:?\w/-]+)/i, (ctx, match) => {
+  ctx.accept(Command.Field, [match.groups?.["field"], match.groups?.["value"]]);
 });
 lexer.rule(/ /, (ctx) => ctx.ignore());
