@@ -38,6 +38,6 @@
     "lint:check": "eslint ."
   },
   "dependencies": {
-    "@changesets/cli": "2.24.4"
+    "@changesets/cli": "2.25.2"
   }
 }
