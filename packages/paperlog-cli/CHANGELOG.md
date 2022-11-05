@@ -1,5 +1,14 @@
 # paperlog-cli
 
+## 0.1.3
+
+### Patch Changes
+
+- 755d1f5: ADIF Import support, to convert an ADIF format file to the format Paperlog uses
+- Updated dependencies [ffeda53]
+- Updated dependencies [755d1f5]
+  - paperlog@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
