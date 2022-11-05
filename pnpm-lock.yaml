@@ -97,7 +97,7 @@ importers:
 
   packages/paperlog-web:
     specifiers:
-      '@types/react': 18.0.20
+      '@types/react': 18.0.25
       '@types/react-dom': 18.0.6
       autoprefixer: 10.4.13
       css-loader: 6.7.1
@@ -118,7 +118,7 @@ importers:
       webpack-cli: 4.10.0
       webpack-dev-server: 4.11.1
     dependencies:
-      '@types/react': 18.0.20
+      '@types/react': 18.0.25
       '@types/react-dom': 18.0.6
       css-loader: 6.7.1_webpack@5.74.0
       html-webpack-plugin: 5.5.0_webpack@5.74.0
@@ -1195,11 +1195,11 @@ packages:
   /@types/react-dom/18.0.6:
     resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
     dependencies:
-      '@types/react': 18.0.20
+      '@types/react': 18.0.25
     dev: false
 
-  /@types/react/18.0.20:
-    resolution: {integrity: sha512-MWul1teSPxujEHVwZl4a5HxQ9vVNsjTchVA+xRqv/VYGCuKGAU6UhfrTdF5aBefwD1BHUD8i/zq+O/vyCm/FrA==}
+  /@types/react/18.0.25:
+    resolution: {integrity: sha512-xD6c0KDT4m7n9uD4ZHi02lzskaiqcBxf4zi+tXZY98a04wvc0hi/TcCPC2FOESZi51Nd7tlUeOJY8RofL799/g==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
