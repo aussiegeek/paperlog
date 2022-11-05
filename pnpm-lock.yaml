@@ -98,7 +98,7 @@ importers:
   packages/paperlog-web:
     specifiers:
       '@types/react': 18.0.25
-      '@types/react-dom': 18.0.6
+      '@types/react-dom': 18.0.8
       autoprefixer: 10.4.13
       css-loader: 6.7.1
       html-webpack-plugin: 5.5.0
@@ -119,7 +119,7 @@ importers:
       webpack-dev-server: 4.11.1
     dependencies:
       '@types/react': 18.0.25
-      '@types/react-dom': 18.0.6
+      '@types/react-dom': 18.0.8
       css-loader: 6.7.1_webpack@5.74.0
       html-webpack-plugin: 5.5.0_webpack@5.74.0
       inject-body-webpack-plugin: 1.3.0_html-webpack-plugin@5.5.0
@@ -1192,8 +1192,8 @@ packages:
   /@types/range-parser/1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
 
-  /@types/react-dom/18.0.6:
-    resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
+  /@types/react-dom/18.0.8:
+    resolution: {integrity: sha512-C3GYO0HLaOkk9dDAz3Dl4sbe4AKUGTCfFIZsz3n/82dPNN8Du533HzKatDxeUYWu24wJgMP1xICqkWk1YOLOIw==}
     dependencies:
       '@types/react': 18.0.25
     dev: false
