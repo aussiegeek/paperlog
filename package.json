@@ -13,7 +13,7 @@
     "buildkite-test-collector": "1.3.0",
     "eslint": "8.26.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-jest": "27.1.3",
+    "eslint-plugin-jest": "27.1.4",
     "fast-check": "3.3.0",
     "husky": "8.0.1",
     "is-ci": "3.0.1",
