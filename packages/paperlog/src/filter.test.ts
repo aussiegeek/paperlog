@@ -70,11 +70,9 @@ describe("filter", () => {
       fc.assert(
         fc.property(
           fc.array(
-            fc
-              .tuple(adifRecordValidatedArb, fc.constantFrom(undefined, ""))
-              .map(([c, potaRef]) => {
-                return { ...c, potaRef };
-              })
+            fc.tuple(adifRecordValidatedArb).map(([c]) => {
+              return { ...c, appPaperlogMyPotaRef: undefined };
+            })
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));

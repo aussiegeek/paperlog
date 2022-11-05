@@ -7,6 +7,7 @@ import {
 } from "./adif/adifFieldArbs";
 import { exportAdif } from "./exportAdif";
 import { isPresent } from "./isPresent";
+import { presence } from "./presence";
 import { adifRecordValidatedArb } from "./testArbitaries";
 
 describe("export", () => {
@@ -51,13 +52,14 @@ describe("export", () => {
                 isPresent(sotaRef) || isPresent(mySotaRef)
             )
             .map(([contact, sotaRef, mySotaRef]) => {
-              return {
+              return presence({
                 ...contact,
                 sotaRef,
                 mySotaRef,
                 appMyPotaRef: undefined,
                 myWwffRef: undefined,
-              };
+                appPaperlogMyPotaRef: undefined,
+              });
             }),
           { minLength: 1 }
         ),
@@ -89,13 +91,14 @@ describe("export", () => {
           .map(([contacts, myWwffRef, stationCallsign]) => {
             return {
               contacts: contacts.map((c) => {
-                return {
+                return presence({
                   ...c,
                   myWwffRef,
                   stationCallsign,
                   mySotaRef: undefined,
                   sotaRef: undefined,
-                };
+                  appPaperlogMyPotaRef: undefined,
+                });
               }),
               myWwffRef,
               stationCallsign,
