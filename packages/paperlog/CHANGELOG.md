@@ -1,5 +1,15 @@
 # paperlog
 
+## 0.1.3
+
+### Patch Changes
+
+- ffeda53: Full ADIF field support
+
+  All ADIF fields specified by the ADIF spec are now supported internally in paperlog
+
+- 755d1f5: ADIF Import support, to convert an ADIF format file to the format Paperlog uses
+
 ## 0.1.2
 
 ### Patch Changes
