@@ -29,7 +29,7 @@ export function importAdif(adifStr: string): AdifFile {
   let record: Record<string, unknown> = {};
 
   fieldList(fieldStr).forEach(({ field, value }) => {
-    if (field === "eor") {
+    if (field.toLowerCase() === "eor") {
       const r = presence(create(record, AdifRecord));
       assert(r, AdifRecord);
       records.push(r);
