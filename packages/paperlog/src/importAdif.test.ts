@@ -3,6 +3,7 @@ import type { AdifFile } from "./adif";
 import { importAdif } from "./importAdif";
 import { adifFileStrArb } from "./testArbitaries";
 import Decimal from "decimal.js";
+import { presence } from "./presence";
 
 describe("adifImport", () => {
   test("import basic adif file", () => {
@@ -185,6 +186,100 @@ describe("adifImport", () => {
       ],
     };
 
+    expect(importAdif(content)).toStrictEqual(expected);
+  });
+
+  test("import from n1mm", () => {
+    const content = `ADIF Export from N1MMLogger.net - Version 1.0.9688.0
+Built: 10/18/2022 11:08:12 PM
+VK3TCP logs generated @ 2022-11-04 05:14:45Z
+Contest Name: OCEANIACW - 2022-10-08
+<EOH>
+<CALL:4>VK2W <QSO_DATE:8>20221008 <TIME_ON:6>083557 <TIME_OFF:6>083557 <BAND:3>40M <STATION_CALLSIGN:6>VK3TCP <FREQ:7>7.01610 <CONTEST_ID:13>Oceania-DX-CW <FREQ_RX:7>7.01610 <MODE:2>CW <RST_RCVD:3>599 <RST_SENT:3>599 <TX_PWR:2>10 <OPERATOR:6>VK3TCP <SRX:2>41 <CQZ:2>30 <STX:1>1 <APP_N1MM_POINTS:1>5 <APP_N1MM_RADIO_NR:1>1 <APP_N1MM_CONTINENT:2>OC <APP_N1MM_RUN1RUN2:1>1 <APP_N1MM_RADIOINTERFACED:1>1 <APP_N1MM_ISORIGINAL:4>True <APP_N1MM_NETBIOSNAME:14>ALANHARPERDC4A <APP_N1MM_ISRUNQSO:1>0 <PFX:3>VK2 <APP_N1MM_MULT1:1>1 <APP_N1MM_MULT2:1>0 <APP_N1MM_MULT3:1>0 <APP_N1MM_ID:32>095457c67f9d452eb24945bf46f863ba <APP_N1MM_CLAIMEDQSO:1>1 <EOR>
+<CALL:8>VK3DPH/P <QSO_DATE:8>20221008 <TIME_ON:6>101925 <TIME_OFF:6>101925 <BAND:3>40M <STATION_CALLSIGN:6>VK3TCP <FREQ:7>7.02800 <CONTEST_ID:13>Oceania-DX-CW <FREQ_RX:7>7.02800 <MODE:2>CW <RST_RCVD:3>599 <RST_SENT:3>599 <TX_PWR:2>10 <OPERATOR:6>VK3TCP <SRX:1>1 <CQZ:2>30 <STX:1>2 <APP_N1MM_POINTS:1>5 <APP_N1MM_RADIO_NR:1>1 <APP_N1MM_CONTINENT:2>OC <APP_N1MM_RUN1RUN2:1>1 <APP_N1MM_RADIOINTERFACED:1>1 <APP_N1MM_ISORIGINAL:4>True <APP_N1MM_NETBIOSNAME:14>ALANHARPERDC4A <APP_N1MM_ISRUNQSO:1>0 <PFX:3>VK3 <APP_N1MM_MULT1:1>1 <APP_N1MM_MULT2:1>0 <APP_N1MM_MULT3:1>0 <APP_N1MM_ID:32>35e4b29d66f04665a753f8c161d7ffbd <APP_N1MM_CLAIMEDQSO:1>1 <EOR>
+    `;
+
+    const expected: AdifFile = {
+      header: {
+        text: `ADIF Export from N1MMLogger.net - Version 1.0.9688.0
+Built: 10/18/2022 11:08:12 PM
+VK3TCP logs generated @ 2022-11-04 05:14:45Z
+Contest Name: OCEANIACW - 2022-10-08
+`,
+        adifVer: undefined,
+        createdTimestamp: undefined,
+        programid: undefined,
+        programversion: undefined,
+      },
+      records: [
+        {
+          call: "VK2W",
+          qsoDate: "20221008",
+          timeOn: "083557",
+          timeOff: "083557",
+          band: "40m",
+          stationCallsign: "VK3TCP",
+          freq: new Decimal("7.01610"),
+          contestId: "Oceania-DX-CW",
+          freqRx: new Decimal("7.01610"),
+          mode: "CW",
+          rstSent: "599",
+          rstRcvd: "599",
+          txPwr: new Decimal(10),
+          operator: "VK3TCP",
+          srx: 41,
+          cqz: 30,
+          stx: 1,
+          appN1MmPoints: "5",
+          appN1MmRadioNr: "1",
+          appN1MmContinent: "OC",
+          appN1MmRun1Run2: "1",
+          appN1MmRadiointerfaced: "1",
+          appN1MmIsoriginal: "True",
+          appN1MmNetbiosname: "ALANHARPERDC4A",
+          appN1MmIsrunqso: "0",
+          pfx: "VK2",
+          appN1MmMult1: "1",
+          appN1MmMult2: "0",
+          appN1MmMult3: "0",
+          appN1MmId: "095457c67f9d452eb24945bf46f863ba",
+          appN1MmClaimedqso: "1",
+        },
+        {
+          call: "VK3DPH/P",
+          qsoDate: "20221008",
+          timeOn: "101925",
+          timeOff: "101925",
+          band: "40m",
+          stationCallsign: "VK3TCP",
+          freq: new Decimal("7.028"),
+          contestId: "Oceania-DX-CW",
+          freqRx: new Decimal("7.028"),
+          mode: "CW",
+          rstSent: "599",
+          rstRcvd: "599",
+          txPwr: new Decimal(10),
+          operator: "VK3TCP",
+          srx: 1,
+          cqz: 30,
+          stx: 2,
+          appN1MmPoints: "5",
+          appN1MmRadioNr: "1",
+          appN1MmContinent: "OC",
+          appN1MmRun1Run2: "1",
+          appN1MmRadiointerfaced: "1",
+          appN1MmIsoriginal: "True",
+          appN1MmNetbiosname: "ALANHARPERDC4A",
+          appN1MmIsrunqso: "0",
+          pfx: "VK3",
+          appN1MmMult1: "1",
+          appN1MmMult2: "0",
+          appN1MmMult3: "0",
+          appN1MmId: "35e4b29d66f04665a753f8c161d7ffbd",
+          appN1MmClaimedqso: "1",
+        },
+      ],
+    };
     expect(importAdif(content)).toStrictEqual(expected);
   });
 
