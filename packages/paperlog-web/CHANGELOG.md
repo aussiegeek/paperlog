@@ -1,5 +1,12 @@
 # paperlog-web
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [c6b8653]
+  - paperlog@0.1.4
+
 ## 0.0.5
 
 ### Patch Changes
