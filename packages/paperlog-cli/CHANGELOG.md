@@ -1,5 +1,12 @@
 # paperlog-cli
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [c6b8653]
+  - paperlog@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

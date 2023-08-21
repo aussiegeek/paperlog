@@ -1,5 +1,11 @@
 # paperlog
 
+## 0.1.4
+
+### Patch Changes
+
+- c6b8653: Fix bug where uppercase ADIF fields weren't handled correctly
+
 ## 0.1.3
 
 ### Patch Changes
