@@ -206,10 +206,6 @@ Built: 10/18/2022 11:08:12 PM
 VK3TCP logs generated @ 2022-11-04 05:14:45Z
 Contest Name: OCEANIACW - 2022-10-08
 `,
-        adifVer: undefined,
-        createdTimestamp: undefined,
-        programid: undefined,
-        programversion: undefined,
       },
       records: [
         {
