@@ -1,3 +1,5 @@
+import { describe, expect } from "vitest";
+import { test } from "@fast-check/vitest";
 import * as fc from "fast-check";
 import { array, assert } from "superstruct";
 import { potaRefArb, sotaRefArb, wwffRefArb } from "./adif/adifFieldArbs";
@@ -7,7 +9,7 @@ import { adifRecordValidatedArb } from "./testArbitaries";
 
 describe("filter", () => {
   describe("filter sota", () => {
-    it("returns nothing if sota ref and my sota ref is blank", () => {
+    test("returns nothing if sota ref and my sota ref is blank", () => {
       fc.assert(
         fc.property(
           fc.array(
@@ -24,7 +26,7 @@ describe("filter", () => {
         ),
       );
     });
-    it("returns contacts with my sota ref set", () => {
+    test("returns contacts with my sota ref set", () => {
       fc.assert(
         fc.property(
           fc.array(
@@ -45,7 +47,7 @@ describe("filter", () => {
       );
     });
 
-    it("returns contacts with sota ref set", () => {
+    test("returns contacts with sota ref set", () => {
       fc.assert(
         fc.property(
           fc.array(
@@ -66,7 +68,7 @@ describe("filter", () => {
   });
 
   describe("filter pota", () => {
-    it("returns nothing if my pota ref is blank", () => {
+    test("returns nothing if my pota ref is blank", () => {
       fc.assert(
         fc.property(
           fc.array(
@@ -81,7 +83,7 @@ describe("filter", () => {
         ),
       );
     });
-    it("returns contacts with my pota ref set", () => {
+    test("returns contacts with my pota ref set", () => {
       fc.assert(
         fc.property(
           fc.array(
@@ -103,7 +105,7 @@ describe("filter", () => {
     });
   });
   describe("filter wwff", () => {
-    it("returns nothing if my wwff ref is blank", () => {
+    test("returns nothing if my wwff ref is blank", () => {
       fc.assert(
         fc.property(
           fc.array(
@@ -120,7 +122,7 @@ describe("filter", () => {
         ),
       );
     });
-    it("returns contacts with my wwff ref set", () => {
+    test("returns contacts with my wwff ref set", () => {
       fc.assert(
         fc.property(
           fc.array(

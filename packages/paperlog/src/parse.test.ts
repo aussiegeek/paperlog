@@ -1,3 +1,5 @@
+import { describe, expect } from "vitest";
+import { test } from "@fast-check/vitest";
 import {
   collectGlobalErrors,
   parse,
