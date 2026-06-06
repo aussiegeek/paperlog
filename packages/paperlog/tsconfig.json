@@ -3,6 +3,7 @@
   "include": ["package.json", "src/**/*"],
   "compilerOptions": {
     "composite": true,
+    "rootDir": "src",
     "outDir": "./dist",
     "declaration": true
   }

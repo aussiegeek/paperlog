@@ -2,8 +2,8 @@
   "name": "paperlog",
   "version": "0.1.4",
   "description": "",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
@@ -32,7 +32,7 @@
   "scripts": {
     "test": "jest",
     "types:check": "tsc -noEmit",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist *.tsbuildinfo",
     "build": "tsc"
   },
   "publishConfig": {

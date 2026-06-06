@@ -1,6 +1,5 @@
 node_modules
-.yarn/cache
-.yarn/install-state.gz
 .parcel-cache
 dist
 packages/paperlog/adif_csv
+*.tsbuildinfo

@@ -1,11 +1,17 @@
 {
-  "extends": "@tsconfig/node24/tsconfig.json",
+  "extends": [
+    "@tsconfig/node24/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
+  ],
   "compilerOptions": {
     "noEmitOnError": true,
     "noUnusedLocals": false,
     "lib": ["ES2021", "DOM"],
     "resolveJsonModule": true,
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "module": "nodenext"
   },
   "include": []
 }
