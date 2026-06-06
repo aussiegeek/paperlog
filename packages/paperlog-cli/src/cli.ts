@@ -51,12 +51,12 @@ function exportCommand(logPath: string) {
   }
 
   const logWriter = logWriterForPath(
-    path.join(path.dirname(logPath), "export")
+    path.join(path.dirname(logPath), "export"),
   );
 
   Object.entries(
     exportAdif({ contacts: validContacts, srcFileName: path.basename(logPath) })
-      .files
+      .files,
   ).forEach(logWriter);
 }
 
@@ -82,7 +82,7 @@ yargs(hideBin(process.argv))
     },
     (argv) => {
       exportCommand(argv.logs);
-    }
+    },
   )
   .command<{ adifFile: string }>(
     "import <adifFile>",
@@ -93,7 +93,7 @@ yargs(hideBin(process.argv))
         demandOption: true,
       });
     },
-    (argv) => importAdifCommand(argv["adifFile"])
+    (argv) => importAdifCommand(argv["adifFile"]),
   )
 
   .strictCommands()

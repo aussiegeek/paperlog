@@ -38,7 +38,7 @@ const gridSquareLetterArb = fc.constantFrom(
   "O",
   "P",
   "Q",
-  "R"
+  "R",
 );
 
 const alphaArb = fc.constantFrom(
@@ -66,7 +66,7 @@ const alphaArb = fc.constantFrom(
   "V",
   "X",
   "Y",
-  "Z"
+  "Z",
 );
 
 export const stringArb = fc.stringOf(alphaArb, { minLength: 1 });
@@ -79,7 +79,7 @@ const fourDigitGridSquareArb = fc
     gridSquareLetterArb,
     gridSquareLetterArb,
     fc.integer({ min: 0, max: 9 }),
-    fc.integer({ min: 0, max: 9 })
+    fc.integer({ min: 0, max: 9 }),
   )
   .map((t) => t.join(""));
 const sixDigitGridSquareArb = fc
@@ -89,12 +89,12 @@ const sixDigitGridSquareArb = fc
     fc.integer({ min: 0, max: 9 }),
     fc.integer({ min: 0, max: 9 }),
     gridSquareLetterArb,
-    gridSquareLetterArb
+    gridSquareLetterArb,
   )
   .map((t) => t.join(""));
 export const gridSquareArb = fc.oneof(
   fourDigitGridSquareArb,
-  sixDigitGridSquareArb
+  sixDigitGridSquareArb,
 );
 
 const prefixArb = fc.constantFrom("A", "VK", "VJ", "ZL", "9M", "4Z");
@@ -113,7 +113,7 @@ const qsoDateRangeArb = fc.date({
 export const dateArb = qsoDateRangeArb.map((d) => format(d, "yyyyMMdd"));
 export const timeWithoutSeconds = qsoDateRangeArb.map((d) => format(d, "HHmm"));
 export const timeWithSecondsArb = qsoDateRangeArb.map((d) =>
-  format(d, "HHmmss")
+  format(d, "HHmmss"),
 );
 export const timeArb = fc.oneof(timeWithSecondsArb, timeWithSecondsArb);
 
@@ -123,7 +123,7 @@ export const callsignArb = fc
     prefixArb,
     fc.integer({ min: 0, max: 9 }),
     fc.stringOf(alphaArb, { minLength: 1, maxLength: 4 }),
-    fc.option(suffixArb)
+    fc.option(suffixArb),
   )
   .map((t) => t.join(""));
 
@@ -132,10 +132,10 @@ export const sotaRefArb = fc
     locatorArb,
     fc.integer({ min: 0, max: 9 }),
     fc.stringOf(alphaArb, { minLength: 1, maxLength: 3 }),
-    fc.integer({ min: 1, max: 999 })
+    fc.integer({ min: 1, max: 999 }),
   )
   .map(([locator, regionNum, area, summitNum]) =>
-    [locator, regionNum, "/", area, "-", summitNum].join("")
+    [locator, regionNum, "/", area, "-", summitNum].join(""),
   );
 
 export const wwffRefArb = fc
@@ -151,7 +151,7 @@ export const creditArb = fc.constantFrom(...credit);
 export const dxccEntityCodeEnumArb = fc.constantFrom(...dxccEntityCode);
 export const modeEnumArb = fc.constantFrom(...mode);
 export const primaryAdministrativeSubdivisionEnumArb = fc.constantFrom(
-  ...primaryAdministrativeSubdivision
+  ...primaryAdministrativeSubdivision,
 );
 export const propagationModeEnumArb = fc.constantFrom(...propagationMode);
 export const qslRcvdEnumArb = fc.constantFrom(...qslRcvd);
@@ -162,14 +162,14 @@ export const qsoCompleteEnumArb = fc.constantFrom(...qsoComplete);
 export const qsoUploadStatusEnumArb = fc.constantFrom(...qsoUploadStatus);
 export const regionEnumArb = fc.constantFrom(...region);
 export const secondaryAdministrativeSubdivisionEnumArb = fc.constantFrom(
-  ...secondaryAdministrativeSubdivision
+  ...secondaryAdministrativeSubdivision,
 );
 
 export const sponsoredAwardArb = fc
   .tuple(
     fc.constantFrom(...awardSponsor),
     fc.constant("PROGRAM"),
-    fc.constant("AWARD")
+    fc.constant("AWARD"),
   )
   .map((t) => t.join("_"));
 
@@ -181,9 +181,9 @@ export const creditListArb = fc
   .array(
     fc.oneof(
       creditArb,
-      fc.tuple(creditArb, qslMediumArb).map((t) => t.join(":"))
+      fc.tuple(creditArb, qslMediumArb).map((t) => t.join(":")),
     ),
-    { minLength: 1 }
+    { minLength: 1 },
   )
   .map((collection) => collection.join(","));
 
@@ -205,7 +205,7 @@ export const iotaRefNoArb = stringArb;
 
 const padNumber = (number: number, digits: number) => {
   return new Intl.NumberFormat("en", { minimumIntegerDigits: digits }).format(
-    number
+    number,
   );
 };
 
@@ -222,10 +222,10 @@ export const locationArb = fc
     fc
       .integer({ min: 0, max: 180 })
       .map((n) =>
-        new Intl.NumberFormat("en", { minimumIntegerDigits: 3 }).format(n)
+        new Intl.NumberFormat("en", { minimumIntegerDigits: 3 }).format(n),
       ),
     fc.integer({ min: 0, max: 59 }).map((n) => padNumber(n, 2)),
-    fc.integer({ min: 0, max: 999 }).map((n) => padNumber(n, 3))
+    fc.integer({ min: 0, max: 999 }).map((n) => padNumber(n, 3)),
   )
   .map(([x, d, m, n]) => `${x}${d} ${m}.${n}`);
 

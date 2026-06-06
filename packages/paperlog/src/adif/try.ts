@@ -10,5 +10,5 @@ export const record: Describe<ContactWithCustom> = object({ call: string() });
 
 export const r: ContactWithCustom = create(
   { call: "foo", app_pota: "foo" },
-  record
+  record,
 );

@@ -91,7 +91,7 @@ export const arrlSection = [
 
 export const ArrlSectionEnum = coerce(enums(arrlSection), string(), (value) => {
   const foundValue = arrlSection.find(
-    (v) => v.toUpperCase() == value.toUpperCase()
+    (v) => v.toUpperCase() == value.toUpperCase(),
   );
 
   return foundValue ?? value;

@@ -176,7 +176,7 @@ function adifRecord() {
   import type Decimal from "decimal.js";
 
   export const adifRecordKeys = ${JSON.stringify(
-    Object.keys(fields).map((k) => camelCase(k))
+    Object.keys(fields).map((k) => camelCase(k)),
   )} as const;
 
   export interface AdifRecord extends Record<\`app\${string}\`, string|undefined> {
@@ -219,7 +219,7 @@ function adifRecord() {
           const mappedType = typeForField(key, field);
           const line = `${camelCase(mappedType + "Arb")}`;
           return line;
-        })
+        }),
       ),
     ]
       .sort()
@@ -246,7 +246,7 @@ function typeForField(
   }: {
     type: string;
     enumeration: string;
-  }
+  },
 ) {
   switch (type) {
     case "Enumeration":
@@ -300,7 +300,7 @@ function mapTSAdifType(
   }: {
     type: string;
     enumeration: string;
-  }
+  },
 ) {
   const normalisedType = typeForField(key, { type, enumeration });
 
@@ -354,7 +354,7 @@ function mapTSAdifType(
       console.error(
         `Unknown typescript type for field ${key}`,
         type,
-        normalisedType
+        normalisedType,
       );
       process.exit(1);
   }
@@ -368,7 +368,7 @@ function mapSuperstructAdifType(
   }: {
     type: string;
     enumeration: string;
-  }
+  },
 ) {
   const normalisedType = typeForField(key, { type, enumeration });
 
@@ -378,12 +378,12 @@ function mapSuperstructAdifType(
 function genericEnumerationExtract(
   enumValueCol: string,
   enumTextCol: string,
-  enum_name: string
+  enum_name: string,
 ) {
   const enumName = camelCase(enum_name);
   console.log("Generating", enumName);
   const result = parseFile<Record<string, string>>(
-    `enumerations_${enum_name}.csv`
+    `enumerations_${enum_name}.csv`,
   );
 
   const enumData: Record<string, { description: string }> = {};
@@ -411,7 +411,7 @@ function genericEnumerationExtract(
     ] as const;
 
   export const ${pascalCase(
-    enumName
+    enumName,
   )}Enum = coerce(enums(${enumName}), string(), (value) => {
     const foundValue = ${enumName}.find((v) => v.toUpperCase() == value.toUpperCase());
 
@@ -419,8 +419,8 @@ function genericEnumerationExtract(
   });
 
   export type ${pascalCase(enumName)}Enum = Infer<typeof ${pascalCase(
-      enumName
-    )}Enum>;
+    enumName,
+  )}Enum>;
   `;
 
     writeTypes(`${enumName}.ts`, output);

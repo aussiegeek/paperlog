@@ -31,12 +31,12 @@ export * from "./secondaryAdministrativeSubdivision";
 export const Boolean = coerce(
   boolean(),
   string(),
-  (value) => value === "true" || value.toUpperCase().trim() == "Y"
+  (value) => value === "true" || value.toUpperCase().trim() == "Y",
 );
 export const Date = pattern(string(), /^\d{8}$/);
 export const GridSquare = pattern(
   string(),
-  /^[a-z][a-z][0-9][0-9][a-z]?[a-z]?$/i
+  /^[a-z][a-z][0-9][0-9][a-z]?[a-z]?$/i,
 );
 
 // a comma-delimited list of GridSquare items
@@ -57,18 +57,18 @@ export const IntlString = string();
 export const MultilineString = string();
 
 export const Integer = coerce(integer(), string(), (value) =>
-  parseInt(value, 10)
+  parseInt(value, 10),
 );
 export const Number = coerce(
   instance(Decimal),
   string(),
-  (value) => new Decimal(value)
+  (value) => new Decimal(value),
 );
 export const PositiveInteger = min(Integer, 1);
 export const SOTARef = string();
 export const Time = pattern(
   string(),
-  /^([0-2][0-9][0-5][0-9]|[0-2][0-9][0-5][0-9][0-9][0-9])$/
+  /^([0-2][0-9][0-5][0-9]|[0-2][0-9][0-5][0-9][0-9][0-9])$/,
 );
 export const WWFFRef = string();
 

@@ -52,7 +52,7 @@ function serializeValue(value: unknown): string {
 function serializeRecord(
   adifRecord: AdifRecord,
   index: number,
-  array: AdifRecord[]
+  array: AdifRecord[],
 ) {
   const prev = array[index - 1];
   const current = array[index];
@@ -77,7 +77,7 @@ const templateFields: Array<keyof AdifRecord> = [
 function serializeField(
   [field, value]: [string, unknown],
   prev: AdifRecord | undefined,
-  current: AdifRecord | undefined
+  current: AdifRecord | undefined,
 ) {
   const templateFieldName = templateFields.find((t) => t == field);
   if (prev && current && templateFieldName) {
@@ -101,7 +101,7 @@ function serializeField(
 // generate reset commands for when the previous line has a template field, and the current doesn't
 function resetFields(
   prev: AdifRecord | undefined,
-  current: AdifRecord | undefined
+  current: AdifRecord | undefined,
 ) {
   if (!prev || !current) {
     return "";

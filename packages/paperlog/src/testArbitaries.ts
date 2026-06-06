@@ -37,7 +37,7 @@ export const frequencyCommandArb = frequencyStringArb;
 export const timeOnCmdArb = fc.oneof(
   timeWithoutSeconds,
   timeWithoutSeconds.map((time) => `timeon ${time}`),
-  timeWithSecondsArb.map((time) => `timeon ${time}`)
+  timeWithSecondsArb.map((time) => `timeon ${time}`),
 );
 
 export const callCmdArb = generateCmdArb("call", callsignArb);
@@ -54,23 +54,23 @@ export const signalReportArb = fc.oneof(
     .tuple(
       fc.integer({ min: 1, max: 5 }),
       fc.integer({ min: 1, max: 9 }),
-      fc.option(fc.integer({ min: 1, max: 9 }))
+      fc.option(fc.integer({ min: 1, max: 9 })),
     )
     .map((t) => t.join("")),
   fc
     .tuple(
       fc.constantFrom("+", "-"),
       fc.integer({ min: 1, max: 9 }),
-      fc.integer({ min: 1, max: 9 })
+      fc.integer({ min: 1, max: 9 }),
     )
-    .map((t) => t.join(""))
+    .map((t) => t.join("")),
 );
 
 export const signalReportRcvdCmdArb = signalReportArb.map(
-  (report) => `r${report}`
+  (report) => `r${report}`,
 );
 export const signalReportSentCmdArb = signalReportArb.map(
-  (report) => `s${report}`
+  (report) => `s${report}`,
 );
 
 const sotaCmdArb = generateCmdArb("sota", sotaRefArb);
@@ -91,10 +91,10 @@ const mygridsquareCmdArb = generateCmdArb("mygridsquare", gridSquareArb);
 export const adifFieldCmdArb = fc
   .tuple(
     fc.constantFrom<(typeof adifRecordKeys)[number]>(...adifRecordKeys),
-    fc.boolean()
+    fc.boolean(),
   )
   .chain(([field, useQuotes]) =>
-    fc.tuple(fc.constant(field), fc.constant(useQuotes), adifRecordArbs[field])
+    fc.tuple(fc.constant(field), fc.constant(useQuotes), adifRecordArbs[field]),
   )
   .map(([field, useQuotes, value]) => {
     if (useQuotes || (typeof value == "string" && value.indexOf(" ") > 0)) {
@@ -147,7 +147,7 @@ export const adifRecordValidatedArb = fc
         "rstSent",
       ],
     }),
-    fc.option(potaRefArb, { nil: undefined })
+    fc.option(potaRefArb, { nil: undefined }),
   )
   .map(([r, myPotaRef]) => {
     return presence({ appPaperlogMyPotaRef: myPotaRef, ...r });
@@ -182,5 +182,5 @@ export const commandArb = fc.oneof(
   txPwrCmdArb,
   gridsquareCmdArb,
   mygridsquareCmdArb,
-  adifFieldCmdArb
+  adifFieldCmdArb,
 );

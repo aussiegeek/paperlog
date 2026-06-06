@@ -11,7 +11,7 @@ export const qslSent = [
 
 export const QslSentEnum = coerce(enums(qslSent), string(), (value) => {
   const foundValue = qslSent.find(
-    (v) => v.toUpperCase() == value.toUpperCase()
+    (v) => v.toUpperCase() == value.toUpperCase(),
   );
 
   return foundValue ?? value;

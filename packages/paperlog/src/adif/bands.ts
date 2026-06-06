@@ -75,7 +75,7 @@ const bandData: BandRange = {
 };
 
 export const BandEnum = coerce(enums(bands), string(), (value) =>
-  value.toLowerCase()
+  value.toLowerCase(),
 );
 export type BandEnum = Infer<typeof BandEnum>;
 export const bandRange: BandRange = bandData;

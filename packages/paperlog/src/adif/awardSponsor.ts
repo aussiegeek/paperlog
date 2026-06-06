@@ -20,11 +20,11 @@ export const AwardSponsorEnum = coerce(
   string(),
   (value) => {
     const foundValue = awardSponsor.find(
-      (v) => v.toUpperCase() == value.toUpperCase()
+      (v) => v.toUpperCase() == value.toUpperCase(),
     );
 
     return foundValue ?? value;
-  }
+  },
 );
 
 export type AwardSponsorEnum = Infer<typeof AwardSponsorEnum>;

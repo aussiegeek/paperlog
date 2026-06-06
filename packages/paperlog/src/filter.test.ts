@@ -15,13 +15,13 @@ describe("filter", () => {
               .tuple(adifRecordValidatedArb, fc.constantFrom(undefined, ""))
               .map(([c, sotaRef]) => {
                 return { ...c, sotaRef, mySotaRef: sotaRef };
-              })
+              }),
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
             expect(filterSota(contacts)).toEqual([]);
-          }
-        )
+          },
+        ),
       );
     });
     it("returns contacts with my sota ref set", () => {
@@ -35,13 +35,13 @@ describe("filter", () => {
                   ...c,
                   mySotaRef,
                 };
-              })
+              }),
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
             expect(filterSota(contacts)).toEqual(contacts);
-          }
-        )
+          },
+        ),
       );
     });
 
@@ -54,13 +54,13 @@ describe("filter", () => {
                 ...c,
                 sotaRef,
               };
-            })
+            }),
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
             expect(filterSota(contacts)).toEqual(contacts);
-          }
-        )
+          },
+        ),
       );
     });
   });
@@ -72,13 +72,13 @@ describe("filter", () => {
           fc.array(
             fc.tuple(adifRecordValidatedArb).map(([c]) => {
               return { ...c, appPaperlogMyPotaRef: undefined };
-            })
+            }),
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
             expect(filterPota(contacts)).toEqual([]);
-          }
-        )
+          },
+        ),
       );
     });
     it("returns contacts with my pota ref set", () => {
@@ -92,13 +92,13 @@ describe("filter", () => {
                   ...c,
                   appPaperlogMyPotaRef: myPotaRef,
                 };
-              })
+              }),
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
             expect(filterPota(contacts)).toEqual(contacts);
-          }
-        )
+          },
+        ),
       );
     });
   });
@@ -111,13 +111,13 @@ describe("filter", () => {
               .tuple(adifRecordValidatedArb, fc.constantFrom(undefined, ""))
               .map(([c, myWwffRef]) => {
                 return { ...c, myWwffRef };
-              })
+              }),
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
             expect(filterWwff(contacts)).toEqual([]);
-          }
-        )
+          },
+        ),
       );
     });
     it("returns contacts with my wwff ref set", () => {
@@ -131,13 +131,13 @@ describe("filter", () => {
                   ...c,
                   myWwffRef,
                 };
-              })
+              }),
           ),
           (contacts) => {
             assert(contacts, array(AdifRecord));
             expect(filterWwff(contacts)).toEqual(contacts);
-          }
-        )
+          },
+        ),
       );
     });
   });

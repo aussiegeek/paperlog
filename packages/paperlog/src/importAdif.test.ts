@@ -282,7 +282,7 @@ Contest Name: OCEANIACW - 2022-10-08
     fc.assert(
       fc.property(adifFileStrArb, (adifFileContent) => {
         expect(() => importAdif(adifFileContent)).not.toThrow();
-      })
+      }),
     );
   });
 });

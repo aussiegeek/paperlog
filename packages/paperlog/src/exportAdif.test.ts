@@ -19,21 +19,21 @@ describe("export", () => {
             .tuple(
               adifRecordValidatedArb,
               fc.oneof(sotaRefArb, fc.constant(undefined)),
-              fc.oneof(sotaRefArb, fc.constant(undefined))
+              fc.oneof(sotaRefArb, fc.constant(undefined)),
             )
             .map(([contact, sotaRef, mySotaRef]) => {
               return { ...contact, sotaRef, mySotaRef };
             }),
-          { minLength: 1 }
+          { minLength: 1 },
         ),
         (contacts) => {
           const results = exportAdif({ contacts, srcFileName: "contacts.txt" });
 
           expect(results.files["contacts.txt.all.adi"]?.records).toHaveLength(
-            contacts.length
+            contacts.length,
           );
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -45,11 +45,11 @@ describe("export", () => {
             .tuple(
               adifRecordValidatedArb,
               fc.oneof(sotaRefArb, fc.constant(undefined)),
-              fc.oneof(sotaRefArb, fc.constant(undefined))
+              fc.oneof(sotaRefArb, fc.constant(undefined)),
             )
             .filter(
               ([_contact, sotaRef, mySotaRef]) =>
-                isPresent(sotaRef) || isPresent(mySotaRef)
+                isPresent(sotaRef) || isPresent(mySotaRef),
             )
             .map(([contact, sotaRef, mySotaRef]) => {
               return presence({
@@ -61,7 +61,7 @@ describe("export", () => {
                 appPaperlogMyPotaRef: undefined,
               });
             }),
-          { minLength: 1 }
+          { minLength: 1 },
         ),
         (contacts) => {
           const results = exportAdif({ contacts, srcFileName: "contacts.txt" });
@@ -72,10 +72,10 @@ describe("export", () => {
           ]);
 
           expect(results.files["contacts.txt.sota.adi"]?.records).toHaveLength(
-            contacts.length
+            contacts.length,
           );
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -86,7 +86,7 @@ describe("export", () => {
           .tuple(
             fc.array(adifRecordValidatedArb, { minLength: 1 }),
             wwffRefArb,
-            callsignArb
+            callsignArb,
           )
           .map(([contacts, myWwffRef, stationCallsign]) => {
             return {
@@ -109,14 +109,14 @@ describe("export", () => {
           const results = exportAdif({ contacts, srcFileName: "contacts.txt" });
 
           const filenames = dates.map(
-            (d) => `${stationCallsign} @ ${myWwffRef} ${d}.adi`
+            (d) => `${stationCallsign} @ ${myWwffRef} ${d}.adi`,
           );
 
           expect(new Set(Object.keys(results.files))).toStrictEqual(
-            new Set(["contacts.txt.all.adi", ...filenames])
+            new Set(["contacts.txt.all.adi", ...filenames]),
           );
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -127,7 +127,7 @@ describe("export", () => {
           .tuple(
             fc.array(adifRecordValidatedArb, { minLength: 1 }),
             potaRefArb,
-            callsignArb
+            callsignArb,
           )
           .map(([contacts, myPotaRef, stationCallsign]) => {
             return {
@@ -157,10 +157,10 @@ describe("export", () => {
           const filename = `${stationCallsign}@${myPotaRef}-${date[0]}.adi`;
 
           expect(new Set(Object.keys(results.files))).toStrictEqual(
-            new Set(["contacts.txt.all.adi", filename])
+            new Set(["contacts.txt.all.adi", filename]),
           );
-        }
-      )
+        },
+      ),
     );
   });
 });
