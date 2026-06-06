@@ -1,2 +1,4 @@
 packages:
   - "packages/*"
+minimumReleaseAgeExclude:
+  - '@types/node@24.13.1'
