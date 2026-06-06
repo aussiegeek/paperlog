@@ -2,7 +2,6 @@ import type { AdifFile } from "./adif";
 import type { AdifRecord } from "./adif/adifRecord";
 import Decimal from "decimal.js";
 import { withDecimalStr } from "./withDecimalStr";
-import { isPresent } from "./isPresent";
 
 export function exportPaperlog(adifFile: AdifFile): string {
   return adifFile.records.map(serializeRecord).join("\n");
