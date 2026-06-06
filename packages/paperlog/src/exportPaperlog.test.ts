@@ -1,3 +1,5 @@
+import { describe, expect } from "vitest";
+import { test } from "@fast-check/vitest";
 import type { AdifFile } from "./adif";
 import { exportPaperlog } from "./exportPaperlog";
 import Decimal from "decimal.js";

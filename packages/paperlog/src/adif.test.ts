@@ -1,3 +1,5 @@
+import { describe, expect } from "vitest";
+import { test } from "@fast-check/vitest";
 import { version } from ".";
 import { AdifFile, adifVersion, defaultHeader, serialize } from "./adif";
 import Decimal from "decimal.js";
