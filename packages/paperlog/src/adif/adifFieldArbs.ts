@@ -69,7 +69,7 @@ const alphaArb = fc.constantFrom(
   "Z",
 );
 
-export const stringArb = fc.stringOf(alphaArb, { minLength: 1 });
+export const stringArb = fc.string({ unit: alphaArb, minLength: 1 });
 export const multilineStringArb = stringArb;
 export const intlMultilineStringArb = stringArb;
 export const intlStringArb = stringArb;
@@ -108,6 +108,7 @@ const suffixArb = fc
 const qsoDateRangeArb = fc.date({
   min: new Date("1900-01-01"),
   max: new Date("2100-01-01"),
+  noInvalidDate: true,
 });
 
 export const dateArb = qsoDateRangeArb.map((d) => format(d, "yyyyMMdd"));
@@ -122,7 +123,7 @@ export const callsignArb = fc
     fc.option(locatorArb),
     prefixArb,
     fc.integer({ min: 0, max: 9 }),
-    fc.stringOf(alphaArb, { minLength: 1, maxLength: 4 }),
+    fc.string({ unit: alphaArb, minLength: 1, maxLength: 4 }),
     fc.option(suffixArb),
   )
   .map((t) => t.join(""));
@@ -131,7 +132,7 @@ export const sotaRefArb = fc
   .tuple(
     locatorArb,
     fc.integer({ min: 0, max: 9 }),
-    fc.stringOf(alphaArb, { minLength: 1, maxLength: 3 }),
+    fc.string({ unit: alphaArb, minLength: 1, maxLength: 3 }),
     fc.integer({ min: 1, max: 999 }),
   )
   .map(([locator, regionNum, area, summitNum]) =>
