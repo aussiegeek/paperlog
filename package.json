@@ -3,7 +3,7 @@
   "private": true,
   "files": [],
   "license": "MIT",
-  "repository": "github:aussiegeek/paperlog",
+  "repository": "https://github.com/aussiegeek/paperlog",
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
     "@types/jest": "29.5.14",
