@@ -36,7 +36,9 @@ export const bands = [
   "1mm",
 ] as const;
 
-type BandRange = { [K in typeof bands[number]]: { from: number; to: number } };
+type BandRange = {
+  [K in (typeof bands)[number]]: { from: number; to: number };
+};
 const bandData: BandRange = {
   "2190m": { from: 0.1357, to: 0.1378 },
   "630m": { from: 0.472, to: 0.479 },

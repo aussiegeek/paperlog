@@ -90,7 +90,7 @@ const mygridsquareCmdArb = generateCmdArb("mygridsquare", gridSquareArb);
 
 export const adifFieldCmdArb = fc
   .tuple(
-    fc.constantFrom<typeof adifRecordKeys[number]>(...adifRecordKeys),
+    fc.constantFrom<(typeof adifRecordKeys)[number]>(...adifRecordKeys),
     fc.boolean()
   )
   .chain(([field, useQuotes]) =>
@@ -106,7 +106,7 @@ export const adifFieldCmdArb = fc
 
 /* produce a string for insertion in an adif file with a field and value */
 export const adifFieldStrArb = fc
-  .tuple(fc.constantFrom<typeof adifRecordKeys[number]>(...adifRecordKeys))
+  .tuple(fc.constantFrom<(typeof adifRecordKeys)[number]>(...adifRecordKeys))
   .chain(([field]) => fc.tuple(fc.constant(field), adifRecordArbs[field]))
   .map(([field, value]) => {
     return `<${field}${valueLength(value)}>${value}`;
