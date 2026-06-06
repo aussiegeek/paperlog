@@ -1,10 +1,11 @@
 {
-  "extends": "@tsconfig/node16-strictest/tsconfig.json",
+  "extends": "@tsconfig/node24/tsconfig.json",
   "compilerOptions": {
     "noEmitOnError": true,
     "noUnusedLocals": false,
     "lib": ["ES2021", "DOM"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["node", "jest"]
   },
   "include": []
 }
