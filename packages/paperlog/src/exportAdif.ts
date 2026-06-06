@@ -22,9 +22,7 @@ export function exportAdif({
     },
   };
 
-  const programs = ["mySotaRef"];
-
-  const refs: Record<(typeof programs)[number], string[]> = {
+  const refs: Record<string, string[]> = {
     mySotaRef: [],
   };
 
