@@ -120,8 +120,8 @@ importers:
         version: 17.7.2
     devDependencies:
       '@types/yargs':
-        specifier: 17.0.13
-        version: 17.0.13
+        specifier: 17.0.35
+        version: 17.0.35
       '@vercel/ncc':
         specifier: 0.34.0
         version: 0.34.0
@@ -172,8 +172,8 @@ importers:
         version: 5.74.0(postcss@8.5.10)(webpack-cli@4.10.0)
     devDependencies:
       autoprefixer:
-        specifier: 10.4.13
-        version: 10.4.13(postcss@8.5.10)
+        specifier: 10.5.0
+        version: 10.5.0(postcss@8.5.10)
       nodemon:
         specifier: 2.0.22
         version: 2.0.22
@@ -733,6 +733,9 @@ packages:
   '@types/yargs@17.0.13':
     resolution: {integrity: sha512-9sWaruZk2JGxIQU+IhI1fhPYRcQ0UuTNuKuCW9bR5fp7qi2Llf7WDzNa17Cy7TKnh3cdxDOiyTu6gaLS0eDatg==}
 
+  '@types/yargs@17.0.35':
+    resolution: {integrity: sha512-qUHkeCyQFxMXg79wQfTtfndEC+N9ZZg76HJftDJp+qH2tV7Gj4OJi7l+PiWwJ+pWtW8GwSmqsDj/oymhrTWXjg==}
+
   '@typescript-eslint/eslint-plugin@5.62.0':
     resolution: {integrity: sha512-TiZzBSJja/LbhNPvk6yc0JrX9XqhQ0hdh6M2svYfsHGejaKFIAGd9MQ+ERIMzLGlN/kZoYIgdxFV0PuljTKXag==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -991,8 +994,8 @@ packages:
     resolution: {integrity: sha512-hsU18Ae8CDTR6Kgu9DYf0EbCr/a5iGL0rytQDobUcdpYOKokk8LEjVphnXkDkgpi0wYVsqrXuP0bZxJaTqdgoA==}
     engines: {node: '>= 0.4'}
 
-  autoprefixer@10.4.13:
-    resolution: {integrity: sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==}
+  autoprefixer@10.5.0:
+    resolution: {integrity: sha512-FMhOoZV4+qR6aTUALKX2rEqGG+oyATvwBt9IIzVR5rMa2HRWPkxf+P+PAJLD1I/H5/II+HuZcBJYEFBpq39ong==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -1755,8 +1758,8 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
 
-  fraction.js@4.3.7:
-    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
+  fraction.js@5.3.4:
+    resolution: {integrity: sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ==}
 
   fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
@@ -2637,10 +2640,6 @@ packages:
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
-    engines: {node: '>=0.10.0'}
-
-  normalize-range@0.1.2:
-    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
   npm-run-path@4.0.1:
@@ -4615,6 +4614,10 @@ snapshots:
     dependencies:
       '@types/yargs-parser': 21.0.3
 
+  '@types/yargs@17.0.35':
+    dependencies:
+      '@types/yargs-parser': 21.0.3
+
   '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.27.0)(typescript@4.8.4))(eslint@8.27.0)(typescript@4.8.4)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
@@ -4912,12 +4915,11 @@ snapshots:
 
   async-function@1.0.0: {}
 
-  autoprefixer@10.4.13(postcss@8.5.10):
+  autoprefixer@10.5.0(postcss@8.5.10):
     dependencies:
       browserslist: 4.28.2
       caniuse-lite: 1.0.30001793
-      fraction.js: 4.3.7
-      normalize-range: 0.1.2
+      fraction.js: 5.3.4
       picocolors: 1.1.1
       postcss: 8.5.10
       postcss-value-parser: 4.2.0
@@ -5844,7 +5846,7 @@ snapshots:
 
   forwarded@0.2.0: {}
 
-  fraction.js@4.3.7: {}
+  fraction.js@5.3.4: {}
 
   fresh@0.5.2: {}
 
@@ -6876,8 +6878,6 @@ snapshots:
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
-
-  normalize-range@0.1.2: {}
 
   npm-run-path@4.0.1:
     dependencies:
