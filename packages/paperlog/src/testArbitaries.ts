@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import { adifRecordKeys, blankAdifRecord } from "./adif/adifRecord";
+import { adifRecordKeys } from "./adif/adifRecord";
 import { bandRange } from "./adif/bands";
 import { adifRecordArbs } from "./adif/adifRecordArbs";
 import {

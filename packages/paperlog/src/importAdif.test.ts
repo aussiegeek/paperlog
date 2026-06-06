@@ -3,7 +3,6 @@ import type { AdifFile } from "./adif";
 import { importAdif } from "./importAdif";
 import { adifFileStrArb } from "./testArbitaries";
 import Decimal from "decimal.js";
-import { presence } from "./presence";
 
 describe("adifImport", () => {
   test("import basic adif file", () => {

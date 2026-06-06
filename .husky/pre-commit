@@ -3,3 +3,5 @@
 
 pnpm types:check
 pnpm test
+pnpm prettier:check
+pnpm lint:check
