@@ -564,8 +564,8 @@ describe("parse", () => {
           });
           expect(parseFailed).toHaveLength(0);
           expect(validContacts).toHaveLength(callsigns.length);
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -599,8 +599,8 @@ describe("parse", () => {
           });
           expect(parseFailed).toHaveLength(0);
           expect(validContacts).toHaveLength(loglines.length);
-        }
-      )
+        },
+      ),
     );
   });
 });
@@ -626,7 +626,7 @@ describe("individual parsing errors", () => {
   });
   test("missing time", () => {
     const result = parse(
-      "station vk1abc date 20220101 mode cw 7.032 call vk1abc"
+      "station vk1abc date 20220101 mode cw 7.032 call vk1abc",
     );
     const messages = validationMessagesForResult(result[0]!);
     expect(messages).toStrictEqual([

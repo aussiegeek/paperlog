@@ -10,7 +10,7 @@ export const qsoComplete = [
 
 export const QsoCompleteEnum = coerce(enums(qsoComplete), string(), (value) => {
   const foundValue = qsoComplete.find(
-    (v) => v.toUpperCase() == value.toUpperCase()
+    (v) => v.toUpperCase() == value.toUpperCase(),
   );
 
   return foundValue ?? value;

@@ -18,7 +18,7 @@ describe("import/export", () => {
         const parsed = importAdif(serialized);
 
         expect(parsed).toStrictEqual(adifFile);
-      })
+      }),
     );
   });
 
@@ -63,8 +63,8 @@ describe("import/export", () => {
           expect(parseFailed).toHaveLength(0);
 
           expect(parsedAdifFile!.records).toStrictEqual(adifFile.records);
-        }
-      )
+        },
+      ),
     );
   });
 });

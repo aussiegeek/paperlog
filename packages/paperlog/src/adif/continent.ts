@@ -13,7 +13,7 @@ export const continent = [
 
 export const ContinentEnum = coerce(enums(continent), string(), (value) => {
   const foundValue = continent.find(
-    (v) => v.toUpperCase() == value.toUpperCase()
+    (v) => v.toUpperCase() == value.toUpperCase(),
   );
 
   return foundValue ?? value;

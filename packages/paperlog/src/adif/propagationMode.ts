@@ -29,11 +29,11 @@ export const PropagationModeEnum = coerce(
   string(),
   (value) => {
     const foundValue = propagationMode.find(
-      (v) => v.toUpperCase() == value.toUpperCase()
+      (v) => v.toUpperCase() == value.toUpperCase(),
     );
 
     return foundValue ?? value;
-  }
+  },
 );
 
 export type PropagationModeEnum = Infer<typeof PropagationModeEnum>;

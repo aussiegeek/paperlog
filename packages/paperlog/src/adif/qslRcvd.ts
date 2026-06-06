@@ -11,7 +11,7 @@ export const qslRcvd = [
 
 export const QslRcvdEnum = coerce(enums(qslRcvd), string(), (value) => {
   const foundValue = qslRcvd.find(
-    (v) => v.toUpperCase() == value.toUpperCase()
+    (v) => v.toUpperCase() == value.toUpperCase(),
   );
 
   return foundValue ?? value;

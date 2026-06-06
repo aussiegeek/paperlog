@@ -15,7 +15,7 @@ export const adifHeader = partial(
     createdTimestamp: string(),
     programid: string(),
     programversion: string(),
-  })
+  }),
 );
 
 export type AdifHeader = Infer<typeof adifHeader>;
@@ -58,7 +58,7 @@ function headerText(text: string | undefined) {
 }
 
 export function valueLength(
-  value: string | number | boolean | undefined | unknown
+  value: string | number | boolean | undefined | unknown,
 ) {
   if (typeof value === "string") {
     return `:${value.length}`;

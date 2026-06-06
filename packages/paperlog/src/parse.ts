@@ -224,7 +224,7 @@ function parseFreq(token: Token, template: Partial<AdifRecord>) {
 export function collectGlobalErrors(results: ParseResult[]) {
   // see if there are any global errors, and return them early
   const globalError = results.find(
-    (r) => "error" in r && r.error instanceof StructError
+    (r) => "error" in r && r.error instanceof StructError,
   );
 
   const messages: Record<string, string> = {};
@@ -288,8 +288,8 @@ export function validationMessagesForResult(result: ParseResult) {
     } else {
       messages.push(
         `Unrecognised token starting at \`${error.input.substring(
-          error.column - 1
-        )}\``
+          error.column - 1,
+        )}\``,
       );
     }
   }

@@ -10,7 +10,7 @@ export const antPath = [
 
 export const AntPathEnum = coerce(enums(antPath), string(), (value) => {
   const foundValue = antPath.find(
-    (v) => v.toUpperCase() == value.toUpperCase()
+    (v) => v.toUpperCase() == value.toUpperCase(),
   );
 
   return foundValue ?? value;

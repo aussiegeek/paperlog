@@ -1275,11 +1275,11 @@ export const PrimaryAdministrativeSubdivisionEnum = coerce(
   string(),
   (value) => {
     const foundValue = primaryAdministrativeSubdivision.find(
-      (v) => v.toUpperCase() == value.toUpperCase()
+      (v) => v.toUpperCase() == value.toUpperCase(),
     );
 
     return foundValue ?? value;
-  }
+  },
 );
 
 export type PrimaryAdministrativeSubdivisionEnum = Infer<

@@ -9,7 +9,7 @@ export const qslMedium = [
 
 export const QslMediumEnum = coerce(enums(qslMedium), string(), (value) => {
   const foundValue = qslMedium.find(
-    (v) => v.toUpperCase() == value.toUpperCase()
+    (v) => v.toUpperCase() == value.toUpperCase(),
   );
 
   return foundValue ?? value;

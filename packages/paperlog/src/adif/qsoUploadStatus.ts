@@ -12,11 +12,11 @@ export const QsoUploadStatusEnum = coerce(
   string(),
   (value) => {
     const foundValue = qsoUploadStatus.find(
-      (v) => v.toUpperCase() == value.toUpperCase()
+      (v) => v.toUpperCase() == value.toUpperCase(),
     );
 
     return foundValue ?? value;
-  }
+  },
 );
 
 export type QsoUploadStatusEnum = Infer<typeof QsoUploadStatusEnum>;

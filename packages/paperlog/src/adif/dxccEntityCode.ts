@@ -412,11 +412,11 @@ export const DxccEntityCodeEnum = coerce(
   string(),
   (value) => {
     const foundValue = dxccEntityCode.find(
-      (v) => v.toUpperCase() == value.toUpperCase()
+      (v) => v.toUpperCase() == value.toUpperCase(),
     );
 
     return foundValue ?? value;
-  }
+  },
 );
 
 export type DxccEntityCodeEnum = Infer<typeof DxccEntityCodeEnum>;
