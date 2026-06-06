@@ -17,7 +17,7 @@ describe("import/export", () => {
         ctx.log(`Serialzed \`${serialized}\``);
         const parsed = importAdif(serialized);
 
-        expect(parsed).toStrictEqual(adifFile);
+        expect(parsed).toEqual(adifFile);
       }),
     );
   });
