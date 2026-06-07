@@ -8,25 +8,25 @@ import {
   pattern,
   string,
 } from "superstruct";
-import Decimal from "decimal.js";
+import { Decimal } from "decimal.js";
 
-export * from "./antPath";
-export * from "./arrlSection";
-export * from "./bands";
-export * from "./continent";
-export * from "./credit";
-export * from "./dxccEntityCode";
-export * from "./mode";
-export * from "./primaryAdministrativeSubdivision";
-export * from "./propagationMode";
-export * from "./qslMedium";
-export * from "./qslRcvd";
-export * from "./qslSent";
-export * from "./qslVia";
-export * from "./qsoComplete";
-export * from "./qsoUploadStatus";
-export * from "./region";
-export * from "./secondaryAdministrativeSubdivision";
+export * from "./antPath.js";
+export * from "./arrlSection.js";
+export * from "./bands.js";
+export * from "./continent.js";
+export * from "./credit.js";
+export * from "./dxccEntityCode.js";
+export * from "./mode.js";
+export * from "./primaryAdministrativeSubdivision.js";
+export * from "./propagationMode.js";
+export * from "./qslMedium.js";
+export * from "./qslRcvd.js";
+export * from "./qslSent.js";
+export * from "./qslVia.js";
+export * from "./qsoComplete.js";
+export * from "./qsoUploadStatus.js";
+export * from "./region.js";
+export * from "./secondaryAdministrativeSubdivision.js";
 
 export const Boolean = coerce(
   boolean(),

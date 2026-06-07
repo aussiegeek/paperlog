@@ -1,4 +1,4 @@
-import type Decimal from "decimal.js";
+import type { Decimal } from "decimal.js";
 
 /*
  * make sure decimal string always has a decimal in it (ie 14 -> 14.0),

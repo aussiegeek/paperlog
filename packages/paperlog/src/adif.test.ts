@@ -1,8 +1,8 @@
 import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
-import { version } from ".";
-import { AdifFile, adifVersion, defaultHeader, serialize } from "./adif";
-import Decimal from "decimal.js";
+import { version } from "./index.js";
+import { AdifFile, adifVersion, defaultHeader, serialize } from "./adif.js";
+import { Decimal } from "decimal.js";
 
 describe("adif", () => {
   describe("manual serialization", () => {

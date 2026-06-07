@@ -1,5 +1,5 @@
-import Tokenizr from "tokenizr";
-import { Command } from "./parse";
+import { Tokenizr } from "tokenizr";
+import { Command } from "./parse.js";
 
 export const lexer = new Tokenizr();
 

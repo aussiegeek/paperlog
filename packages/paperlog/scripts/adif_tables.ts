@@ -45,7 +45,10 @@ const enumTables = [
 ];
 
 function parseFile<T>(filename: string) {
-  const data = fs.readFileSync(`${__dirname}/../adif_csv/${filename}`, "utf8");
+  const data = fs.readFileSync(
+    `${import.meta.dirname}/../adif_csv/${filename}`,
+    "utf8",
+  );
   const result = Papa.parse<T>(data, { header: true, skipEmptyLines: true });
   if (result.errors.length > 0) {
     console.error("Error parsing file", filename, result.errors);
@@ -54,10 +57,13 @@ function parseFile<T>(filename: string) {
   return result;
 }
 
-function writeTypes(filename: string, contents: string) {
+async function writeTypes(filename: string, contents: string) {
   try {
-    const formatted = prettier.format(contents, { parser: "typescript" });
-    fs.writeFileSync(`${__dirname}/../src/adif/${filename}`, formatted);
+    const formatted = await prettier.format(contents, { parser: "typescript" });
+    fs.writeFileSync(
+      `${import.meta.dirname}/../src/adif/${filename}`,
+      formatted,
+    );
   } catch (e) {
     console.log(contents);
     console.error("Error writing file", filename, e);

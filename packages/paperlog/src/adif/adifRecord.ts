@@ -21,22 +21,22 @@ import {
   String,
   Time,
   WWFFRef,
-} from "./types";
-import { AntPathEnum } from "./antPath";
-import { ArrlSectionEnum } from "./arrlSection";
-import { BandEnum } from "./bands";
-import { ContinentEnum } from "./continent";
-import { DxccEntityCodeEnum } from "./dxccEntityCode";
-import { PrimaryAdministrativeSubdivisionEnum } from "./primaryAdministrativeSubdivision";
-import { PropagationModeEnum } from "./propagationMode";
-import { QslRcvdEnum } from "./qslRcvd";
-import { QslSentEnum } from "./qslSent";
-import { QslViaEnum } from "./qslVia";
-import { QsoCompleteEnum } from "./qsoComplete";
-import { QsoUploadStatusEnum } from "./qsoUploadStatus";
-import { RegionEnum } from "./region";
-import { SecondaryAdministrativeSubdivisionEnum } from "./secondaryAdministrativeSubdivision";
-import type Decimal from "decimal.js";
+} from "./types.js";
+import { AntPathEnum } from "./antPath.js";
+import { ArrlSectionEnum } from "./arrlSection.js";
+import { BandEnum } from "./bands.js";
+import { ContinentEnum } from "./continent.js";
+import { DxccEntityCodeEnum } from "./dxccEntityCode.js";
+import { PrimaryAdministrativeSubdivisionEnum } from "./primaryAdministrativeSubdivision.js";
+import { PropagationModeEnum } from "./propagationMode.js";
+import { QslRcvdEnum } from "./qslRcvd.js";
+import { QslSentEnum } from "./qslSent.js";
+import { QslViaEnum } from "./qslVia.js";
+import { QsoCompleteEnum } from "./qsoComplete.js";
+import { QsoUploadStatusEnum } from "./qsoUploadStatus.js";
+import { RegionEnum } from "./region.js";
+import { SecondaryAdministrativeSubdivisionEnum } from "./secondaryAdministrativeSubdivision.js";
+import type { Decimal } from "decimal.js";
 
 export const adifRecordKeys = [
   "address",

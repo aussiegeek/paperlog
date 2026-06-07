@@ -1,8 +1,10 @@
-export * from "./adif";
-export * from "./parse";
-export * from "./exportPaperlog";
-export * from "./filter";
-export * from "./adif/adifRecord";
-export * from "./exportAdif";
-export * from "./importAdif";
-export { version } from "../package.json";
+export * from "./adif.js";
+export * from "./parse.js";
+export * from "./exportPaperlog.js";
+export * from "./filter.js";
+export * from "./adif/adifRecord.js";
+export * from "./exportAdif.js";
+export * from "./importAdif.js";
+import pkg from "../package.json" with { type: "json" };
+const version = pkg.version;
+export { version };

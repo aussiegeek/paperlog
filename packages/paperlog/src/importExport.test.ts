@@ -1,13 +1,16 @@
 import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
 import fc from "fast-check";
-import { serialize } from "./adif";
-import { importAdif } from "./importAdif";
-import { adifFileValidatedArb, adifRecordValidatedArb } from "./testArbitaries";
-import { exportPaperlog } from "./exportPaperlog";
-import { parse, validationMessagesForResult } from "./parse";
-import { AdifRecord } from "./adif/adifRecord";
-import { exportAdif } from "./exportAdif";
+import { serialize } from "./adif.js";
+import { importAdif } from "./importAdif.js";
+import {
+  adifFileValidatedArb,
+  adifRecordValidatedArb,
+} from "./testArbitaries.js";
+import { exportPaperlog } from "./exportPaperlog.js";
+import { parse, validationMessagesForResult } from "./parse.js";
+import { AdifRecord } from "./adif/adifRecord.js";
+import { exportAdif } from "./exportAdif.js";
 import { is } from "superstruct";
 
 describe("import/export", () => {

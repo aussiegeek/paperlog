@@ -1,7 +1,7 @@
 import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
-import { withDecimalStr } from "./withDecimalStr";
-import Decimal from "decimal.js";
+import { withDecimalStr } from "./withDecimalStr.js";
+import { Decimal } from "decimal.js";
 
 describe("withDecimalStr", () => {
   test.each([

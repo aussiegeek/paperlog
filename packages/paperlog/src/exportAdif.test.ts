@@ -6,11 +6,11 @@ import {
   sotaRefArb,
   wwffRefArb,
   potaRefArb,
-} from "./adif/adifFieldArbs";
-import { exportAdif } from "./exportAdif";
-import { isPresent } from "./isPresent";
-import { presence } from "./presence";
-import { adifRecordValidatedArb } from "./testArbitaries";
+} from "./adif/adifFieldArbs.js";
+import { exportAdif } from "./exportAdif.js";
+import { isPresent } from "./isPresent.js";
+import { presence } from "./presence.js";
+import { adifRecordValidatedArb } from "./testArbitaries.js";
 
 describe("export", () => {
   test("export all contacts", () => {

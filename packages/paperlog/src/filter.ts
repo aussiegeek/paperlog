@@ -1,5 +1,5 @@
-import type { AdifRecord } from "./adif/adifRecord";
-import { isPresent } from "./isPresent";
+import type { AdifRecord } from "./adif/adifRecord.js";
+import { isPresent } from "./isPresent.js";
 
 export function filterSota(contacts: AdifRecord[]): AdifRecord[] {
   return contacts.filter(

@@ -1,6 +1,6 @@
 import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
-import { presence } from "./presence";
+import { presence } from "./presence.js";
 
 describe("presence", () => {
   test("no changes when all values are defined", () => {
