@@ -2,6 +2,15 @@
 import { enums, Infer, coerce, string } from "superstruct";
 
 export const primaryAdministrativeSubdivision = [
+  "1", // Concepción
+  "2", // San Pedro
+  "3", // Cordillera
+  "4", // Guairá
+  "5", // Caeguazú
+  "6", // Caazapá
+  "7", // Itapúa
+  "8", // Misiones
+  "9", // Paraguarí
   "10", // Virovitičko-Podravska županija
   "11", // Požeško-Slavonska županija
   "12", // Brodsko-Posavska županija
@@ -42,22 +51,22 @@ export const primaryAdministrativeSubdivision = [
   "47", // Okinawa
   "48", // Lozère
   "49", // Maine-et-Loire
-  "50", // Manche
+  "50", // Trøndelag
   "51", // Marne
   "52", // Haute-Marne
   "53", // Mayenne
-  "54", // Meurthe-et-Moselle
+  "54", // Troms og Finnmark
   "55", // Meuse
   "56", // Morbihan
   "57", // Moselle
-  "58", // Niëvre
+  "58", // Nièvre
   "59", // Nord
   "60", // Oise
   "61", // Orne
   "62", // Pas-de-Calais
   "63", // Puy-de-Dôme
   "64", // Pyrénées-Atlantiques
-  "65", // Hautea-Pyrénées
+  "65", // Hautes-Pyrénées
   "66", // Pyrénées-Orientales
   "67", // Bas-Rhin
   "68", // Haut-Rhin
@@ -84,10 +93,11 @@ export const primaryAdministrativeSubdivision = [
   "89", // Yonne
   "90", // Territoire de Belfort
   "91", // Essonne
-  "92", // Hauts-de-Selne
+  "92", // Hauts-de-Seine
   "93", // Seine-Saint-Denis
   "94", // Val-de-Marne
   "95", // Val-d'Oise
+  "99", // Isla de la Juventud
   "100", // Somero
   "101", // Copenhagen City
   "102", // Alastaro
@@ -523,12 +533,12 @@ export const primaryAdministrativeSubdivision = [
   "QC", // Québec
   "ON", // Ontario
   "MB", // Monza e Brianza
-  "SK", // Saskatchewan
-  "AB", // Stockholm län
-  "BC", // Bacau
-  "NT", // Neamţ
+  "SK", // Sikkim
+  "AB", // Stockholms län
+  "BC", // Bacău
+  "NT", // Neamț
   "NB", // Noord-Brabant
-  "NL", // Nuevo Leon
+  "NL", // Nāgāland
   "YT", // Yukon
   "PE", // Pescara
   "NU", // Nuoro
@@ -550,6 +560,7 @@ export const primaryAdministrativeSubdivision = [
   "016", // Vårdö
   "051", // Märket
   "AK", // Alaska
+  "AN", // Ancona
   "UO", // Ust’-Ordynsky Autonomous Okrug
   "CB", // Castelo Branco
   "SV", // Suceava
@@ -558,7 +569,7 @@ export const primaryAdministrativeSubdivision = [
   "TO", // Toledo
   "HM", // Khmel'nyts'ka Oblast'
   "YN", // Yunnan
-  "TN", // Tennessee
+  "TN", // Tamil Nādu
   "OM", // Omsk
   "KN", // Kurgan
   "OB", // Orenburg
@@ -566,9 +577,9 @@ export const primaryAdministrativeSubdivision = [
   "BA", // Badajoz
   "KO", // Kyivs'ka Oblast'
   "AL", // Alabama
-  "GA", // Georgia
+  "GA", // Goa
   "KK", // Kilkenny
-  "TM", // Timiş
+  "TM", // Timiș
   "HK", // Khabarovsk
   "EA", // Yevreyskaya Autonomous Oblast
   "SL", // Sevastopol'
@@ -585,51 +596,64 @@ export const primaryAdministrativeSubdivision = [
   "KY", // Kentucky
   "TU", // Tulln
   "KT", // Kamchatka
-  "IB", // Baleares
+  "IB", // Balears
   "MI", // Michigan
-  "BR", // Brăila
-  "HR", // Harghita
+  "BR", // Bihār
+  "HR", // Haryāna
   "VI", // Vinnyts'ka Oblast'
   "MA", // Massachusetts
   "HO", // Horn
   "GC", // Graz
-  "TF", // Tenerife
+  "TF", // Santa Cruz de Tenerife
   "CE", // Caserta
-  "ML", // Melilla
+  "ML", // Meghālaya
   "COL", // Colima
-  "DF", // Oietrito Federal
+  "DF", // Distrito Federal
+  "CMX", // Ciudad de México
   "EMX", // Estado de México
+  "MEX", // México
   "GTO", // Guanajuato
+  "GUA", // Guanajuato
   "HGO", // Hidalgo
+  "HID", // Hidalgo
   "JAL", // Jalisco
   "MIC", // Michalovce
   "MOR", // Morelos
   "NAY", // Nayarit
   "PUE", // Puebla
   "QRO", // Querétaro de Arteaga
+  "QUE", // Quezon
   "TLX", // Tlaxcala
-  "VER", // Veracruz-Llave
+  "TLA", // Tlaxcala
+  "VER", // Veracruz de Ignacio de la Llave
   "AGS", // Agusan del Sur
+  "AGU", // Aguascalientes
+  "BCN", // Baja California
   "BCS", // Baja California Sur
   "CHH", // Chihuahua
   "COA", // Coahuila de Zaragoza
   "DGO", // Durango
+  "DUR", // Durango
+  "NLE", // Nuevo León
   "SLP", // San Luis Potosí
   "SIN", // Sinaloa
   "SON", // Sonora
   "TMS", // Tamaulipas
+  "TAM", // Tamaulipas
   "ZAC", // Zacatecas
   "CAM", // Camiguin
   "CHS", // Chiapas
+  "CHP", // Chiapas
   "GRO", // Guerrero
   "OAX", // Oaxaca
   "QTR", // Quintana Roo
+  "ROO", // Quintana Roo
   "TAB", // Tabasco
   "YUC", // Yucatán
   "SP", // La Spezia
   "LO", // La Rioja
-  "KL", // Klagenfurt-Land
-  "AR", // Arkansas
+  "KL", // Kerala
+  "AR", // Arunāchal Pradesh
   "NO", // Novara
   "VO", // Volyos'ka Oblast'
   "NV", // Nevada
@@ -675,6 +699,14 @@ export const primaryAdministrativeSubdivision = [
   "KB", // Kitzbühel
   "AD", // Republic of Adygeya
   "FJL", // Franz Josef Land
+  "09", // Ličko-Senjska županija
+  "08", // Primorsko-Goranska županija
+  "06", // Koprivničko-Križevačka županija
+  "03", // Sisačko-Moslavačka županija
+  "04", // Karlovačka županija
+  "01", // Zagrebačka županija
+  "07", // Bjelovarsko-Bilogorska županija
+  "05", // Varaždinska županija
   "C", // Uppsala län
   "B", // Barcelona
   "S", // Värmlands län
@@ -684,11 +716,11 @@ export const primaryAdministrativeSubdivision = [
   "N", // Hallands län
   "E", // Östergötlands län
   "T", // Örebro län
-  "W", // Dalarna län
+  "W", // Dalarnas län
   "M", // Skåne län
   "G", // Kronobergs län
   "A", // Alicante
-  "J", // Jaen
+  "J", // Jaén
   "D", // Södermanlands län
   "K", // Blekinge län
   "F", // Jönköpings län
@@ -697,20 +729,20 @@ export const primaryAdministrativeSubdivision = [
   "R", // Mazowieckie
   "U", // Västmanlands län
   "Z", // Jämtlands län
-  "V", // Valencia
+  "V", // València
   "Q", // Kwangju
   "ES", // Espírito Santo
   "GO", // Gorizia
   "SC", // Sichuan
   "SE", // Sevilla
-  "AP", // Ascoli Piceno
-  "PB", // Paraíba
+  "AP", // Andhra Pradesh
+  "PB", // Punjab
   "RN", // Rimini
   "PI", // Pisa
   "AC", // Västerbottens län
   "MS", // Mississippi
   "RR", // Roraima
-  "RJ", // Rio de Janeiro
+  "RJ", // Rājasthān
   "RS", // Ruse
   "PR", // Parma
   "PA", // Pennsylvania
@@ -718,39 +750,38 @@ export const primaryAdministrativeSubdivision = [
   "HI", // Hainan
   "II", // Antofagasta
   "III", // Atacama
+  "AT", // Asti
   "I", // Gotlands län
   "XV", // Arica y Parinacota
+  "CO", // Colorado
+  "VS", // Wallis / Valais
   "RM", // Roma
+  "LI", // Limburg
   "VII", // Maule
   "VIII", // Bío-Bío
+  "BI", // Bizkaia
   "IX", // La Araucanía
   "XIV", // Los Ríos
+  "LR", // Leiria
+  "LL", // Linz-Land
   "XI", // Aisén del General Carlos Ibáñez del Campo
+  "AI", // Appenzell Innerrhoden
   "XII", // Magallanes
-  "KA", // Kărdžali
-  "01", // Zagrebačka županija
+  "KA", // Karnātaka
   "02", // Krapinsko-Zagorska županija
   "ASU", // Asunción
-  "03", // Sisačko-Moslavačka županija
-  "09", // Ličko-Senjska županija
-  "06", // Koprivničko-Križevačka županija
-  "05", // Varaždinska županija
-  "04", // Karlovačka županija
-  "08", // Primorsko-Goranska županija
-  "07", // Bjelovarsko-Bilogorska županija
-  "IS", // Iaşi
+  "IS", // Iași
+  "LD", // Longford
   "CA", // California
   "SJ", // Sălaj
-  "CO", // Colorado
   "FD", // Florida
   "FS", // Flores
   "DU", // Durazno
   "RV", // Rivera
-  "LA", // Louisiana
+  "LA", // Ladākh
   "TT", // Treinta y Tres
-  "CL", // Călăraşi
+  "CL", // Călărași
   "LH", // Louth
-  "AN", // Ancona
   "DC", // District of Columbia
   "FA", // Falcón
   "GU", // Guadalajara
@@ -758,7 +789,7 @@ export const primaryAdministrativeSubdivision = [
   "NE", // Nebraska
   "PO", // Poltavs'ka Oblast'
   "SU", // Sums'ka Oblast'
-  "TR", // Teleorman
+  "TR", // Tripura
   "VA", // Virginia
   "ZU", // Zulia
   "ACT", // Australian Capital Territory
@@ -783,20 +814,24 @@ export const primaryAdministrativeSubdivision = [
   "NIK", // New Ireland
   "NPP", // Northern
   "NSA", // Northern Samar
-  "SAN", // Santaun
+  "NSB", // Bougainville
+  "SAN", // West Sepik
   "SHM", // Southern Highlands
   "WPD", // Western
   "WHM", // Western Highlands
   "WBR", // West New Britain
+  "WBK", // West New Britain
+  "HLA", // Hela
+  "JWK", // Jiwaka
   "AUK", // Auckland
   "BOP", // Bay of Plenty
   "NTL", // Northland
   "WKO", // Waikato
   "GIS", // Gisborne
-  "HKB", // Hawkes Bay
-  "MWT", // Manawatu-Wanganui
+  "HKB", // Hawke's Bay
+  "MWT", // Manawatū-Whanganui
   "TKI", // Taranaki
-  "WGN", // Wellington
+  "WGN", // Greater Wellington
   "CAN", // Camarines Norte
   "MBH", // Marlborough
   "NSN", // Nelson
@@ -806,9 +841,9 @@ export const primaryAdministrativeSubdivision = [
   "O", // Västra Götalands län
   "WC", // Wien
   "JO", // St. Johann
-  "ZE", // Zell Am See
+  "ZE", // Zeeland
   "BL", // Basel Landschaft
-  "BN", // Bistrita-Nasaud
+  "BN", // Bistrița-Năsăud
   "GD", // Guangdong
   "GF", // Gänserndorf
   "HL", // Heilongjiang
@@ -818,7 +853,7 @@ export const primaryAdministrativeSubdivision = [
   "PL", // Pleven
   "SB", // Sibiu
   "SW", // Schwechat
-  "WB", // Wr.Neustadt-Bezirk
+  "WB", // West Bengal
   "WN", // Wr.Neustadt
   "WT", // Waidhofen/Thaya
   "WU", // Wien-Umgebung
@@ -836,7 +871,6 @@ export const primaryAdministrativeSubdivision = [
   "GM", // Gmunden
   "GR", // Graubuenden / Grisons
   "LC", // Lecco
-  "LL", // Linz-Land
   "RI", // Rhode Island
   "SD", // Shandong
   "UU", // Urfahr
@@ -844,7 +878,7 @@ export const primaryAdministrativeSubdivision = [
   "WE", // Wels
   "WL", // Wels-Land
   "BM", // Bruck-Mürzzuschlag
-  "DL", // Donegal
+  "DL", // Delhi
   "FB", // Feldbach
   "FF", // Fürstenfeld
   "GB", // Gröbming
@@ -853,10 +887,9 @@ export const primaryAdministrativeSubdivision = [
   "JU", // Jura
   "KF", // Knittelfeld
   "LB", // Limburg
-  "LE", // Leon
-  "LI", // Livorno
+  "LE", // León
   "LN", // Liaoning
-  "MZ", // Mürzzuschlag
+  "MZ", // Mizoram
   "WZ", // Weiz
   "IC", // Innsbruck
   "IL", // Illinois
@@ -883,10 +916,10 @@ export const primaryAdministrativeSubdivision = [
   "SF", // Sofija
   "LV", // L'vivs'ka Oblast'
   "VT", // Vermont
-  "MN", // Minnesota
+  "MN", // Manipur
   "VD", // Waadt / Vaud
   "RZ", // Razgrad
-  "SS", // Guipuzcoa
+  "SS", // Gipuzkoa
   "SN", // Shaanxi
   "VN", // Vrancea
   "2A", // Corse-du-Sud
@@ -907,36 +940,32 @@ export const primaryAdministrativeSubdivision = [
   "CI", // Carbonia-Iglesias
   "OG", // Ogliastra
   "OT", // Olt
-  "VS", // Wallis / Valais
   "BB", // Brandenburg
   "BE", // Bern
-  "BY", // Freistaat Bayern
-  "HH", // Freie und Hansestadt Hamburg
+  "BY", // Bayern
+  "HH", // Hamburg
   "NI", // Mykolaivs'ka Oblast'
   "NW", // Nidwalden
   "RP", // Rheinland-Pfalz
   "SH", // Shanghai
-  "TH", // Freistaat Thüringen
+  "TH", // Thüringen
   "GY", // Gyõr
   "ZA", // Zakarpats'ka Oblast'
   "VE", // Venezia
   "BP", // Budapest
   "NG", // Nógrád
-  "CS", // Castellon
+  "CS", // Castellón
   "CW", // Carlow
   "LS", // Laois
   "LM", // Leitrim
   "LK", // Limerick
-  "LD", // Longford
-  "MH", // Mehedinţi
+  "MH", // Mahārāshtra
   "OY", // Offaly
   "WD", // Waterford
   "WH", // Westmeath
   "WX", // Wexford
   "WW", // Wicklow
   "GE", // Genf / Genève
-  "AT", // Asti
-  "BI", // Vizcaya
   "VC", // Viana do Castelo
   "BG", // Bragança
   "BS", // Basel Stadt
@@ -949,19 +978,19 @@ export const primaryAdministrativeSubdivision = [
   "FI", // Firenze
   "PT", // Porto
   "SI", // Siena
-  "CH", // Cherkas'ka Oblast'
+  "CH", // Chandīgarh
   "AQ", // L'Aquila
   "TE", // Ternopil's'ka Oblast'
   "FM", // Fermo
   "MC", // Macerata
   "PU", // Pesaro e Urbino
   "PZ", // Potenza
-  "BT", // Boto'ani
+  "BT", // Botoșani
   "FG", // Foggia
   "CZ", // Catanzaro
   "RC", // Reggio Calabria
   "VV", // Vibo Valentia
-  "AV", // Avila
+  "AV", // Ávila
   "NA", // Navarra
   "LT", // Latina
   "PG", // Portalegre
@@ -976,33 +1005,31 @@ export const primaryAdministrativeSubdivision = [
   "UT", // Utah
   "ZL", // Zeeland
   "BJ", // Beijing
-  "LR", // Leiria
   "LX", // Lisboa
   "HD", // Hunedoara
   "IF", // Ivano-Frankivs'ka Oblast'
   "GL", // Glarus
   "BH", // Bihor
   "CJ", // Cluj
-  "MM", // Maramureş
-  "BV", // Braşov
+  "MM", // Maramureș
+  "BV", // Brașov
   "CV", // Covasna
   "DJ", // Dolj
-  "GJ", // Gorj
-  "DB", // Dâmboviţa
+  "GJ", // Gujarāt
+  "DB", // Dâmbovița
   "PH", // Prahova
   "OU", // Ourense
   "SG", // St. Gallen
   "HU", // Huesca
   "GI", // Girona
-  "CC", // Caceres
+  "CC", // Cáceres
   "BD", // Norrbottens län
-  "AI", // Appenzell Innerrhoden
   "TI", // Tessin / Ticino
-  "TG", // Thurgau
+  "TG", // Telangāna
   "UR", // Uri
   "ZG", // Zug
-  "DN", // Dnipropetrovs'ka Oblast'
-  "OD", // Odes'ka Oblast'
+  "DN", // Dādra and Nagar Haveli
+  "OD", // Odisha
   "ZP", // Zaporiz'ka Oblast'
   "KV", // Kyïv
   "NJ", // New Jersey
@@ -1032,6 +1059,16 @@ export const primaryAdministrativeSubdivision = [
   "XJ", // Xinjiang Uygur
   "XZ", // Xizang
   "ZJ", // Zhejiang
+  "AS", // Assam
+  "CG", // Chhattīsgarh
+  "DD", // Damān and Diu
+  "HP", // Himāchal Pradesh
+  "JK", // Jammu and Kashmīr
+  "JH", // Jhārkhand
+  "MP", // Madhya Pradesh
+  "PY", // Puducherry
+  "UP", // Uttar Pradesh
+  "UK", // Uttarākhand
   "AUR", // Aurora
   "BTG", // Batangas
   "CAV", // Cavite
@@ -1040,7 +1077,6 @@ export const primaryAdministrativeSubdivision = [
   "MDC", // Mindoro Occidental
   "MDR", // Mindoro Oriental
   "PLW", // Palawan
-  "QUE", // Quezon
   "RIZ", // Rizal
   "ROM", // Romblon
   "ILN", // Ilocos Norte
@@ -1056,7 +1092,7 @@ export const primaryAdministrativeSubdivision = [
   "APA", // Praha 1
   "BEN", // Benguet
   "IFU", // Ifugao
-  "KAL", // Kalinga-Apayso
+  "KAL", // Kalinga
   "MOU", // Mountain Province
   "BAN", // Banovce n. Bebr.
   "BUL", // Bulacan
@@ -1079,7 +1115,7 @@ export const primaryAdministrativeSubdivision = [
   "CAP", // Capiz
   "GUI", // Guimaras
   "ILI", // Iloilo
-  "NEC", // Negroe Occidental
+  "NEC", // Negros Occidental
   "BOH", // Bohol
   "CEB", // Cebu
   "NER", // Negros Oriental
@@ -1087,7 +1123,7 @@ export const primaryAdministrativeSubdivision = [
   "ZAN", // Zamboanga del Norte
   "ZAS", // Zamboanga del Sur
   "ZSI", // Zamboanga Sibugay
-  "NCO", // North Cotabato
+  "NCO", // Cotabato
   "SUK", // Sultan Kudarat
   "SAR", // Sarangani
   "SCO", // South Cotabato
@@ -1100,13 +1136,35 @@ export const primaryAdministrativeSubdivision = [
   "BUK", // Bukidnon
   "MSC", // Misamis Occidental
   "MSR", // Misamis Oriental
-  "COM", // Compostela Valley
+  "COM", // Davao de Oro
   "DAV", // Davao del Norte
   "DAS", // Davao del Sur
   "DAO", // Davao Oriental
   "AGN", // Agusan del Norte
   "SUN", // Surigao del Norte
   "SUR", // Surigao del Sur
+  "CHA", // Changhua
+  "CYI", // Chiayi
+  "CYQ", // Chiayi
+  "HSZ", // Hsinchu
+  "HSQ", // Hsinchu
+  "HUA", // Hualien
+  "KHH", // Kaohsiung
+  "KEE", // Keelung
+  "KIN", // Kinmen
+  "LIE", // Lienchiang
+  "MIA", // Miaoli
+  "NAN", // Nantou
+  "NWT", // New Taipei
+  "PEN", // Penghu
+  "PIF", // Pingtung
+  "TXG", // Taichung
+  "TNN", // Tainan
+  "TPE", // Taipei
+  "TTT", // Taitung
+  "TAO", // Taoyuan
+  "ILA", // Ilava
+  "YUN", // Yunlin
   "APB", // Praha 2
   "APC", // Praha 3
   "APD", // Praha 4
@@ -1207,7 +1265,6 @@ export const primaryAdministrativeSubdivision = [
   "SEA", // Senica
   "SKA", // Skalica
   "TRN", // Trnava
-  "ILA", // Ilava
   "MYJ", // Myjava
   "NMV", // Nove Mesto n. Vah
   "PAR", // Partizanske

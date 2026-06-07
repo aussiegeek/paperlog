@@ -15,6 +15,7 @@ export const mode = [
   "FAX",
   "FM",
   "FSK441",
+  "FSK", // Frequency shift keying
   "FT8", // Franke-Taylor design, 8-FSK modulation
   "HELL",
   "ISCAT",
@@ -25,7 +26,9 @@ export const mode = [
   "JT65",
   "MFSK",
   "MSK144",
+  "MTONE", // Single modulated tone
   "MT63",
+  "OFDM", // Orthogonal Frequency-Division Multiplexing including COFDM
   "OLIVIA",
   "OPERA",
   "PAC",

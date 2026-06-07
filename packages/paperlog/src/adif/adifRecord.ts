@@ -6,6 +6,7 @@ import {
   Date,
   GridSquare,
   GridSquareList,
+  GridSquareExt,
   Integer,
   IntlMultilineString,
   IntlString,
@@ -15,8 +16,10 @@ import {
   ModeEnum,
   Number,
   PositiveInteger,
+  POTARefList,
   SecondarySubdivisionList,
   SponsoredAwardList,
+  SecondaryAdministrativeSubdivisionListAlt,
   SOTARef,
   String,
   Time,
@@ -27,6 +30,7 @@ import { ArrlSectionEnum } from "./arrlSection.js";
 import { BandEnum } from "./bands.js";
 import { ContinentEnum } from "./continent.js";
 import { DxccEntityCodeEnum } from "./dxccEntityCode.js";
+import { EqslAgEnum } from "./eqslAg.js";
 import { PrimaryAdministrativeSubdivisionEnum } from "./primaryAdministrativeSubdivision.js";
 import { PropagationModeEnum } from "./propagationMode.js";
 import { QslRcvdEnum } from "./qslRcvd.js";
@@ -34,6 +38,8 @@ import { QslSentEnum } from "./qslSent.js";
 import { QslViaEnum } from "./qslVia.js";
 import { QsoCompleteEnum } from "./qsoComplete.js";
 import { QsoUploadStatusEnum } from "./qsoUploadStatus.js";
+import { QsoDownloadStatusEnum } from "./qsoDownloadStatus.js";
+import { MorseKeyTypeEnum } from "./morseKeyType.js";
 import { RegionEnum } from "./region.js";
 import { SecondaryAdministrativeSubdivisionEnum } from "./secondaryAdministrativeSubdivision.js";
 import type { Decimal } from "decimal.js";
@@ -42,13 +48,14 @@ export const adifRecordKeys = [
   "address",
   "addressIntl",
   "age",
-  "aIndex",
+  "altitude",
   "antAz",
   "antEl",
   "antPath",
   "arrlSect",
   "awardSubmitted",
   "awardGranted",
+  "aIndex",
   "band",
   "bandRx",
   "call",
@@ -57,6 +64,7 @@ export const adifRecordKeys = [
   "clublogQsoUploadDate",
   "clublogQsoUploadStatus",
   "cnty",
+  "cntyAlt",
   "comment",
   "commentIntl",
   "cont",
@@ -68,10 +76,15 @@ export const adifRecordKeys = [
   "creditSubmitted",
   "creditGranted",
   "darcDok",
+  "dclQslrdate",
+  "dclQslsdate",
+  "dclQslRcvd",
+  "dclQslSent",
   "distance",
   "dxcc",
   "email",
   "eqCall",
+  "eqslAg",
   "eqslQslrdate",
   "eqslQslsdate",
   "eqslQslRcvd",
@@ -82,6 +95,11 @@ export const adifRecordKeys = [
   "freq",
   "freqRx",
   "gridsquare",
+  "gridsquareExt",
+  "hamlogeuQsoUploadDate",
+  "hamlogeuQsoUploadStatus",
+  "hamqthQsoUploadDate",
+  "hamqthQsoUploadStatus",
   "hrdlogQsoUploadDate",
   "hrdlogQsoUploadStatus",
   "iota",
@@ -96,28 +114,37 @@ export const adifRecordKeys = [
   "lotwQslSent",
   "maxBursts",
   "mode",
+  "morseKeyInfo",
+  "morseKeyType",
   "msShower",
+  "myAltitude",
   "myAntenna",
   "myAntennaIntl",
   "myArrlSect",
   "myCity",
   "myCityIntl",
   "myCnty",
+  "myCntyAlt",
   "myCountry",
   "myCountryIntl",
   "myCqZone",
+  "myDarcDok",
   "myDxcc",
   "myFists",
   "myGridsquare",
+  "myGridsquareExt",
   "myIota",
   "myIotaIslandId",
   "myItuZone",
   "myLat",
   "myLon",
+  "myMorseKeyInfo",
+  "myMorseKeyType",
   "myName",
   "myNameIntl",
   "myPostalCode",
   "myPostalCodeIntl",
+  "myPotaRef",
   "myRig",
   "myRigIntl",
   "mySig",
@@ -140,13 +167,17 @@ export const adifRecordKeys = [
   "operator",
   "ownerCallsign",
   "pfx",
+  "potaRef",
   "precedence",
   "propMode",
   "publicKey",
+  "qrzcomQsoDownloadDate",
+  "qrzcomQsoDownloadStatus",
   "qrzcomQsoUploadDate",
   "qrzcomQsoUploadStatus",
   "qslmsg",
   "qslmsgIntl",
+  "qslmsgRcvd",
   "qslrdate",
   "qslsdate",
   "qslRcvd",
@@ -202,8 +233,8 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   addressIntl?: string | undefined;
   // the contacted station's operator's age in years in the range 0 to 120 (inclusive)
   age?: Decimal | undefined;
-  // the geomagnetic A index at the time of the QSO in the range 0 to 400 (inclusive)
-  aIndex?: Decimal | undefined;
+  // the height of the contacted station in meters relative to Mean Sea Level (MSL). For example 1.5 km is <ALTITUDE:4>1500 and 10.5 m is <ALTITUDE:4>10.5
+  altitude?: Decimal | undefined;
   // the logging station's antenna azimuth, in degrees with a value between 0 to 360 (inclusive). Values outside this range are import-only and must be normalized for export (e.g. 370 is exported as 10). True north is 0 degrees with values increasing in a clockwise direction.
   antAz?: Decimal | undefined;
   // the logging station's antenna elevation, in degrees with a value between -90 to 90 (inclusive). Values outside this range are import-only and must be normalized for export (e.g. 100 is exported as 80). The horizon is 0 degrees with values increasing as the angle moves in an upward direction.
@@ -212,15 +243,17 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   antPath?: AntPathEnum | undefined;
   // the contacted station's ARRL section
   arrlSect?: ArrlSectionEnum | undefined;
-  // the list of awards submitted to a sponsor. note that this field might not be used in a QSO record. It might be used to convey information about a user’s “Award Account” between an award sponsor and the user. For example, AA6YQ might submit a request for awards by sending the following: <CALL:5>AA6YQ <AWARD_SUBMITTED:64>ADIF_CENTURY_BASIC,ADIF_CENTURY_SILVER,ADIF_SPECTRUM_100-160m
+  // the list of awards submitted to a sponsor. note that this field might not be used in a QSO record. It might be used to convey information about a user's "Award Account" between an award sponsor and the user. For example, AA6YQ might submit a request for awards by sending the following: <CALL:5>AA6YQ <AWARD_SUBMITTED:64>ADIF_CENTURY_BASIC,ADIF_CENTURY_SILVER,ADIF_SPECTRUM_100-160m
   awardSubmitted?: string | undefined;
-  // the list of awards granted by a sponsor. note that this field might not be used in a QSO record. It might be used to convey information about a user’s “Award Account” between an award sponsor and the user. For example, in response to a request “send me a list of the awards granted to AA6YQ”, this might be received: <CALL:5>AA6YQ <AWARD_GRANTED:64>ADIF_CENTURY_BASIC,ADIF_CENTURY_SILVER,ADIF_SPECTRUM_100-160m
+  // the list of awards granted by a sponsor. note that this field might not be used in a QSO record. It might be used to convey information about a user's "Award Account" between an award sponsor and the user. For example, in response to a request "send me a list of the awards granted to AA6YQ", this might be received: <CALL:5>AA6YQ <AWARD_GRANTED:64>ADIF_CENTURY_BASIC,ADIF_CENTURY_SILVER,ADIF_SPECTRUM_100-160m
   awardGranted?: string | undefined;
+  // the geomagnetic A index at the time of the QSO in the range 0 to 400 (inclusive)
+  aIndex?: Decimal | undefined;
   // QSO Band
   band?: BandEnum | undefined;
   // in a split frequency QSO, the logging station's receiving band
   bandRx?: BandEnum | undefined;
-  // the contacted station's Callsign
+  // the contacted station's callsign
   call?: string | undefined;
   // contest check (e.g. for ARRL Sweepstakes)
   check?: string | undefined;
@@ -232,9 +265,11 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   clublogQsoUploadStatus?: QsoUploadStatusEnum | undefined;
   // the contacted station's Secondary Administrative Subdivision (e.g. US county, JA Gun), in the specified format
   cnty?: SecondaryAdministrativeSubdivisionEnum | undefined;
-  // comment field for QSO recommended use: information of interest to the contacted station's operator
+  // a semicolon (;) delimited, unordered list of Secondary Administrative Subdivision Alt codes for the contacted station See the Data Type for details.
+  cntyAlt?: string | undefined;
+  // comment field for QSO for a message to be incorporated in a paper or electronic QSL for the contacted station's operator, use the QSLMSG field recommended use: information of interest to the contacted station's operator
   comment?: string | undefined;
-  // comment field for QSO recommended use: information of interest to the contacted station's operator
+  // comment field for QSO for a message to be incorporated in a paper or electronic QSL for the contacted station's operator, use the QSLMSG_INTL field recommended use: information of interest to the contacted station's operator
   commentIntl?: string | undefined;
   // the contacted station's Continent
   cont?: ContinentEnum | undefined;
@@ -252,8 +287,16 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   creditSubmitted?: CreditList | undefined;
   // the list of credits granted to this QSO Use of data type AwardList and enumeration Award are import-only
   creditGranted?: CreditList | undefined;
-  // the contacted station's DARC DOK (District Location Code) A DOK comprises letters and numbers, e.g. <DARC_DOK:3>A01
+  // the contacted station's DARC DOK (District Location Code) A DOK comprises letters and numbers, e.g. <DARC_DOK:3>A01 Note that DARC provides two different lists - one for DOKs and one for Special DOKs.
   darcDok?: string | undefined;
+  // date QSL received from DCL (only valid if DCL_QSL_RCVD is Y, I, or V)(V import-only)
+  dclQslrdate?: string | undefined;
+  // date QSL sent to DCL (only valid if DCL_QSL_SENT is Y, Q, or I)
+  dclQslsdate?: string | undefined;
+  // DCL QSL received status Default Value: N
+  dclQslRcvd?: QslRcvdEnum | undefined;
+  // DCL QSL sent status Default Value: N
+  dclQslSent?: QslSentEnum | undefined;
   // the distance between the logging station and the contacted station in kilometers via the specified signal path with a value greater than or equal to 0
   distance?: Decimal | undefined;
   // the contacted station's DXCC Entity Code <DXCC:1>0 means that the contacted station is known not to be within a DXCC entity.
@@ -262,6 +305,8 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   email?: string | undefined;
   // the contacted station's owner's callsign
   eqCall?: string | undefined;
+  // indicates whether the QSO is known to be "Authenticity Guaranteed" by eQSL Default value: U
+  eqslAg?: EqslAgEnum | undefined;
   // date QSL received from eQSL.cc (only valid if EQSL_QSL_RCVD is Y, I, or V)(V import-only)
   eqslQslrdate?: string | undefined;
   // date QSL sent to eQSL.cc (only valid if EQSL_QSL_SENT is Y, Q, or I)
@@ -280,8 +325,18 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   freq?: Decimal | undefined;
   // in a split frequency QSO, the logging station's receiving frequency in Megahertz
   freqRx?: Decimal | undefined;
-  // the contacted station's 2-character, 4-character, 6-character, or 8-character Maidenhead Grid Square
+  // the contacted station's 2-character, 4-character, 6-character, or 8-character Maidenhead Grid Square For 10 or 12 character locators, store the first 8 characters in GRIDSQUARE and the additional 2 or 4 characters in the GRIDSQUARE_EXT field
   gridsquare?: string | undefined;
+  // for a contacted station's 10-character Maidenhead locator, supplements the GRIDSQUARE field by containing characters 9 and 10. For a contacted station's 12-character Maidenhead locator, supplements the GRIDSQUARE field by containing characters 9, 10, 11 and 12. Characters 9 and 10 are case-insensitive ASCII letters in the range A-X. Characters 11 and 12 are Digits in the range 0 to 9. On export, the field length must be 2 or 4. On import, if the field length is greater than 4, the additional characters must be ignored. Example of exporting the 10-character locator FN01MH42BQ: <GRIDSQUARE:8>FN01MH42 <GRIDSQUARE_EXT:2>BQ
+  gridsquareExt?: string | undefined;
+  // the date the QSO was last uploaded to the HAMLOG.EU online service
+  hamlogeuQsoUploadDate?: string | undefined;
+  // the upload status of the QSO on the HAMLOG.EU online service
+  hamlogeuQsoUploadStatus?: QsoUploadStatusEnum | undefined;
+  // the date the QSO was last uploaded to the HamQTH.com online service
+  hamqthQsoUploadDate?: string | undefined;
+  // the upload status of the QSO on the HamQTH.com online service
+  hamqthQsoUploadStatus?: QsoUploadStatusEnum | undefined;
   // the date the QSO was last uploaded to the HRDLog.net online service
   hrdlogQsoUploadDate?: string | undefined;
   // the upload status of the QSO on the HRDLog.net online service
@@ -310,8 +365,14 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   maxBursts?: Decimal | undefined;
   // QSO Mode
   mode?: ModeEnum | undefined;
+  // details of the contacted station's Morse key (e.g. make, model, etc). Example: <MORSE_KEY_INFO:16>Begali Sculpture
+  morseKeyInfo?: string | undefined;
+  // the contacted station's Morse key type (e.g. straight key, bug, etc). Example for a dual-lever paddle: <MORSE_KEY_TYPE:2>DP
+  morseKeyType?: MorseKeyTypeEnum | undefined;
   // For Meteor Scatter QSOs, the name of the meteor shower in progress
   msShower?: string | undefined;
+  // the height of the logging station in meters relative to Mean Sea Level (MSL). For example 1.5 km is <MY_ALTITUDE:4>1500 and 10.5 m is <MY_ALTITUDE:4>10.5
+  myAltitude?: Decimal | undefined;
   // the logging station's antenna
   myAntenna?: string | undefined;
   // the logging station's antenna
@@ -324,18 +385,24 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   myCityIntl?: string | undefined;
   // the logging station's Secondary Administrative Subdivision (e.g. US county, JA Gun), in the specified format
   myCnty?: SecondaryAdministrativeSubdivisionEnum | undefined;
+  // a semicolon (;) delimited, unordered list of Secondary Administrative Subdivision Alt codes for the logging station See the Data Type for details.
+  myCntyAlt?: string | undefined;
   // the logging station's DXCC entity name
   myCountry?: string | undefined;
   // the logging station's DXCC entity name
   myCountryIntl?: string | undefined;
   // the logging station's CQ Zone in the range 1 to 40 (inclusive)
   myCqZone?: number | undefined;
+  // the logging station's DARC DOK (District Location Code) A DOK comprises letters and numbers, e.g. <MY_DARC_DOK:3>A01 Note that DARC provides two different lists - one for DOKs and one for Special DOKs.
+  myDarcDok?: string | undefined;
   // the logging station's DXCC Entity Code <MY_DXCC:1>0 means that the logging station is known not to be within a DXCC entity.
   myDxcc?: DxccEntityCodeEnum | undefined;
   // the logging station's FISTS CW Club member number with a value greater than 0.
   myFists?: number | undefined;
-  // the logging station's 2-character, 4-character, 6-character, or 8-character Maidenhead Grid Square
+  // the logging station's 2-character, 4-character, 6-character, or 8-character Maidenhead Grid Square For 10 or 12 character locators, store the first 8 characters in MY_GRIDSQUARE and the additional 2 or 4 characters in the MY_GRIDSQUARE_EXT field
   myGridsquare?: string | undefined;
+  // for a logging station's 10-character Maidenhead locator, supplements the MY_GRIDSQUARE field by containing characters 9 and 10. For a logging station's 12-character Maidenhead locator, supplements the MY_GRIDSQUARE field by containing characters 9, 10, 11 and 12. Characters 9 and 10 are case-insensitive ASCII letters in the range A-X. Characters 11 and 12 are Digits in the range 0 to 9. On export, the field length must be 2 or 4. On import, if the field length is greater than 4, the additional characters must be ignored. Example of exporting the 10-character locator FN01MH42BQ: <MY_GRIDSQUARE:8>FN01MH42 <MY_GRIDSQUARE_EXT:2>BQ
+  myGridsquareExt?: string | undefined;
   // the logging station's IOTA designator, in format CC-XXX, where CC is a member of the Continent enumeration XXX is the island group designator, where 1 <= XXX <= 999 [use leading zeroes]
   myIota?: string | undefined;
   // the logging station's IOTA Island Identifier, an 8-digit integer in the range 1 to 99999999 [leading zeroes optional]
@@ -346,6 +413,10 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   myLat?: string | undefined;
   // the logging station's longitude
   myLon?: string | undefined;
+  // details of the logging station's Morse key (e.g. make, model, etc). Example: <MY_MORSE_KEY_INFO:16>Begali Sculpture
+  myMorseKeyInfo?: string | undefined;
+  // the logging station's Morse key type (e.g. straight key, bug, etc). Example for a dual-lever paddle: <MORSE_KEY_TYPE:2>DP
+  myMorseKeyType?: MorseKeyTypeEnum | undefined;
   // the logging operator's name
   myName?: string | undefined;
   // the logging operator's name
@@ -354,6 +425,8 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   myPostalCode?: string | undefined;
   // the logging station's postal code
   myPostalCodeIntl?: string | undefined;
+  // a comma-delimited list of one or more of the logging station's POTA (Parks on the Air) reference(s). Examples: <MY_POTA_REF:6>K-0059 <MY_POTA_REF:7>K-10000 <MY_POTA_REF:40>K-0817,K-4566,K-4576,K-4573,K-4578@US-WY
+  myPotaRef?: string | undefined;
   // description of the logging station's equipment
   myRig?: string | undefined;
   // description of the logging station's equipment
@@ -376,7 +449,7 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   myStreetIntl?: string | undefined;
   // two US counties in the case where the logging station is located on a border between two counties, representing counties that the contacted station may claim for the CQ Magazine USA-CA award program. E.g. MA,Franklin:MA,Hampshire
   myUsacaCounties?: string | undefined;
-  // two or four adjacent Maidenhead grid locators, each four characters long, representing the logging station's grid squares that the contacted station may claim for the ARRL VUCC award program. E.g. EN98,FM08,EM97,FM07
+  // two or four adjacent Maidenhead grid locators, each four or six characters long, representing the logging station's grid squares that the contacted station may claim for the ARRL VUCC award program. E.g. EM98,FM08,EM97,FM07
   myVuccGrids?: string | undefined;
   // the logging station's WWFF (World Wildlife Flora & Fauna) reference
   myWwffRef?: string | undefined;
@@ -398,27 +471,35 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   ownerCallsign?: string | undefined;
   // the contacted station's WPX prefix
   pfx?: string | undefined;
+  // a comma-delimited list of one or more of the contacted station's POTA (Parks on the Air) reference(s). Examples: <POTA_REF:6>K-5033 <POTA_REF:13>VE-5082@CA-AB <POTA_REF:40>K-0817,K-4566,K-4576,K-4573,K-4578@US-WY
+  potaRef?: string | undefined;
   // contest precedence (e.g. for ARRL Sweepstakes)
   precedence?: string | undefined;
   // QSO propagation mode
   propMode?: PropagationModeEnum | undefined;
   // public encryption key
   publicKey?: string | undefined;
+  // date QSO downloaded from QRZ.COM logbook
+  qrzcomQsoDownloadDate?: string | undefined;
+  // QRZ.COM logbook QSO download status
+  qrzcomQsoDownloadStatus?: QsoDownloadStatusEnum | undefined;
   // the date the QSO was last uploaded to the QRZ.COM online service
   qrzcomQsoUploadDate?: string | undefined;
   // the upload status of the QSO on the QRZ.COM online service
   qrzcomQsoUploadStatus?: QsoUploadStatusEnum | undefined;
-  // QSL card message
+  // a message for the contacted station's operator to be incorporated in a paper or electronic QSL
   qslmsg?: string | undefined;
-  // QSL card message
+  // a message for the contacted station's operator to be incorporated in a paper or electronic QSL
   qslmsgIntl?: string | undefined;
+  // a message addressed to the logging station's operator incorporated in a paper or electronic QSL
+  qslmsgRcvd?: string | undefined;
   // QSL received date (only valid if QSL_RCVD is Y, I, or V)(V import-only)
   qslrdate?: string | undefined;
   // QSL sent date (only valid if QSL_SENT is Y, Q, or I)
   qslsdate?: string | undefined;
   // QSL received status instead of V (import-only) use <CREDIT_GRANTED:39>DXCC:card,DXCC_BAND:card,DXCC_MODE:card Default Value: N
   qslRcvd?: QslRcvdEnum | undefined;
-  // if QSL_RCVD is set to 'Y' or 'V', the means by which the QSL was received by the logging station; otherwise, the means by which the logging station requested or intends to request that the QSL be conveyed. (Note: ‘V’ is import-only) use of M (manager) is import-only
+  // if QSL_RCVD is set to 'Y' or 'V', the means by which the QSL was received by the logging station; otherwise, the means by which the logging station requested or intends to request that the QSL be conveyed. (Note: 'V' is import-only) use of M (manager) is import-only
   qslRcvdVia?: QslViaEnum | undefined;
   // QSL sent status Default Value: N
   qslSent?: QslSentEnum | undefined;
@@ -438,7 +519,7 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   qth?: string | undefined;
   // the contacted station's city
   qthIntl?: string | undefined;
-  // the contacted station’s WAE or CQ entity contained within a DXCC entity. the value None indicates that the WAE or CQ entity is the DXCC entity in the DXCC field. nothing can be inferred from the absence of the REGION field
+  // the contacted station's WAE or CQ entity contained within a DXCC entity. the value None indicates that the WAE or CQ entity is the DXCC entity in the DXCC field. nothing can be inferred from the absence of the REGION field
   region?: RegionEnum | undefined;
   // description of the contacted station's equipment
   rig?: string | undefined;
@@ -448,9 +529,9 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   rstRcvd?: string | undefined;
   // signal report sent to the contacted station
   rstSent?: string | undefined;
-  // the contacted station's transmitter power in Watts with a value greater than 0
+  // the contacted station's transmitter power in Watts with a value greater than or equal to 0
   rxPwr?: Decimal | undefined;
-  // satellite mode
+  // satellite mode - a code representing the satellite's uplink band and downlink band
   satMode?: string | undefined;
   // name of satellite
   satName?: string | undefined;
@@ -492,13 +573,13 @@ export interface AdifRecord extends Record<`app${string}`, string | undefined> {
   timeOff?: string | undefined;
   // HHMM or HHMMSS in UTC
   timeOn?: string | undefined;
-  // the logging station's power in Watts with a value greater than 0
+  // the logging station's power in Watts with a value greater than or equal to 0
   txPwr?: Decimal | undefined;
   // the contacted station's UKSMG member number with a value greater than 0
   uksmg?: number | undefined;
   // two US counties in the case where the contacted station is located on a border between two counties, representing counties credited to the QSO for the CQ Magazine USA-CA award program. E.g. MA,Franklin:MA,Hampshire
   usacaCounties?: string | undefined;
-  // two or four adjacent Maidenhead grid locators, each four characters long, representing the contacted station's grid squares credited to the QSO for the ARRL VUCC award program. E.g. EN98,FM08,EM97,FM07
+  // two or four adjacent Maidenhead grid locators, each four or six characters long, representing the contacted station's grid squares credited to the QSO for the ARRL VUCC award program. E.g. EM98,FM08,EM97,FM07
   vuccGrids?: string | undefined;
   // the contacted station's URL
   web?: string | undefined;
@@ -510,13 +591,14 @@ export const AdifRecord: Describe<AdifRecord> = type({
   address: optional(MultilineString),
   addressIntl: optional(IntlMultilineString),
   age: optional(Number),
-  aIndex: optional(Number),
+  altitude: optional(Number),
   antAz: optional(Number),
   antEl: optional(Number),
   antPath: optional(AntPathEnum),
   arrlSect: optional(ArrlSectionEnum),
   awardSubmitted: optional(SponsoredAwardList),
   awardGranted: optional(SponsoredAwardList),
+  aIndex: optional(Number),
   band: optional(BandEnum),
   bandRx: optional(BandEnum),
   call: optional(String),
@@ -525,6 +607,7 @@ export const AdifRecord: Describe<AdifRecord> = type({
   clublogQsoUploadDate: optional(Date),
   clublogQsoUploadStatus: optional(QsoUploadStatusEnum),
   cnty: optional(SecondaryAdministrativeSubdivisionEnum),
+  cntyAlt: optional(SecondaryAdministrativeSubdivisionListAlt),
   comment: optional(String),
   commentIntl: optional(IntlString),
   cont: optional(ContinentEnum),
@@ -536,10 +619,15 @@ export const AdifRecord: Describe<AdifRecord> = type({
   creditSubmitted: optional(CreditList),
   creditGranted: optional(CreditList),
   darcDok: optional(String),
+  dclQslrdate: optional(Date),
+  dclQslsdate: optional(Date),
+  dclQslRcvd: optional(QslRcvdEnum),
+  dclQslSent: optional(QslSentEnum),
   distance: optional(Number),
   dxcc: optional(DxccEntityCodeEnum),
   email: optional(String),
   eqCall: optional(String),
+  eqslAg: optional(EqslAgEnum),
   eqslQslrdate: optional(Date),
   eqslQslsdate: optional(Date),
   eqslQslRcvd: optional(QslRcvdEnum),
@@ -550,6 +638,11 @@ export const AdifRecord: Describe<AdifRecord> = type({
   freq: optional(Number),
   freqRx: optional(Number),
   gridsquare: optional(GridSquare),
+  gridsquareExt: optional(GridSquareExt),
+  hamlogeuQsoUploadDate: optional(Date),
+  hamlogeuQsoUploadStatus: optional(QsoUploadStatusEnum),
+  hamqthQsoUploadDate: optional(Date),
+  hamqthQsoUploadStatus: optional(QsoUploadStatusEnum),
   hrdlogQsoUploadDate: optional(Date),
   hrdlogQsoUploadStatus: optional(QsoUploadStatusEnum),
   iota: optional(IOTARefNo),
@@ -564,28 +657,37 @@ export const AdifRecord: Describe<AdifRecord> = type({
   lotwQslSent: optional(QslSentEnum),
   maxBursts: optional(Number),
   mode: optional(ModeEnum),
+  morseKeyInfo: optional(String),
+  morseKeyType: optional(MorseKeyTypeEnum),
   msShower: optional(String),
+  myAltitude: optional(Number),
   myAntenna: optional(String),
   myAntennaIntl: optional(IntlString),
   myArrlSect: optional(ArrlSectionEnum),
   myCity: optional(String),
   myCityIntl: optional(IntlString),
   myCnty: optional(SecondaryAdministrativeSubdivisionEnum),
+  myCntyAlt: optional(SecondaryAdministrativeSubdivisionListAlt),
   myCountry: optional(String),
   myCountryIntl: optional(IntlString),
   myCqZone: optional(PositiveInteger),
+  myDarcDok: optional(String),
   myDxcc: optional(DxccEntityCodeEnum),
   myFists: optional(PositiveInteger),
   myGridsquare: optional(GridSquare),
+  myGridsquareExt: optional(GridSquareExt),
   myIota: optional(IOTARefNo),
   myIotaIslandId: optional(PositiveInteger),
   myItuZone: optional(PositiveInteger),
   myLat: optional(Location),
   myLon: optional(Location),
+  myMorseKeyInfo: optional(String),
+  myMorseKeyType: optional(MorseKeyTypeEnum),
   myName: optional(String),
   myNameIntl: optional(IntlString),
   myPostalCode: optional(String),
   myPostalCodeIntl: optional(IntlString),
+  myPotaRef: optional(POTARefList),
   myRig: optional(String),
   myRigIntl: optional(IntlString),
   mySig: optional(String),
@@ -608,13 +710,17 @@ export const AdifRecord: Describe<AdifRecord> = type({
   operator: optional(String),
   ownerCallsign: optional(String),
   pfx: optional(String),
+  potaRef: optional(POTARefList),
   precedence: optional(String),
   propMode: optional(PropagationModeEnum),
   publicKey: optional(String),
+  qrzcomQsoDownloadDate: optional(Date),
+  qrzcomQsoDownloadStatus: optional(QsoDownloadStatusEnum),
   qrzcomQsoUploadDate: optional(Date),
   qrzcomQsoUploadStatus: optional(QsoUploadStatusEnum),
   qslmsg: optional(MultilineString),
   qslmsgIntl: optional(IntlMultilineString),
+  qslmsgRcvd: optional(MultilineString),
   qslrdate: optional(Date),
   qslsdate: optional(Date),
   qslRcvd: optional(QslRcvdEnum),
@@ -667,13 +773,14 @@ export const blankAdifRecord: AdifRecord = {
   address: undefined,
   addressIntl: undefined,
   age: undefined,
-  aIndex: undefined,
+  altitude: undefined,
   antAz: undefined,
   antEl: undefined,
   antPath: undefined,
   arrlSect: undefined,
   awardSubmitted: undefined,
   awardGranted: undefined,
+  aIndex: undefined,
   band: undefined,
   bandRx: undefined,
   call: undefined,
@@ -682,6 +789,7 @@ export const blankAdifRecord: AdifRecord = {
   clublogQsoUploadDate: undefined,
   clublogQsoUploadStatus: undefined,
   cnty: undefined,
+  cntyAlt: undefined,
   comment: undefined,
   commentIntl: undefined,
   cont: undefined,
@@ -693,10 +801,15 @@ export const blankAdifRecord: AdifRecord = {
   creditSubmitted: undefined,
   creditGranted: undefined,
   darcDok: undefined,
+  dclQslrdate: undefined,
+  dclQslsdate: undefined,
+  dclQslRcvd: undefined,
+  dclQslSent: undefined,
   distance: undefined,
   dxcc: undefined,
   email: undefined,
   eqCall: undefined,
+  eqslAg: undefined,
   eqslQslrdate: undefined,
   eqslQslsdate: undefined,
   eqslQslRcvd: undefined,
@@ -707,6 +820,11 @@ export const blankAdifRecord: AdifRecord = {
   freq: undefined,
   freqRx: undefined,
   gridsquare: undefined,
+  gridsquareExt: undefined,
+  hamlogeuQsoUploadDate: undefined,
+  hamlogeuQsoUploadStatus: undefined,
+  hamqthQsoUploadDate: undefined,
+  hamqthQsoUploadStatus: undefined,
   hrdlogQsoUploadDate: undefined,
   hrdlogQsoUploadStatus: undefined,
   iota: undefined,
@@ -721,28 +839,37 @@ export const blankAdifRecord: AdifRecord = {
   lotwQslSent: undefined,
   maxBursts: undefined,
   mode: undefined,
+  morseKeyInfo: undefined,
+  morseKeyType: undefined,
   msShower: undefined,
+  myAltitude: undefined,
   myAntenna: undefined,
   myAntennaIntl: undefined,
   myArrlSect: undefined,
   myCity: undefined,
   myCityIntl: undefined,
   myCnty: undefined,
+  myCntyAlt: undefined,
   myCountry: undefined,
   myCountryIntl: undefined,
   myCqZone: undefined,
+  myDarcDok: undefined,
   myDxcc: undefined,
   myFists: undefined,
   myGridsquare: undefined,
+  myGridsquareExt: undefined,
   myIota: undefined,
   myIotaIslandId: undefined,
   myItuZone: undefined,
   myLat: undefined,
   myLon: undefined,
+  myMorseKeyInfo: undefined,
+  myMorseKeyType: undefined,
   myName: undefined,
   myNameIntl: undefined,
   myPostalCode: undefined,
   myPostalCodeIntl: undefined,
+  myPotaRef: undefined,
   myRig: undefined,
   myRigIntl: undefined,
   mySig: undefined,
@@ -765,13 +892,17 @@ export const blankAdifRecord: AdifRecord = {
   operator: undefined,
   ownerCallsign: undefined,
   pfx: undefined,
+  potaRef: undefined,
   precedence: undefined,
   propMode: undefined,
   publicKey: undefined,
+  qrzcomQsoDownloadDate: undefined,
+  qrzcomQsoDownloadStatus: undefined,
   qrzcomQsoUploadDate: undefined,
   qrzcomQsoUploadStatus: undefined,
   qslmsg: undefined,
   qslmsgIntl: undefined,
+  qslmsgRcvd: undefined,
   qslrdate: undefined,
   qslsdate: undefined,
   qslRcvd: undefined,

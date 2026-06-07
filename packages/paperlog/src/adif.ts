@@ -20,7 +20,7 @@ export const adifHeader = partial(
 
 export type AdifHeader = Infer<typeof adifHeader>;
 
-export const adifVersion = "3.1.3";
+export const adifVersion = "3.1.7";
 
 export function defaultHeader(): AdifHeader {
   return {

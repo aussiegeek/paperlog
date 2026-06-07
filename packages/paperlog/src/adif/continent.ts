@@ -6,7 +6,7 @@ export const continent = [
   "SA", // South America
   "EU", // Europe
   "AF", // Africa
-  "OC", // Oceana
+  "OC", // Oceania
   "AS", // Asia
   "AN", // Antarctica
 ] as const;

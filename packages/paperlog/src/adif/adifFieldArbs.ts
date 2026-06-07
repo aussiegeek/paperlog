@@ -16,9 +16,13 @@ import { qslSent } from "./qslSent.js";
 import { qslVia } from "./qslVia.js";
 import { qsoComplete } from "./qsoComplete.js";
 import { qsoUploadStatus } from "./qsoUploadStatus.js";
+import { qsoDownloadStatus } from "./qsoDownloadStatus.js";
 import { region } from "./region.js";
 import { secondaryAdministrativeSubdivision } from "./secondaryAdministrativeSubdivision.js";
+import { eqslAg } from "./eqslAg.js";
+import { morseKeyType } from "./morseKeyType.js";
 import { Decimal } from "decimal.js";
+import { secondaryAdministrativeSubdivisionAlt } from "./secondaryAdministrativeSubdivisionAlt.js";
 
 const gridSquareLetterArb = fc.constantFrom(
   "A",
@@ -92,9 +96,60 @@ const sixDigitGridSquareArb = fc
     gridSquareLetterArb,
   )
   .map((t) => t.join(""));
+const eightDigitGridSquareArb = fc
+  .tuple(
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+    fc.integer({ min: 0, max: 9 }),
+    fc.integer({ min: 0, max: 9 }),
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+    fc.integer({ min: 0, max: 9 }),
+    fc.integer({ min: 0, max: 9 }),
+  )
+  .map((t) => t.join(""));
+
+const tenDigitGridSquareArb = fc
+  .tuple(
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+    fc.integer({ min: 0, max: 9 }),
+    fc.integer({ min: 0, max: 9 }),
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+    fc.integer({ min: 0, max: 9 }),
+    fc.integer({ min: 0, max: 9 }),
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+  )
+  .map((t) => t.join(""));
+
+const twelveDigitGridSquareArb = fc
+  .tuple(
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+    fc.integer({ min: 0, max: 9 }),
+    fc.integer({ min: 0, max: 9 }),
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+    fc.integer({ min: 0, max: 9 }),
+    fc.integer({ min: 0, max: 9 }),
+    gridSquareLetterArb,
+    gridSquareLetterArb,
+    fc.integer({ min: 0, max: 9 }),
+    fc.integer({ min: 0, max: 9 }),
+  )
+  .map((t) => t.join(""));
+
 export const gridSquareArb = fc.oneof(
   fourDigitGridSquareArb,
   sixDigitGridSquareArb,
+  eightDigitGridSquareArb,
+);
+
+export const gridSquareExtArb = fc.oneof(
+  tenDigitGridSquareArb,
+  twelveDigitGridSquareArb,
 );
 
 const prefixArb = fc.constantFrom("A", "VK", "VJ", "ZL", "9M", "4Z");
@@ -161,9 +216,13 @@ export const qslViaEnumArb = fc.constantFrom(...qslVia);
 export const qslMediumArb = fc.constantFrom(...qslMedium);
 export const qsoCompleteEnumArb = fc.constantFrom(...qsoComplete);
 export const qsoUploadStatusEnumArb = fc.constantFrom(...qsoUploadStatus);
+export const qsoDownloadStatusEnumArb = fc.constantFrom(...qsoDownloadStatus);
 export const regionEnumArb = fc.constantFrom(...region);
 export const secondaryAdministrativeSubdivisionEnumArb = fc.constantFrom(
   ...secondaryAdministrativeSubdivision,
+);
+export const secondaryAdministrativeSubdivisionListAltArb = fc.constantFrom(
+  ...secondaryAdministrativeSubdivisionAlt,
 );
 
 export const sponsoredAwardArb = fc
@@ -246,5 +305,12 @@ export const secondarySubdivisionListArb = fc
   .map((t) => t.join(","));
 
 export const potaRefArb = fc
-  .tuple(fc.constantFrom("VK", "ZL"), fc.integer({ min: 0, max: 9999 }))
+  .tuple(fc.constantFrom("AU", "ZL"), fc.integer({ min: 0, max: 9999 }))
   .map((t) => t.join("-"));
+
+export const eqslAgEnumArb = fc.constantFrom(...eqslAg);
+export const morseKeyTypeEnumArb = fc.constantFrom(...morseKeyType);
+
+export const potaRefListArb = fc
+  .array(potaRefArb, { minLength: 1 })
+  .map((t) => t.join(","));
