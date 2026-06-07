@@ -17,6 +17,7 @@ export const arrlSection = [
   "EPA", // Eastern Pennsylvania
   "EWA", // Eastern Washington
   "GA", // Georgia
+  "GH", // Golden Horseshoe
   "GTA", // Greater Toronto Area
   "ID", // Idaho
   "IL", // Illinois
@@ -37,6 +38,7 @@ export const arrlSection = [
   "MT", // Montana
   "NE", // Nebraska
   "NV", // Nevada
+  "NB", // New Brunswick
   "NH", // New Hampshire
   "NM", // New Mexico
   "NLI", // New York City-Long Island
@@ -49,6 +51,7 @@ export const arrlSection = [
   "NNY", // Northern New York
   "NT", // Northwest Territories/Yukon/Nunavut
   "NWT", // Northwest Territories/Yukon/Nunavut
+  "NS", // Nova Scotia
   "OH", // Ohio
   "OK", // Oklahoma
   "ON", // Ontario
@@ -58,6 +61,7 @@ export const arrlSection = [
   "ORG", // Orange
   "OR", // Oregon
   "PAC", // Pacific
+  "PE", // Prince Edward Island
   "PR", // Puerto Rico
   "QC", // Quebec
   "RI", // Rhode Island
@@ -74,6 +78,7 @@ export const arrlSection = [
   "SFL", // Southern Florida
   "SNJ", // Southern New Jersey
   "TN", // Tennessee
+  "TER", // Territories
   "VI", // US Virgin Islands
   "UT", // Utah
   "VT", // Vermont

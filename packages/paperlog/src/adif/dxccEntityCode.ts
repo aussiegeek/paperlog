@@ -203,7 +203,7 @@ export const dxccEntityCode = [
   "204", // REVILLAGIGEDO
   "205", // ASCENSION I.
   "206", // AUSTRIA
-  "207", // RODRIGUEZ I.
+  "207", // RODRIGUES I.
   "208", // RUANDA-URUNDI
   "209", // BELGIUM
   "210", // SAAR
@@ -366,10 +366,10 @@ export const dxccEntityCode = [
   "456", // SENEGAL
   "458", // SIERRA LEONE
   "460", // ROTUMA I.
-  "462", // SOUTH AFRICA
+  "462", // REPUBLIC OF SOUTH AFRICA
   "464", // NAMIBIA
   "466", // SUDAN
-  "468", // SWAZILAND
+  "468", // KINGDOM OF ESWATINI
   "470", // TANZANIA
   "474", // TUNISIA
   "478", // EGYPT
@@ -384,7 +384,7 @@ export const dxccEntityCode = [
   "497", // CROATIA
   "499", // SLOVENIA
   "501", // BOSNIA-HERZEGOVINA
-  "502", // MACEDONIA
+  "502", // NORTH MACEDONIA (REPUBLIC OF)
   "503", // CZECH REPUBLIC
   "504", // SLOVAK REPUBLIC
   "505", // PRATAS I.
@@ -400,7 +400,7 @@ export const dxccEntityCode = [
   "515", // SWAINS I.
   "516", // SAINT BARTHELEMY
   "517", // CURACAO
-  "518", // ST MAARTEN
+  "518", // SINT MAARTEN
   "519", // SABA & ST. EUSTATIUS
   "520", // BONAIRE
   "521", // SOUTH SUDAN (REPUBLIC OF)

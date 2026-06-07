@@ -36,11 +36,12 @@ export const Boolean = coerce(
 export const Date = pattern(string(), /^\d{8}$/);
 export const GridSquare = pattern(
   string(),
-  /^[a-z][a-z][0-9][0-9][a-z]?[a-z]?$/i,
+  /^[a-z][a-z][0-9][0-9][a-z]?[a-z]?[0-9]?[0-9]?[a-z]?[a-z]?$/i,
 );
 
 // a comma-delimited list of GridSquare items
 export const GridSquareList = string();
+export const GridSquareExt = string();
 
 export const IOTARefNo = string();
 
@@ -76,6 +77,7 @@ export const WWFFRef = string();
 // MA,Franklin:MA,Hampshire
 export const SecondarySubdivisionList = string();
 
+export const SecondaryAdministrativeSubdivisionListAlt = string();
 /* a comma-delimited list where each list item is either:
  A member of the Credit enumeration.
  A member of the Credit enumeration followed by a colon and an ampersand-delimited list of members of the QSL_Medium enumeration.
@@ -83,3 +85,5 @@ export const SecondarySubdivisionList = string();
 export const CreditList = string();
 export type CreditList = Infer<typeof CreditList>;
 export const SponsoredAwardList = string();
+
+export const POTARefList = string();

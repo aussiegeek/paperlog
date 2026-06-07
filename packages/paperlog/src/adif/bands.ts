@@ -34,6 +34,7 @@ export const bands = [
   "2.5mm",
   "2mm",
   "1mm",
+  "submm",
 ] as const;
 
 type BandRange = {
@@ -72,6 +73,7 @@ const bandData: BandRange = {
   "2.5mm": { from: 119980, to: 123000 },
   "2mm": { from: 134000, to: 149000 },
   "1mm": { from: 241000, to: 250000 },
+  submm: { from: 300000, to: 7500000 },
 };
 
 export const BandEnum = coerce(enums(bands), string(), (value) =>
