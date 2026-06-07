@@ -4,16 +4,16 @@ import {
   collectGlobalErrors,
   parse,
   validationMessagesForResult,
-} from "./parse";
+} from "./parse.js";
 import fc from "fast-check";
-import { logEntryLineArb, frequencyCommandArb } from "./testArbitaries";
+import { logEntryLineArb, frequencyCommandArb } from "./testArbitaries.js";
 import {
   callsignArb,
   dateArb,
   modeEnumArb,
   timeWithoutSeconds,
-} from "./adif/adifFieldArbs";
-import Decimal from "decimal.js";
+} from "./adif/adifFieldArbs.js";
+import { Decimal } from "decimal.js";
 
 describe("parse", () => {
   test("basic sota activation", () => {

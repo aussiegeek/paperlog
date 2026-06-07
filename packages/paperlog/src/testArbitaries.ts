@@ -1,7 +1,7 @@
 import fc from "fast-check";
-import { adifRecordKeys } from "./adif/adifRecord";
-import { bandRange } from "./adif/bands";
-import { adifRecordArbs } from "./adif/adifRecordArbs";
+import { adifRecordKeys } from "./adif/adifRecord.js";
+import { bandRange } from "./adif/bands.js";
+import { adifRecordArbs } from "./adif/adifRecordArbs.js";
 import {
   callsignArb,
   dateArb,
@@ -12,11 +12,11 @@ import {
   timeWithoutSeconds,
   timeWithSecondsArb,
   wwffRefArb,
-} from "./adif/adifFieldArbs";
-import { valueLength } from "./adif";
-import Decimal from "decimal.js";
-import { withDecimalStr } from "./withDecimalStr";
-import { presence } from "./presence";
+} from "./adif/adifFieldArbs.js";
+import { valueLength } from "./adif.js";
+import { Decimal } from "decimal.js";
+import { withDecimalStr } from "./withDecimalStr.js";
+import { presence } from "./presence.js";
 
 function generateCmdArb(command: string, arb: fc.Arbitrary<string>) {
   return arb.map((val) => [command, val].join(" "));

@@ -1,7 +1,7 @@
-import type { AdifRecord } from ".";
-import type { AdifFile } from "./adif";
-import { filterSota } from ".";
-import { isPresent } from "./isPresent";
+import type { AdifRecord } from "./index.js";
+import type { AdifFile } from "./adif.js";
+import { filterSota } from "./index.js";
+import { isPresent } from "./isPresent.js";
 
 type ExportFileCollection = Record<string, AdifFile>;
 

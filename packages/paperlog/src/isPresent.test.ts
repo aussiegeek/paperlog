@@ -1,6 +1,6 @@
 import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
-import { isPresent } from "./isPresent";
+import { isPresent } from "./isPresent.js";
 
 describe("isPresent", () => {
   describe("string", () => {

@@ -76,8 +76,8 @@ importers:
         specifier: ^0.16.0
         version: 0.16.7
       tokenizr:
-        specifier: ^1.6.5
-        version: 1.7.2
+        specifier: 2.2.1
+        version: 2.2.1
     devDependencies:
       '@types/node':
         specifier: 24.13.1
@@ -2010,8 +2010,8 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
-  tokenizr@1.7.2:
-    resolution: {integrity: sha512-rdiCrKjuAurxeK3H3/KXu+3Wktp+H7dgI7XhYvFRr2kE0LdIor+0VTNlcdgyqhYlRq+iWK/A6tagUIims8BHIA==}
+  tokenizr@2.2.1:
+    resolution: {integrity: sha512-+159QZqH4Ij4p0P791Wu/THwWf7ZRk4CrlC5MNtDfnY0ptnKenjWo5eM8vncwgDrQ0WNC+a97iaHQhOIjomJtQ==}
 
   trim-newlines@3.0.1:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
@@ -4300,7 +4300,7 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  tokenizr@1.7.2: {}
+  tokenizr@2.2.1: {}
 
   trim-newlines@3.0.1: {}
 

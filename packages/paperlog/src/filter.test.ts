@@ -2,10 +2,10 @@ import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
 import * as fc from "fast-check";
 import { array, assert } from "superstruct";
-import { potaRefArb, sotaRefArb, wwffRefArb } from "./adif/adifFieldArbs";
-import { AdifRecord } from "./adif/adifRecord";
-import { filterPota, filterSota, filterWwff } from "./filter";
-import { adifRecordValidatedArb } from "./testArbitaries";
+import { potaRefArb, sotaRefArb, wwffRefArb } from "./adif/adifFieldArbs.js";
+import { AdifRecord } from "./adif/adifRecord.js";
+import { filterPota, filterSota, filterWwff } from "./filter.js";
+import { adifRecordValidatedArb } from "./testArbitaries.js";
 
 describe("filter", () => {
   describe("filter sota", () => {

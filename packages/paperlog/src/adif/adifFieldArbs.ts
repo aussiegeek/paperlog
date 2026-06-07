@@ -1,24 +1,24 @@
 import { format } from "date-fns";
 import fc from "fast-check";
-import { antPath } from "./antPath";
-import { arrlSection } from "./arrlSection";
-import { awardSponsor } from "./awardSponsor";
-import { bands } from "./bands";
-import { continent } from "./continent";
-import { credit } from "./credit";
-import { dxccEntityCode } from "./dxccEntityCode";
-import { mode } from "./mode";
-import { primaryAdministrativeSubdivision } from "./primaryAdministrativeSubdivision";
-import { propagationMode } from "./propagationMode";
-import { qslMedium } from "./qslMedium";
-import { qslRcvd } from "./qslRcvd";
-import { qslSent } from "./qslSent";
-import { qslVia } from "./qslVia";
-import { qsoComplete } from "./qsoComplete";
-import { qsoUploadStatus } from "./qsoUploadStatus";
-import { region } from "./region";
-import { secondaryAdministrativeSubdivision } from "./secondaryAdministrativeSubdivision";
-import Decimal from "decimal.js";
+import { antPath } from "./antPath.js";
+import { arrlSection } from "./arrlSection.js";
+import { awardSponsor } from "./awardSponsor.js";
+import { bands } from "./bands.js";
+import { continent } from "./continent.js";
+import { credit } from "./credit.js";
+import { dxccEntityCode } from "./dxccEntityCode.js";
+import { mode } from "./mode.js";
+import { primaryAdministrativeSubdivision } from "./primaryAdministrativeSubdivision.js";
+import { propagationMode } from "./propagationMode.js";
+import { qslMedium } from "./qslMedium.js";
+import { qslRcvd } from "./qslRcvd.js";
+import { qslSent } from "./qslSent.js";
+import { qslVia } from "./qslVia.js";
+import { qsoComplete } from "./qsoComplete.js";
+import { qsoUploadStatus } from "./qsoUploadStatus.js";
+import { region } from "./region.js";
+import { secondaryAdministrativeSubdivision } from "./secondaryAdministrativeSubdivision.js";
+import { Decimal } from "decimal.js";
 
 const gridSquareLetterArb = fc.constantFrom(
   "A",

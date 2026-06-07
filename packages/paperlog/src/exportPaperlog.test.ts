@@ -1,9 +1,9 @@
 import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
-import type { AdifFile } from "./adif";
-import { exportPaperlog } from "./exportPaperlog";
-import Decimal from "decimal.js";
-import type { AdifRecord } from "./adif/adifRecord";
+import type { AdifFile } from "./adif.js";
+import { exportPaperlog } from "./exportPaperlog.js";
+import { Decimal } from "decimal.js";
+import type { AdifRecord } from "./adif/adifRecord.js";
 
 describe("exportPaperlog", () => {
   test.each<[AdifRecord[], string]>([

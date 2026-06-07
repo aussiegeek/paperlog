@@ -1,7 +1,7 @@
-import type { AdifFile } from "./adif";
-import type { AdifRecord } from "./adif/adifRecord";
-import Decimal from "decimal.js";
-import { withDecimalStr } from "./withDecimalStr";
+import type { AdifFile } from "./adif.js";
+import type { AdifRecord } from "./adif/adifRecord.js";
+import { Decimal } from "decimal.js";
+import { withDecimalStr } from "./withDecimalStr.js";
 
 export function exportPaperlog(adifFile: AdifFile): string {
   return adifFile.records.map(serializeRecord).join("\n");

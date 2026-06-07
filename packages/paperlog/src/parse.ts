@@ -6,13 +6,13 @@ import {
   StructError,
   instance,
 } from "superstruct";
-import { lexer } from "./lexer";
+import { lexer } from "./lexer.js";
 import { ParsingError, Token } from "tokenizr";
-import { Date, Time, ModeEnum } from "./adif/types";
-import { AdifRecord, adifRecordKeys } from "./adif/adifRecord";
+import { Date, Time, ModeEnum } from "./adif/types.js";
+import { AdifRecord, adifRecordKeys } from "./adif/adifRecord.js";
 import { camelCase } from "change-case";
-import Decimal from "decimal.js";
-import { presence } from "./presence";
+import { Decimal } from "decimal.js";
+import { presence } from "./presence.js";
 
 export enum Command {
   Station = "station",
@@ -87,19 +87,21 @@ export function parse(input: string): Array<ParseResult> {
         const type = token.type as Command;
         switch (type) {
           case "station":
-            template.stationCallsign = token.value.toUpperCase();
+            template.stationCallsign = (token.value as string).toUpperCase();
             break;
           case "operator":
-            template.operator = parseFieldWithReset(token.value.toUpperCase());
+            template.operator = parseFieldWithReset(
+              (token.value as string).toUpperCase(),
+            );
             break;
           case "call":
-            record.call = token.value.toUpperCase();
+            record.call = (token.value as string).toUpperCase();
             break;
           case "date":
-            template.qsoDate = token.value;
+            template.qsoDate = token.value as string;
             break;
           case "timeOn":
-            template.timeOn = token.value;
+            template.timeOn = token.value as string;
             break;
           case "freq":
             parseFreq(token, template);
@@ -108,43 +110,47 @@ export function parse(input: string): Array<ParseResult> {
             parseMode(token, template);
             break;
           case "mysota":
-            template.mySotaRef = parseFieldWithReset(token.value);
+            template.mySotaRef = parseFieldWithReset(token.value as string);
             break;
           case "sota":
-            record.sotaRef = token.value;
+            record.sotaRef = token.value as string;
             break;
           case "rst_sent":
-            record.rstSent = token.value;
+            record.rstSent = token.value as string;
             break;
           case "rst_rcvd":
-            record.rstRcvd = token.value;
+            record.rstRcvd = token.value as string;
             break;
           case "wwff":
-            record.wwffRef = token.value;
+            record.wwffRef = token.value as string;
             break;
           case "mywwff":
-            template.myWwffRef = parseFieldWithReset(token.value);
+            template.myWwffRef = parseFieldWithReset(token.value as string);
             break;
           case "pota":
-            record["appPaperlogPotaRef"] = token.value;
+            record["appPaperlogPotaRef"] = token.value as string;
             break;
           case "mypota":
-            template["appPaperlogMyPotaRef"] = parseFieldWithReset(token.value);
+            template["appPaperlogMyPotaRef"] = parseFieldWithReset(
+              token.value as string,
+            );
             break;
           case "gridsquare":
-            record.gridsquare = token.value;
+            record.gridsquare = token.value as string;
             break;
           case "myGridsquare":
-            template.myGridsquare = parseFieldWithReset(token.value);
+            template.myGridsquare = parseFieldWithReset(token.value as string);
             break;
           case "txPwr":
-            template.txPwr = parseFieldWithReset(token.value);
+            // eslint-disable-next-line no-case-declarations
+            const v = parseFieldWithReset(token.value as string);
+            template.txPwr = v ? new Decimal(v) : undefined;
             break;
           case "field":
             if (
               // @ts-expect-error yes we can check if this list contains this field
               adifRecordKeys.includes(camelCase(token.value[0])) ||
-              camelCase(token.value[0]).startsWith("app")
+              camelCase((token.value as string[])[0] ?? "").startsWith("app")
             ) {
               // @ts-expect-error it really does start with app, and so is safe to proceed
               record[camelCase(token.value[0])] = token.value[1];
@@ -196,7 +202,7 @@ export function parse(input: string): Array<ParseResult> {
 }
 
 function parseMode(token: Token, template: Partial<AdifRecord>) {
-  const mode = token.value;
+  const mode = token.value as ModeEnum;
   template.mode = mode;
   if (mode == "CW") {
     template.rstRcvd = "599";
@@ -208,7 +214,7 @@ function parseMode(token: Token, template: Partial<AdifRecord>) {
 }
 
 function parseFreq(token: Token, template: Partial<AdifRecord>) {
-  const freq = new Decimal(token.value);
+  const freq = new Decimal(token.value as string);
   template.freq = freq;
 
   // bands.forEach((band) => {

@@ -1,10 +1,10 @@
 import { describe, expect } from "vitest";
 import { test } from "@fast-check/vitest";
 import fc from "fast-check";
-import type { AdifFile } from "./adif";
-import { importAdif } from "./importAdif";
-import { adifFileStrArb } from "./testArbitaries";
-import Decimal from "decimal.js";
+import type { AdifFile } from "./adif.js";
+import { importAdif } from "./importAdif.js";
+import { adifFileStrArb } from "./testArbitaries.js";
+import { Decimal } from "decimal.js";
 
 describe("adifImport", () => {
   test("import basic adif file", () => {

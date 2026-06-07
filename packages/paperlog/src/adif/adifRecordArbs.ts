@@ -34,7 +34,7 @@ import {
   stringArb,
   timeArb,
   wwffRefArb,
-} from "./adifFieldArbs";
+} from "./adifFieldArbs.js";
 
 export const adifRecordArbs = {
   address: multilineStringArb,

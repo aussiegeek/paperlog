@@ -1,8 +1,8 @@
 import { assert, create, string } from "superstruct";
-import { AdifFile, adifHeader } from "./adif";
-import { AdifRecord } from "./adif/adifRecord";
+import { AdifFile, adifHeader } from "./adif.js";
+import { AdifRecord } from "./adif/adifRecord.js";
 import { camelCase } from "change-case";
-import { presence } from "./presence";
+import { presence } from "./presence.js";
 
 export function importAdif(adifStr: string): AdifFile {
   // get text header which can be anything before the first less than symbol (<)
