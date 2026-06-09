@@ -128,12 +128,10 @@ export function parse(input: string): Array<ParseResult> {
             template.myWwffRef = parseFieldWithReset(token.value as string);
             break;
           case "pota":
-            record["appPaperlogPotaRef"] = token.value as string;
+            record.potaRef = token.value as string;
             break;
           case "mypota":
-            template["appPaperlogMyPotaRef"] = parseFieldWithReset(
-              token.value as string,
-            );
+            template.myPotaRef = parseFieldWithReset(token.value as string);
             break;
           case "gridsquare":
             record.gridsquare = token.value as string;

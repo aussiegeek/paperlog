@@ -60,7 +60,7 @@ describe("export", () => {
                 mySotaRef,
                 appMyPotaRef: undefined,
                 myWwffRef: undefined,
-                appPaperlogMyPotaRef: undefined,
+                myPotaRef: undefined,
               });
             }),
           { minLength: 1 },
@@ -99,7 +99,7 @@ describe("export", () => {
                   stationCallsign,
                   mySotaRef: undefined,
                   sotaRef: undefined,
-                  appPaperlogMyPotaRef: undefined,
+                  myPotaRef: undefined,
                 });
               }),
               myWwffRef,
@@ -136,7 +136,7 @@ describe("export", () => {
               contacts: contacts.map((c) => {
                 return {
                   ...c,
-                  appPaperlogMyPotaRef: myPotaRef,
+                  myPotaRef,
                   stationCallsign,
                   myWwffRef: undefined,
                   mySotaRef: undefined,

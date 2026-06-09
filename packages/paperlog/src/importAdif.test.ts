@@ -61,14 +61,14 @@ describe("adifImport", () => {
   });
 
   test("app defined fields", () => {
-    const content = `<call>N3TJ<station_callsign>VK3TCP<app_paperlog_mypota>VK-0278<eor>`;
+    const content = `<call>N3TJ<station_callsign>VK3TCP<my_pota_ref>VK-0278<eor>`;
     const expected: AdifFile = {
       header: undefined,
       records: [
         {
           call: "N3TJ",
           stationCallsign: "VK3TCP",
-          appPaperlogMypota: "VK-0278",
+          myPotaRef: "VK-0278",
         },
       ],
     };

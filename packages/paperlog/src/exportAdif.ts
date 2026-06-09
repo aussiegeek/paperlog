@@ -110,19 +110,17 @@ function exportWwffContacts(contacts: AdifRecord[]): ExportFileCollection {
 
 function exportPotaContacts(contacts: AdifRecord[]): ExportFileCollection {
   const fileCollection: ExportFileCollection = {};
-  const contactRefDate = keyContactsBy(contacts, ["appPaperlogMyPotaRef"]);
+  const contactRefDate = keyContactsBy(contacts, ["myPotaRef"]);
 
   Object.values(contactRefDate).forEach((contacts) => {
     const adifContacts: AdifRecord[] = contacts.map((c) => {
       const adifContact: AdifRecord = {
         ...baseContactToRecord(c),
-        mySig: "POTA",
-        mySigInfo: c["appPaperlogMyPotaRef"],
+        myPotaRef: c.myPotaRef,
       };
 
-      if (c["appPaperlogPotaRef"] && c["appPaperlogPotaRef"].length > 0) {
-        adifContact.sig = "POTA";
-        adifContact.sigInfo = c["appPaperlogPotaRef"];
+      if (c.potaRef && c.potaRef.length > 0) {
+        adifContact.potaRef = c.potaRef;
       }
 
       return adifContact;
@@ -135,7 +133,7 @@ function exportPotaContacts(contacts: AdifRecord[]): ExportFileCollection {
     const first = adifContacts[0];
     if (first) {
       fileCollection[
-        `${first.stationCallsign}@${first.mySigInfo}-${dates[0]}.adi`
+        `${first.stationCallsign}@${first.myPotaRef}-${dates[0]}.adi`
       ] = { records: adifContacts };
     }
   });

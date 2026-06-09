@@ -150,7 +150,7 @@ export const adifRecordValidatedArb = fc
     fc.option(potaRefArb, { nil: undefined }),
   )
   .map(([r, myPotaRef]) => {
-    return presence({ appPaperlogMyPotaRef: myPotaRef, ...r });
+    return presence({ myPotaRef, ...r });
   });
 
 export const adifFileArb = fc.record({

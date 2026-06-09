@@ -8,9 +8,7 @@ export function filterSota(contacts: AdifRecord[]): AdifRecord[] {
 }
 
 export function filterPota(contacts: AdifRecord[]): AdifRecord[] {
-  return contacts.filter(
-    (contact) => contact["appPaperlogMyPotaRef"] !== undefined,
-  );
+  return contacts.filter((contact) => contact.myPotaRef !== undefined);
 }
 
 export function filterWwff(contacts: AdifRecord[]): AdifRecord[] {
