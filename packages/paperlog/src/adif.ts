@@ -1,4 +1,4 @@
-import { snakeCase } from "snake-case";
+import { snakeCase } from "change-case";
 import { Infer, object, partial, string } from "superstruct";
 import { version } from "./index.js";
 import type { AdifRecord } from "./adif/adifRecord.js";
