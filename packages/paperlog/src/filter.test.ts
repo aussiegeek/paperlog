@@ -73,7 +73,7 @@ describe("filter", () => {
         fc.property(
           fc.array(
             fc.tuple(adifRecordValidatedArb).map(([c]) => {
-              return { ...c, appPaperlogMyPotaRef: undefined };
+              return { ...c, myPotaRef: undefined };
             }),
           ),
           (contacts) => {
@@ -92,7 +92,7 @@ describe("filter", () => {
               .map(([c, myPotaRef]) => {
                 return {
                   ...c,
-                  appPaperlogMyPotaRef: myPotaRef,
+                  myPotaRef,
                 };
               }),
           ),
