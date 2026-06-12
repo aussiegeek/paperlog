@@ -1,5 +1,16 @@
 # paperlog
 
+## 0.2.0
+
+### Minor Changes
+
+- 38ffe2d: Upgrade to ADIF 3.1.7 support
+
+### Patch Changes
+
+- 46a53e1: Export MY_POTA_REF field
+- 3314e8c: Switch to building esmodules
+
 ## 0.1.4
 
 ### Patch Changes
