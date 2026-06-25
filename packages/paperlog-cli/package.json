@@ -24,7 +24,7 @@
     "types:check": "tsc -noEmit"
   },
   "devDependencies": {
-    "@types/yargs": "17.0.13",
+    "@types/yargs": "17.0.35",
     "@vercel/ncc": "0.44.0",
     "typescript": "6.0.3"
   },
