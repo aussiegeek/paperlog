@@ -22,7 +22,7 @@
     "tsx": "^4.22.4",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.60.1",
-    "vitest": "^4.1.8"
+    "vitest": "^5.0.0"
   },
   "scripts": {
     "types:check": "pnpm run -r types:check",
