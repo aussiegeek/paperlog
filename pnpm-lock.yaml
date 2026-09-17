@@ -31,8 +31,8 @@ importers:
         specifier: 10.10.0
         version: 10.10.0(jiti@2.7.0)
       fast-check:
-        specifier: 4.9.0
-        version: 4.9.0
+        specifier: 4.10.1
+        version: 4.10.1
       globals:
         specifier: ^17.6.0
         version: 17.12.0
@@ -89,8 +89,8 @@ importers:
         specifier: 4.4.0
         version: 4.4.0
       fast-check:
-        specifier: 4.9.0
-        version: 4.9.0
+        specifier: 4.10.1
+        version: 4.10.1
       papaparse:
         specifier: 5.7.0
         version: 5.7.0
@@ -902,6 +902,10 @@ packages:
 
   extendable-error@0.1.7:
     resolution: {integrity: sha512-UOiS2in6/Q0FK0R0q6UY9vYpQ21mr/Qn1KOnte7vsACuNJf514WvCCUHSRCPcgjPT2bAhNIJdlE6bVap1GKmeg==}
+
+  fast-check@4.10.1:
+    resolution: {integrity: sha512-sB5Vghiu8MyCyToHoBVGsT0baZg3sZWNIY+a6Ct2EDrQJlT4YdH6MC1BSLNe3kX1k5i5g0q1O52XFgcKK/rGHg==}
+    engines: {node: '>=12.17.0'}
 
   fast-check@4.9.0:
     resolution: {integrity: sha512-7ms6T7SybUev/PQITciI0yLM2pOSFy5zpG8Ty7tQofcVaQUvrMXp6CBwqF6fThLCLOrfBtuHAtwq6Yu4XPCllg==}
@@ -2396,6 +2400,10 @@ snapshots:
   expect-type@1.4.0: {}
 
   extendable-error@0.1.7: {}
+
+  fast-check@4.10.1:
+    dependencies:
+      pure-rand: 8.4.0
 
   fast-check@4.9.0:
     dependencies:
