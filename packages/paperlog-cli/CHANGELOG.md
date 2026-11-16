@@ -1,5 +1,15 @@
 # paperlog-cli
 
+## 0.2.0
+
+### Patch Changes
+
+- 3314e8c: Switch to building esmodules
+- Updated dependencies [46a53e1]
+- Updated dependencies [3314e8c]
+- Updated dependencies [38ffe2d]
+  - paperlog@0.2.0
+
 ## 0.1.4
 
 ### Patch Changes
